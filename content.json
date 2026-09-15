@@ -1,0 +1,45 @@
+{
+  "seo": {
+    "title": "T.E.G Carpet Steam Cleaning | Professional Carpet & Furniture Cleaning in Milwaukee",
+    "description": "Professional carpet, couch, tile & steam cleaning services by T.E.G Carpet & Furniture Steam Cleaning in Milwaukee, WI. Deep stain removal, eco-friendly methods, residential & commercial.",
+    "keywords": "carpet cleaning Milwaukee, steam cleaning, tile grout cleaning, couch cleaning, commercial carpet cleaning"
+  },
+  "media": {
+    "video": "https://videos.pexels.com/video-files/6195186/6195186-uhd_2560_1440_25fps.mp4",
+    "poster": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1920&q=80",
+    "about": ""
+  },
+  "services": [
+    {
+      "name": "Carpet Cleaning",
+      "description": "Deep extraction carpet cleaning that restores color, softness, and freshness. Removes dirt, allergens, and bacteria trapped deep in fibers."
+    },
+    {
+      "name": "Tile & Grout Cleaning",
+      "description": "Powerful cleaning solutions that remove dirt, bacteria, and stains. Restores shine, improves hygiene, and extends floor lifespan."
+    },
+    {
+      "name": "Couch Cleaning",
+      "description": "Professional upholstery and sofa cleaning removes stains, dust, allergens, and odors. Restores freshness and extends furniture life."
+    },
+    {
+      "name": "Steam Cleaning",
+      "description": "High-temperature steam cleaning that kills germs and deeply sanitizes surfaces naturally. Ideal for carpets and hard floors."
+    },
+    {
+      "name": "Carpet Stain Removal",
+      "description": "Specialized treatment for tough stains like coffee, wine, ink, and pet accidents. Restores appearance and protects fibers."
+    },
+    {
+      "name": "Commercial Carpet Cleaning",
+      "description": "Reliable cleaning for offices, shops, and commercial properties. Maintain a clean, professional environment with minimal disruption."
+    }
+  ],
+  "contact": {
+    "phone": "+1 (414) 775-3705",
+    "whatsapp": "16184340858",
+    "email": "contact@teg-carpetsteamcleaning.com",
+    "address": "4111 N Port Washington Rd suite 1, Milwaukee, WI 53217, United States",
+    "hours": "Monday – Sunday 08:00 AM – 07:00 PM"
+  }
+}

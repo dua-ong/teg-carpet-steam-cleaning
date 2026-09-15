@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TEG Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #f1f5f9;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+    .login-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .login-box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
+    .login-box h1 {
+      font-size: 22px;
+      margin-bottom: 8px;
+      color: #0c2d5a;
+    }
+    .login-box p {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 28px;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+    .login-box input:focus {
+      outline: none;
+      border-color: #f5a623;
+      box-shadow: 0 0 0 3px rgba(245,166,35,0.2);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: #f5a623;
+      color: #1a1a1a;
+      width: 100%;
+    }
+    .btn-primary:hover { background: #e09415; }
+    .btn-secondary {
+      background: #0c2d5a;
+      color: #fff;
+    }
+    .btn-secondary:hover { background: #081f3d; }
+    .btn-outline {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      color: #1a1a1a;
+    }
+    .btn-outline:hover { background: #f8fafc; }
+    .btn-danger {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+    .hidden { display: none !important; }
+
+    /* Dashboard */
+    .dashboard { display: none; }
+    .dashboard.active { display: block; }
+    .topbar {
+      background: #0c2d5a;
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .topbar h1 { font-size: 18px; font-weight: 600; }
+    .topbar .actions { display: flex; gap: 10px; align-items: center; }
+    .layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: calc(100vh - 56px);
+    }
+    .sidebar {
+      background: #fff;
+      border-right: 1px solid #e2e8f0;
+      padding: 20px 0;
+    }
+    .sidebar button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px 20px;
+      border: none;
+      background: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .sidebar button:hover,
+    .sidebar button.active {
+      background: #fff7ed;
+      color: #c2410c;
+      border-right: 3px solid #f5a623;
+    }
+    .main {
+      padding: 28px 32px;
+      max-width: 900px;
+    }
+    .panel {
+      display: none;
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+    }
+    .panel.active { display: block; }
+    .panel h2 {
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: #0c2d5a;
+    }
+    .panel .desc {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #334155;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #f5a623;
+      box-shadow: 0 0 0 3px rgba(245,166,35,0.15);
+    }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .service-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .service-item .remove {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #fee2e2;
+      color: #b91c1c;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+    }
+    .actions-bar {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0c2d5a;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s;
+      z-index: 100;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .note {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #9a3412;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        display: flex;
+        overflow-x: auto;
+        padding: 10px;
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .sidebar button {
+        white-space: nowrap;
+        border-right: none !important;
+        border-bottom: 3px solid transparent;
+      }
+      .sidebar button.active {
+        border-bottom-color: #f5a623;
+      }
+      .form-row { grid-template-columns: 1fr; }
+      .main { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login -->
+  <div class="login-wrap" id="loginScreen">
+    <div class="login-box">
+      <h1>T.E.G Admin</h1>
+      <p>Single user panel — SEO, Media & Services</p>
+      <input type="password" id="password" placeholder="Enter password" />
+      <button class="btn btn-primary" onclick="login()">Login</button>
+      <p style="margin-top:16px;font-size:12px;color:#94a3b8">Default password: <strong>teg2026</strong></p>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard" id="dashboard">
+    <div class="topbar">
+      <h1>T.E.G Content Panel</h1>
+      <div class="actions">
+        <button class="btn btn-outline" style="padding:8px 14px;font-size:13px" onclick="exportJSON()">Export JSON</button>
+        <button class="btn btn-secondary" style="padding:8px 14px;font-size:13px" onclick="saveAll()">Save All</button>
+        <button class="btn btn-outline" style="padding:8px 14px;font-size:13px" onclick="logout()">Logout</button>
+      </div>
+    </div>
+    <div class="layout">
+      <aside class="sidebar">
+        <button class="active" data-panel="seo" onclick="showPanel('seo')">SEO & Metadata</button>
+        <button data-panel="media" onclick="showPanel('media')">Media</button>
+        <button data-panel="services" onclick="showPanel('services')">Services</button>
+        <button data-panel="contact" onclick="showPanel('contact')">Contact Info</button>
+        <button data-panel="help" onclick="showPanel('help')">How to Update Site</button>
+      </aside>
+      <main class="main">
+        <!-- SEO -->
+        <div class="panel active" id="panel-seo">
+          <h2>SEO & Metadata</h2>
+          <p class="desc">Title, description and keywords for search engines.</p>
+          <div class="form-group">
+            <label>Page Title</label>
+            <input type="text" id="seo-title" />
+          </div>
+          <div class="form-group">
+            <label>Meta Description</label>
+            <textarea id="seo-description"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Keywords (comma separated)</label>
+            <input type="text" id="seo-keywords" />
+          </div>
+          <div class="actions-bar">
+            <button class="btn btn-primary" onclick="saveAll()">Save SEO</button>
+          </div>
+        </div>
+
+        <!-- Media -->
+        <div class="panel" id="panel-media">
+          <h2>Media</h2>
+          <p class="desc">Hero video, poster image and other media URLs.</p>
+          <div class="note">Paste direct image/video URLs (from your hosting, Google Drive public link, or Unsplash/Pexels).</div>
+          <div class="form-group">
+            <label>Hero Video URL (mp4)</label>
+            <input type="url" id="media-video" placeholder="https://..." />
+          </div>
+          <div class="form-group">
+            <label>Hero Poster / Fallback Image</label>
+            <input type="url" id="media-poster" placeholder="https://..." />
+          </div>
+          <div class="form-group">
+            <label>About / Extra Image (optional)</label>
+            <input type="url" id="media-about" placeholder="https://..." />
+          </div>
+          <div class="actions-bar">
+            <button class="btn btn-primary" onclick="saveAll()">Save Media</button>
+          </div>
+        </div>
+
+        <!-- Services -->
+        <div class="panel" id="panel-services">
+          <h2>Services / Categories</h2>
+          <p class="desc">Add, edit or remove services shown on the website.</p>
+          <div id="servicesList"></div>
+          <button class="btn btn-outline" onclick="addService()" style="margin-top:8px">+ Add Service</button>
+          <div class="actions-bar">
+            <button class="btn btn-primary" onclick="saveAll()">Save Services</button>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="panel" id="panel-contact">
+          <h2>Contact Information</h2>
+          <p class="desc">Phone, email, address, hours and WhatsApp.</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="text" id="contact-phone" />
+            </div>
+            <div class="form-group">
+              <label>WhatsApp (with country code)</label>
+              <input type="text" id="contact-whatsapp" placeholder="16184340858" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="contact-email" />
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <textarea id="contact-address"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Working Hours</label>
+            <input type="text" id="contact-hours" />
+          </div>
+          <div class="actions-bar">
+            <button class="btn btn-primary" onclick="saveAll()">Save Contact</button>
+          </div>
+        </div>
+
+        <!-- Help -->
+        <div class="panel" id="panel-help">
+          <h2>How to Update the Live Site</h2>
+          <p class="desc">Simple steps for a single person.</p>
+          <div class="note">
+            <strong>Current setup:</strong> This panel saves data in your browser (localStorage). 
+            To actually change the public website you need to export the JSON and give it to the developer, 
+            or replace the content in the site files.
+          </div>
+          <ol style="padding-left:20px;line-height:1.9;font-size:14px;color:#334155">
+            <li>Edit SEO / Media / Services / Contact in the tabs.</li>
+            <li>Click <strong>Save All</strong>.</li>
+            <li>Click <strong>Export JSON</strong> — a file <code>teg-content.json</code> will download.</li>
+            <li>Send that file to the developer (or open a GitHub issue / message).</li>
+            <li>Developer will update the live site with your new content.</li>
+          </ol>
+          <p style="margin-top:20px;font-size:14px;color:#64748b">
+            Password can be changed in the code later. Default is <strong>teg2026</strong>.
+          </p>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Default content (matches current site)
+    const DEFAULT = {
+      seo: {
+        title: "T.E.G Carpet Steam Cleaning | Professional Carpet & Furniture Cleaning in Milwaukee",
+        description: "Professional carpet, couch, tile & steam cleaning services by T.E.G Carpet & Furniture Steam Cleaning in Milwaukee, WI. Deep stain removal, eco-friendly methods, residential & commercial.",
+        keywords: "carpet cleaning Milwaukee, steam cleaning, tile grout cleaning, couch cleaning, commercial carpet cleaning"
+      },
+      media: {
+        video: "https://videos.pexels.com/video-files/6195186/6195186-uhd_2560_1440_25fps.mp4",
+        poster: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1920&q=80",
+        about: ""
+      },
+      services: [
+        { name: "Carpet Cleaning", description: "Deep extraction carpet cleaning that restores color, softness, and freshness. Removes dirt, allergens, and bacteria trapped deep in fibers." },
+        { name: "Tile & Grout Cleaning", description: "Powerful cleaning solutions that remove dirt, bacteria, and stains. Restores shine, improves hygiene, and extends floor lifespan." },
+        { name: "Couch Cleaning", description: "Professional upholstery and sofa cleaning removes stains, dust, allergens, and odors. Restores freshness and extends furniture life." },
+        { name: "Steam Cleaning", description: "High-temperature steam cleaning that kills germs and deeply sanitizes surfaces naturally. Ideal for carpets and hard floors." },
+        { name: "Carpet Stain Removal", description: "Specialized treatment for tough stains like coffee, wine, ink, and pet accidents. Restores appearance and protects fibers." },
+        { name: "Commercial Carpet Cleaning", description: "Reliable cleaning for offices, shops, and commercial properties. Maintain a clean, professional environment with minimal disruption." }
+      ],
+      contact: {
+        phone: "+1 (414) 775-3705",
+        whatsapp: "16184340858",
+        email: "contact@teg-carpetsteamcleaning.com",
+        address: "4111 N Port Washington Rd suite 1, Milwaukee, WI 53217, United States",
+        hours: "Monday – Sunday 08:00 AM – 07:00 PM"
+      }
+    };
+
+    const PASSWORD = "teg2026"; // change later if needed
+
+    function login() {
+      const pass = document.getElementById('password').value;
+      if (pass === PASSWORD) {
+        sessionStorage.setItem('teg_admin', '1');
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('dashboard').classList.add('active');
+        loadData();
+      } else {
+        alert('Wrong password');
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem('teg_admin');
+      location.reload();
+    }
+
+    // Auto login if session exists
+    if (sessionStorage.getItem('teg_admin') === '1') {
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('dashboard').classList.add('active');
+      loadData();
+    }
+
+    function showPanel(id) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active'));
+      document.getElementById('panel-' + id).classList.add('active');
+      document.querySelector(`.sidebar button[data-panel="${id}"]`).classList.add('active');
+    }
+
+    function getData() {
+      const saved = localStorage.getItem('teg_content');
+      return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT));
+    }
+
+    function loadData() {
+      const data = getData();
+      document.getElementById('seo-title').value = data.seo.title || '';
+      document.getElementById('seo-description').value = data.seo.description || '';
+      document.getElementById('seo-keywords').value = data.seo.keywords || '';
+      document.getElementById('media-video').value = data.media.video || '';
+      document.getElementById('media-poster').value = data.media.poster || '';
+      document.getElementById('media-about').value = data.media.about || '';
+      document.getElementById('contact-phone').value = data.contact.phone || '';
+      document.getElementById('contact-whatsapp').value = data.contact.whatsapp || '';
+      document.getElementById('contact-email').value = data.contact.email || '';
+      document.getElementById('contact-address').value = data.contact.address || '';
+      document.getElementById('contact-hours').value = data.contact.hours || '';
+      renderServices(data.services || []);
+    }
+
+    function renderServices(services) {
+      const list = document.getElementById('servicesList');
+      list.innerHTML = '';
+      services.forEach((s, i) => {
+        const div = document.createElement('div');
+        div.className = 'service-item';
+        div.innerHTML = `
+          <button class="remove" onclick="removeService(${i})" title="Remove">×</button>
+          <div class="form-group">
+            <label>Service Name</label>
+            <input type="text" data-i="${i}" data-field="name" value="${escapeHtml(s.name)}" onchange="updateService(this)" />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea data-i="${i}" data-field="description" onchange="updateService(this)">${escapeHtml(s.description)}</textarea>
+          </div>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function escapeHtml(str) {
+      return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function updateService(el) {
+      const data = getData();
+      const i = +el.dataset.i;
+      data.services[i][el.dataset.field] = el.value;
+      localStorage.setItem('teg_content', JSON.stringify(data));
+    }
+
+    function addService() {
+      const data = getData();
+      data.services.push({ name: 'New Service', description: 'Description here...' });
+      localStorage.setItem('teg_content', JSON.stringify(data));
+      renderServices(data.services);
+    }
+
+    function removeService(i) {
+      if (!confirm('Remove this service?')) return;
+      const data = getData();
+      data.services.splice(i, 1);
+      localStorage.setItem('teg_content', JSON.stringify(data));
+      renderServices(data.services);
+    }
+
+    function saveAll() {
+      const data = getData();
+      data.seo = {
+        title: document.getElementById('seo-title').value.trim(),
+        description: document.getElementById('seo-description').value.trim(),
+        keywords: document.getElementById('seo-keywords').value.trim()
+      };
+      data.media = {
+        video: document.getElementById('media-video').value.trim(),
+        poster: document.getElementById('media-poster').value.trim(),
+        about: document.getElementById('media-about').value.trim()
+      };
+      data.contact = {
+        phone: document.getElementById('contact-phone').value.trim(),
+        whatsapp: document.getElementById('contact-whatsapp').value.trim(),
+        email: document.getElementById('contact-email').value.trim(),
+        address: document.getElementById('contact-address').value.trim(),
+        hours: document.getElementById('contact-hours').value.trim()
+      };
+      // services already live-updated
+      localStorage.setItem('teg_content', JSON.stringify(data));
+      showToast('Saved successfully');
+    }
+
+    function exportJSON() {
+      saveAll();
+      const data = getData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'teg-content.json';
+      a.click();
+      showToast('JSON exported — send this file to update the live site');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    // Enter key on password
+    document.getElementById('password')?.addEventListener('keydown', e => {
+      if (e.key === 'Enter') login();
+    });
+  </script>
+</body>
+</html>
