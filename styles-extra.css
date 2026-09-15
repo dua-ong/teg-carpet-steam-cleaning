@@ -1,6 +1,4 @@
-/* Extra styles for multi-page + phone shake — load after styles.css or merge */
-
-/* Phone attention shake (oncloudapi-style) */
+/* Phone attention shake */
 .phone-link,
 .phone-shake {
   display: inline-block;
@@ -15,33 +13,58 @@
   20%, 40%, 60%, 80% { transform: translateX(3px); }
 }
 
-/* Inner pages */
+/* Inner pages — solid header, no overlap */
 .page-inner .header {
-  background: rgba(255,255,255,0.97);
-  box-shadow: 0 1px 0 rgba(14, 165, 233, 0.12);
+  background: #ffffff !important;
+  box-shadow: 0 1px 0 rgba(14, 165, 233, 0.15);
+  backdrop-filter: none;
 }
-.page-inner .logo-text { color: var(--navy) !important; }
-.page-inner .logo-mark { color: var(--sky-dark) !important; }
-.page-inner .nav a { color: var(--heading) !important; }
-.page-inner .nav a.active { color: var(--sky-dark) !important; font-weight: 600; }
-.page-inner .phone-link { color: var(--navy) !important; }
-.page-inner .menu-toggle span { background: var(--navy) !important; }
+.page-inner .logo-text {
+  color: var(--navy) !important;
+}
+.page-inner .logo-mark {
+  color: var(--sky-dark) !important;
+}
+.page-inner .nav a {
+  color: var(--heading) !important;
+}
+.page-inner .nav a.active {
+  color: var(--sky-dark) !important;
+  font-weight: 600;
+}
+.page-inner .phone-link {
+  color: var(--navy) !important;
+}
+.page-inner .menu-toggle span {
+  background: var(--navy) !important;
+}
 
+/* Clear space below fixed header so title never sits under logo */
 .page-hero {
-  padding: 140px 0 60px;
-  background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 50%, #fff 100%);
+  padding: 160px 0 70px;
+  margin-top: 0;
+  background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 45%, #ffffff 100%);
   text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.page-hero .section-eyebrow {
+  margin-bottom: 14px;
 }
 .page-hero .section-title {
-  max-width: 700px;
+  max-width: 720px;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
+  z-index: 1;
 }
 .page-hero .section-desc {
   max-width: 560px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 12px;
 }
+
 .about-page-grid {
   max-width: 720px;
 }
@@ -50,4 +73,10 @@
   margin-bottom: 14px;
   font-size: 16px;
   line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    padding: 130px 0 50px;
+  }
 }
