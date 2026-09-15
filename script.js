@@ -1,33 +1,28 @@
-// Header scroll effect
+// Header scroll
 const header = document.getElementById('header');
 const menuToggle = document.getElementById('menuToggle');
 const nav = document.getElementById('nav');
 
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 40) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
-  }
-});
-
-// Mobile menu
-menuToggle.addEventListener('click', () => {
-  nav.classList.toggle('open');
-  menuToggle.classList.toggle('active');
-});
-
-// Close menu on link click
-nav.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    nav.classList.remove('open');
+if (header) {
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
   });
-});
+}
 
-// Year in footer
-document.getElementById('year').textContent = new Date().getFullYear();
+if (menuToggle && nav) {
+  menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('open');
+    menuToggle.classList.toggle('active');
+  });
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => nav.classList.remove('open'));
+  });
+}
 
-// Simple form handling (demo)
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+// Quote form demo
 const form = document.getElementById('quoteForm');
 if (form) {
   form.addEventListener('submit', (e) => {
@@ -47,25 +42,16 @@ if (form) {
   });
 }
 
-// Stronger & more noticeable scroll animations
-const observerOptions = {
-  threshold: 0.08,
-  rootMargin: '0px 0px -60px 0px'
-};
-
+// Scroll animations
 const scrollObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+    if (entry.isIntersecting) entry.target.classList.add('visible');
   });
-}, observerOptions);
+}, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
-document.querySelectorAll('.anim-on-scroll').forEach(el => {
-  scrollObserver.observe(el);
-});
+document.querySelectorAll('.anim-on-scroll').forEach(el => scrollObserver.observe(el));
 
-// Smooth scroll for anchor links
+// Smooth in-page anchors only
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const id = this.getAttribute('href');
@@ -79,3 +65,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+// Phone shake attention (every ~6s, like oncloudapi style)
+function startPhoneShake() {
+  const phones = document.querySelectorAll('.phone-link, .phone-shake');
+  if (!phones.length) return;
+  setInterval(() => {
+    phones.forEach(el => {
+      el.classList.add('is-shaking');
+      setTimeout(() => el.classList.remove('is-shaking'), 900);
+    });
+  }, 6000);
+}
+startPhoneShake();
