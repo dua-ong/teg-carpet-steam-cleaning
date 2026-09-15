@@ -1,0 +1,53 @@
+/* Extra styles for multi-page + phone shake — load after styles.css or merge */
+
+/* Phone attention shake (oncloudapi-style) */
+.phone-link,
+.phone-shake {
+  display: inline-block;
+}
+.phone-link.is-shaking,
+.phone-shake.is-shaking {
+  animation: phoneShake 0.85s ease-in-out;
+}
+@keyframes phoneShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+  20%, 40%, 60%, 80% { transform: translateX(3px); }
+}
+
+/* Inner pages */
+.page-inner .header {
+  background: rgba(255,255,255,0.97);
+  box-shadow: 0 1px 0 rgba(14, 165, 233, 0.12);
+}
+.page-inner .logo-text { color: var(--navy) !important; }
+.page-inner .logo-mark { color: var(--sky-dark) !important; }
+.page-inner .nav a { color: var(--heading) !important; }
+.page-inner .nav a.active { color: var(--sky-dark) !important; font-weight: 600; }
+.page-inner .phone-link { color: var(--navy) !important; }
+.page-inner .menu-toggle span { background: var(--navy) !important; }
+
+.page-hero {
+  padding: 140px 0 60px;
+  background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 50%, #fff 100%);
+  text-align: center;
+}
+.page-hero .section-title {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.page-hero .section-desc {
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.about-page-grid {
+  max-width: 720px;
+}
+.about-page-grid p {
+  color: var(--gray-600);
+  margin-bottom: 14px;
+  font-size: 16px;
+  line-height: 1.7;
+}
