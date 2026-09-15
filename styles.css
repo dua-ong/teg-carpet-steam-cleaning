@@ -311,17 +311,17 @@ button, input, select, textarea { font: inherit; }
   background: var(--teal-light);
 }
 
-/* Hero entrance animations */
+/* Hero entrance animations - stronger */
 .hero .anim-item {
   opacity: 0;
-  transform: translateY(30px);
-  animation: heroFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform: translateY(50px);
+  animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-.hero .anim-item:nth-child(1) { animation-delay: 0.15s; }
-.hero .anim-item:nth-child(2) { animation-delay: 0.3s; }
-.hero .anim-item:nth-child(3) { animation-delay: 0.45s; }
-.hero .anim-item:nth-child(4) { animation-delay: 0.6s; }
-.hero .anim-item:nth-child(5) { animation-delay: 0.75s; }
+.hero .anim-item:nth-child(1) { animation-delay: 0.2s; }
+.hero .anim-item:nth-child(2) { animation-delay: 0.4s; }
+.hero .anim-item:nth-child(3) { animation-delay: 0.55s; }
+.hero .anim-item:nth-child(4) { animation-delay: 0.7s; }
+.hero .anim-item:nth-child(5) { animation-delay: 0.85s; }
 
 @keyframes heroFadeUp {
   to {
@@ -758,23 +758,26 @@ button, input, select, textarea { font: inherit; }
   50% { box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45), 0 0 0 12px rgba(37, 211, 102, 0.15); }
 }
 
-/* ===== Scroll Animations ===== */
+/* ===== Scroll Animations - MUCH MORE VISIBLE ===== */
 .anim-on-scroll {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.anim-on-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
+  transform: translateY(70px) scale(0.94);
+  transition: 
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
-/* Stagger delays via data-delay */
-.anim-on-scroll[data-delay="100"] { transition-delay: 0.1s; }
-.anim-on-scroll[data-delay="150"] { transition-delay: 0.15s; }
-.anim-on-scroll[data-delay="200"] { transition-delay: 0.2s; }
-.anim-on-scroll[data-delay="300"] { transition-delay: 0.3s; }
+.anim-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Stagger delays - more noticeable spacing */
+.anim-on-scroll[data-delay="100"] { transition-delay: 0.15s; }
+.anim-on-scroll[data-delay="150"] { transition-delay: 0.2s; }
+.anim-on-scroll[data-delay="200"] { transition-delay: 0.3s; }
+.anim-on-scroll[data-delay="300"] { transition-delay: 0.45s; }
 
 /* ===== Responsive ===== */
 @media (max-width: 1024px) {
@@ -835,6 +838,11 @@ button, input, select, textarea { font: inherit; }
   }
   .whatsapp-float svg { width: 28px; height: 28px; }
   .wa-tooltip { display: none; }
+
+  /* Slightly less movement on mobile for performance */
+  .anim-on-scroll {
+    transform: translateY(50px) scale(0.96);
+  }
 }
 
 @media (max-width: 480px) {
