@@ -17,18 +17,18 @@ button, input, select, textarea { font: inherit; }
 
 /* ===== Variables - TEGS Company Theme ===== */
 :root {
-  /* Company colors from tegcarpetsteamcleaning.com */
-  --navy: #0c2d5a;          /* Deep blue from logo */
+  --navy: #0c2d5a;
   --navy-dark: #081f3d;
-  --gold: #f5a623;          /* Main yellow/gold from buttons & highlights */
+  --gold: #f5a623;
   --gold-dark: #e09415;
   --gold-light: #ffb84d;
-  --blue: #1a5fb4;          /* Logo blue accent */
+  --blue: #1a5fb4;
+  --heading: #1a1a1a;       /* Company dark headings */
   --gray-50: #f8fafc;
   --gray-100: #f1f5f9;
   --gray-200: #e2e8f0;
   --gray-400: #94a3b8;
-  --gray-600: #475569;
+  --gray-600: #555555;
   --gray-800: #1e293b;
   --white: #ffffff;
   --radius: 12px;
@@ -52,7 +52,7 @@ button, input, select, textarea { font: inherit; }
 }
 .section-header {
   margin-bottom: 56px;
-  max-width: 640px;
+  max-width: 680px;
 }
 .section-header.centered {
   text-align: center;
@@ -68,10 +68,10 @@ button, input, select, textarea { font: inherit; }
   margin-bottom: 12px;
 }
 .section-title {
-  font-size: clamp(28px, 4vw, 40px);
+  font-size: clamp(28px, 4vw, 38px);
   font-weight: 700;
-  line-height: 1.2;
-  color: var(--navy);
+  line-height: 1.25;
+  color: var(--heading);   /* Dark like company */
   margin-bottom: 16px;
 }
 .section-desc {
@@ -88,7 +88,7 @@ button, input, select, textarea { font: inherit; }
   padding: 12px 24px;
   font-size: 15px;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 2px solid transparent;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -120,7 +120,6 @@ button, input, select, textarea { font: inherit; }
 .btn-white:hover {
   background: var(--gray-100);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 .btn-outline-white {
   background: transparent;
@@ -139,6 +138,7 @@ button, input, select, textarea { font: inherit; }
 .btn-full {
   width: 100%;
 }
+
 /* ===== Header ===== */
 .header {
   position: fixed;
@@ -201,7 +201,7 @@ button, input, select, textarea { font: inherit; }
   transition: width 0.3s ease;
 }
 .nav a:hover::after { width: 100%; }
-.header.scrolled .nav a { color: var(--gray-800); }
+.header.scrolled .nav a { color: var(--heading); }
 .header.scrolled .nav a::after { background: var(--gold); }
 .header.scrolled .nav a:hover { color: var(--gold-dark); }
 .header-actions {
@@ -233,7 +233,7 @@ button, input, select, textarea { font: inherit; }
 }
 .header.scrolled .menu-toggle span { background: var(--navy); }
 
-/* ===== Hero ===== */
+/* ===== Hero - Company style ===== */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -255,7 +255,7 @@ button, input, select, textarea { font: inherit; }
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(8, 31, 61, 0.85) 0%, rgba(12, 45, 90, 0.75) 55%, rgba(26, 95, 180, 0.4) 100%);
+  background: linear-gradient(135deg, rgba(8, 31, 61, 0.78) 0%, rgba(12, 45, 90, 0.7) 50%, rgba(26, 95, 180, 0.35) 100%);
 }
 .hero-content {
   position: relative;
@@ -266,24 +266,32 @@ button, input, select, textarea { font: inherit; }
 .hero-eyebrow {
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold-light);
-  margin-bottom: 16px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 18px;
 }
 .hero-title {
-  font-size: clamp(36px, 6vw, 56px);
+  font-size: clamp(38px, 6.5vw, 58px);
   font-weight: 800;
-  line-height: 1.15;
-  color: var(--white);
-  margin-bottom: 20px;
+  line-height: 1.12;
+  margin-bottom: 22px;
   letter-spacing: -0.02em;
 }
+.hero-title-white {
+  color: var(--white);
+  display: block;
+}
+.hero-title-gold {
+  color: var(--gold);
+  display: block;
+}
 .hero-desc {
-  font-size: 18px;
-  color: rgba(255,255,255,0.88);
+  font-size: 17px;
+  color: rgba(255,255,255,0.9);
   margin-bottom: 36px;
   max-width: 520px;
+  line-height: 1.65;
 }
 .hero-ctas {
   display: flex;
@@ -312,7 +320,6 @@ button, input, select, textarea { font: inherit; }
   background: var(--gold);
 }
 
-/* Hero entrance animations */
 .hero .anim-item {
   opacity: 0;
   transform: translateY(50px);
@@ -325,16 +332,11 @@ button, input, select, textarea { font: inherit; }
 .hero .anim-item:nth-child(5) { animation-delay: 0.85s; }
 
 @keyframes heroFadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== Services ===== */
-.services {
-  background: var(--gray-50);
-}
+.services { background: var(--gray-50); }
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -369,14 +371,11 @@ button, input, select, textarea { font: inherit; }
   transform: scale(1.1);
   background: rgba(245, 166, 35, 0.2);
 }
-.service-icon svg {
-  width: 24px;
-  height: 24px;
-}
+.service-icon svg { width: 24px; height: 24px; }
 .service-card h3 {
   font-size: 20px;
   font-weight: 700;
-  color: var(--navy);
+  color: var(--heading);
   margin-bottom: 12px;
 }
 .service-card p {
@@ -389,12 +388,9 @@ button, input, select, textarea { font: inherit; }
   font-size: 14px;
   font-weight: 600;
   color: var(--gold-dark);
-  transition: color 0.2s, letter-spacing 0.2s;
+  transition: color 0.2s;
 }
-.service-link:hover {
-  color: var(--navy);
-  letter-spacing: 0.3px;
-}
+.service-link:hover { color: var(--navy); }
 
 /* ===== Benefits ===== */
 .benefits-grid {
@@ -403,9 +399,7 @@ button, input, select, textarea { font: inherit; }
   gap: 60px;
   align-items: center;
 }
-.benefits-list {
-  margin: 24px 0;
-}
+.benefits-list { margin: 24px 0; }
 .benefits-list li {
   position: relative;
   padding-left: 28px;
@@ -423,10 +417,7 @@ button, input, select, textarea { font: inherit; }
   border-radius: 50%;
   background: var(--gold);
 }
-.benefits-visual {
-  display: flex;
-  justify-content: center;
-}
+.benefits-visual { display: flex; justify-content: center; }
 .benefit-card {
   background: var(--navy);
   color: var(--white);
@@ -437,13 +428,12 @@ button, input, select, textarea { font: inherit; }
   box-shadow: var(--shadow-lg);
   transition: transform 0.4s ease;
 }
-.benefit-card:hover {
-  transform: translateY(-6px);
-}
+.benefit-card:hover { transform: translateY(-6px); }
 .benefit-card h4 {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 24px;
+  color: var(--gold);
 }
 .benefit-card ul li {
   padding: 10px 0;
@@ -451,14 +441,10 @@ button, input, select, textarea { font: inherit; }
   font-size: 15px;
   color: rgba(255,255,255,0.9);
 }
-.benefit-card ul li:last-child {
-  border-bottom: none;
-}
+.benefit-card ul li:last-child { border-bottom: none; }
 
 /* ===== Process ===== */
-.process {
-  background: var(--white);
-}
+.process { background: var(--white); }
 .process-steps {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -469,26 +455,24 @@ button, input, select, textarea { font: inherit; }
   padding: 24px 16px;
   transition: transform 0.3s ease;
 }
-.process-step:hover {
-  transform: translateY(-6px);
-}
+.process-step:hover { transform: translateY(-6px); }
 .step-number {
   font-size: 42px;
   font-weight: 800;
   color: var(--gold);
-  opacity: 0.35;
+  opacity: 0.4;
   line-height: 1;
   margin-bottom: 16px;
   transition: opacity 0.3s, transform 0.3s;
 }
 .process-step:hover .step-number {
-  opacity: 0.7;
+  opacity: 0.75;
   transform: scale(1.08);
 }
 .process-step h3 {
   font-size: 18px;
   font-weight: 700;
-  color: var(--navy);
+  color: var(--heading);
   margin-bottom: 10px;
 }
 .process-step p {
@@ -498,12 +482,8 @@ button, input, select, textarea { font: inherit; }
 }
 
 /* ===== About ===== */
-.about {
-  background: var(--gray-50);
-}
-.about-content {
-  max-width: 720px;
-}
+.about { background: var(--gray-50); }
+.about-content { max-width: 720px; }
 .about-content p {
   margin-bottom: 16px;
   color: var(--gray-600);
@@ -519,7 +499,7 @@ button, input, select, textarea { font: inherit; }
   display: block;
   font-size: 20px;
   font-weight: 700;
-  color: var(--navy);
+  color: var(--heading);
 }
 .stat span {
   font-size: 13px;
@@ -580,24 +560,18 @@ button, input, select, textarea { font: inherit; }
   font-size: 16px;
   color: var(--gray-800);
 }
-.contact-item a:hover {
-  color: var(--gold-dark);
-}
+.contact-item a:hover { color: var(--gold-dark); }
 .contact-form-wrap {
   background: var(--white);
   border-radius: var(--radius-lg);
   padding: 40px;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--gray-200);
-  transition: transform 0.4s ease, box-shadow 0.4s;
-}
-.contact-form-wrap:hover {
-  box-shadow: 0 16px 50px rgba(12, 45, 90, 0.14);
 }
 .contact-form h3 {
   font-size: 22px;
   font-weight: 700;
-  color: var(--navy);
+  color: var(--heading);
   margin-bottom: 24px;
 }
 .form-row {
@@ -605,9 +579,7 @@ button, input, select, textarea { font: inherit; }
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
-.form-group {
-  margin-bottom: 18px;
-}
+.form-group { margin-bottom: 18px; }
 .form-group label {
   display: block;
   font-size: 13px;
@@ -652,9 +624,7 @@ button, input, select, textarea { font: inherit; }
   gap: 40px;
   margin-bottom: 48px;
 }
-.footer-brand .logo {
-  margin-bottom: 16px;
-}
+.footer-brand .logo { margin-bottom: 16px; }
 .footer-brand .logo-mark { color: var(--gold); }
 .footer-brand .logo-text { color: var(--white); }
 .footer-brand p {
@@ -694,9 +664,7 @@ button, input, select, textarea { font: inherit; }
   gap: 12px;
   font-size: 13px;
 }
-.support {
-  color: rgba(255,255,255,0.5);
-}
+.support { color: rgba(255,255,255,0.5); }
 
 /* ===== Floating WhatsApp ===== */
 .whatsapp-float {
@@ -716,10 +684,7 @@ button, input, select, textarea { font: inherit; }
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
   animation: waPulse 2.5s infinite;
 }
-.whatsapp-float svg {
-  width: 32px;
-  height: 32px;
-}
+.whatsapp-float svg { width: 32px; height: 32px; }
 .whatsapp-float:hover {
   transform: scale(1.12);
   box-shadow: 0 8px 30px rgba(37, 211, 102, 0.55);
@@ -753,7 +718,6 @@ button, input, select, textarea { font: inherit; }
   opacity: 1;
   transform: translateX(0);
 }
-
 @keyframes waPulse {
   0%, 100% { box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45); }
   50% { box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45), 0 0 0 12px rgba(37, 211, 102, 0.15); }
@@ -763,9 +727,7 @@ button, input, select, textarea { font: inherit; }
 .anim-on-scroll {
   opacity: 0;
   transform: translateY(70px) scale(0.94);
-  transition: 
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 .anim-on-scroll.visible {
@@ -784,7 +746,6 @@ button, input, select, textarea { font: inherit; }
   .benefits-grid { grid-template-columns: 1fr; gap: 40px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
-
 @media (max-width: 768px) {
   :root { --header-h: 68px; }
   .nav {
@@ -807,13 +768,13 @@ button, input, select, textarea { font: inherit; }
     opacity: 1;
     pointer-events: auto;
   }
-  .nav a { color: var(--navy) !important; font-size: 16px; }
+  .nav a { color: var(--heading) !important; font-size: 16px; }
   .nav a::after { display: none; }
   .menu-toggle { display: flex; }
   .phone-link { display: none; }
   .header .btn-primary { display: none; }
   .hero-content { padding: 60px 24px; }
-  .hero-title { font-size: 32px; }
+  .hero-title { font-size: 34px; }
   .hero-desc { font-size: 16px; }
   .hero-ctas { flex-direction: column; }
   .hero-ctas .btn { width: 100%; }
@@ -828,19 +789,11 @@ button, input, select, textarea { font: inherit; }
   .about-stats { gap: 24px; }
   .cta-actions { flex-direction: column; align-items: center; }
   .cta-actions .btn { width: 100%; max-width: 320px; }
-  .whatsapp-float {
-    width: 54px;
-    height: 54px;
-    bottom: 20px;
-    right: 20px;
-  }
+  .whatsapp-float { width: 54px; height: 54px; bottom: 20px; right: 20px; }
   .whatsapp-float svg { width: 28px; height: 28px; }
   .wa-tooltip { display: none; }
-  .anim-on-scroll {
-    transform: translateY(50px) scale(0.96);
-  }
+  .anim-on-scroll { transform: translateY(50px) scale(0.96); }
 }
-
 @media (max-width: 480px) {
   .hero-trust { flex-direction: column; gap: 12px; }
   .section-title { font-size: 26px; }
