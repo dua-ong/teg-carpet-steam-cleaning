@@ -3,10 +3,7 @@
 Modern, conversion-focused website for **T.E.G Carpet Steam Cleaning** (Milwaukee, WI).
 
 ## Content Source
-All business content (services, descriptions, contact details, about copy) is taken from the official site: [tegcarpetsteamcleaning.com](https://tegcarpetsteamcleaning.com/)
-
-## Design Inspiration
-Visual direction, spacing, hierarchy, and premium feel inspired by [Hiddekel Cleaning Services](https://hiddekelcleaningservices.com/) — without copying branding, logo, or exact text.
+[tegcarpetsteamcleaning.com](https://tegcarpetsteamcleaning.com/)
 
 ## Features
 - Full-width video hero with dark overlay and strong CTAs
@@ -25,12 +22,7 @@ Visual direction, spacing, hierarchy, and premium feel inspired by [Hiddekel Cle
 - **Address:** 4111 N Port Washington Rd suite 1, Milwaukee, WI 53217, United States
 - **Hours:** Mon–Sun 08:00 AM – 07:00 PM
 
-## How to run
-Open `index.html` in a browser, or serve the folder with any static server.
 
 ```bash
 npx serve .
 ```
-
-## Repo
-Private repository owned by [dua-ong](https://github.com/dua-ong).
