@@ -47,18 +47,16 @@ if (form) {
   });
 }
 
-// Enhanced scroll animations with IntersectionObserver
+// Stronger & more noticeable scroll animations
 const observerOptions = {
-  threshold: 0.12,
-  rootMargin: '0px 0px -40px 0px'
+  threshold: 0.08,
+  rootMargin: '0px 0px -60px 0px'
 };
 
 const scrollObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      // Optional: unobserve after animation for performance
-      // scrollObserver.unobserve(entry.target);
     }
   });
 }, observerOptions);
