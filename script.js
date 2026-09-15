@@ -47,21 +47,27 @@ if (form) {
   });
 }
 
-// Fade-in on scroll
-const observer = new IntersectionObserver((entries) => {
+// Enhanced scroll animations with IntersectionObserver
+const observerOptions = {
+  threshold: 0.12,
+  rootMargin: '0px 0px -40px 0px'
+};
+
+const scrollObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
+      // Optional: unobserve after animation for performance
+      // scrollObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.12 });
+}, observerOptions);
 
-document.querySelectorAll('.service-card, .process-step, .benefit-card, .section-header, .about-content, .contact-info, .contact-form-wrap').forEach(el => {
-  el.classList.add('fade-in');
-  observer.observe(el);
+document.querySelectorAll('.anim-on-scroll').forEach(el => {
+  scrollObserver.observe(el);
 });
 
-// Smooth scroll for anchor links (extra safety)
+// Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const id = this.getAttribute('href');

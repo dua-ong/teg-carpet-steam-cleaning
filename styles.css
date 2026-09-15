@@ -8,6 +8,7 @@ body {
   color: #1a1a1a;
   background: #fff;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 img, video { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
@@ -34,6 +35,7 @@ button, input, select, textarea { font: inherit; }
   --shadow-lg: 0 12px 40px rgba(15, 39, 68, 0.12);
   --container: 1140px;
   --header-h: 80px;
+  --wa-green: #25D366;
 }
 
 /* ===== Utilities ===== */
@@ -87,7 +89,7 @@ button, input, select, textarea { font: inherit; }
   border-radius: 10px;
   border: 2px solid transparent;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
 }
 .btn-primary {
@@ -96,8 +98,8 @@ button, input, select, textarea { font: inherit; }
 }
 .btn-primary:hover {
   background: var(--teal-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(13, 148, 136, 0.4);
 }
 .btn-outline {
   background: transparent;
@@ -107,6 +109,7 @@ button, input, select, textarea { font: inherit; }
 .btn-outline:hover {
   background: rgba(255,255,255,0.12);
   border-color: var(--white);
+  transform: translateY(-2px);
 }
 .btn-white {
   background: var(--white);
@@ -114,7 +117,8 @@ button, input, select, textarea { font: inherit; }
 }
 .btn-white:hover {
   background: var(--gray-100);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 .btn-outline-white {
   background: transparent;
@@ -124,6 +128,7 @@ button, input, select, textarea { font: inherit; }
 .btn-outline-white:hover {
   background: rgba(255,255,255,0.1);
   border-color: var(--white);
+  transform: translateY(-2px);
 }
 .btn-lg {
   padding: 16px 32px;
@@ -142,7 +147,7 @@ button, input, select, textarea { font: inherit; }
   z-index: 1000;
   height: var(--header-h);
   background: transparent;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.35s ease, box-shadow 0.35s ease;
 }
 .header.scrolled {
   background: rgba(255,255,255,0.97);
@@ -166,11 +171,11 @@ button, input, select, textarea { font: inherit; }
   color: var(--teal);
   letter-spacing: -0.02em;
 }
-.header.scrolled .logo-mark { color: var(--teal); }
 .logo-text {
   font-size: 15px;
   color: var(--white);
   font-weight: 500;
+  transition: color 0.3s;
 }
 .header.scrolled .logo-text { color: var(--navy); }
 .nav {
@@ -181,10 +186,22 @@ button, input, select, textarea { font: inherit; }
   font-size: 14px;
   font-weight: 500;
   color: rgba(255,255,255,0.9);
-  transition: color 0.2s;
+  transition: color 0.25s;
+  position: relative;
 }
+.nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--teal-light);
+  transition: width 0.3s ease;
+}
+.nav a:hover::after { width: 100%; }
 .header.scrolled .nav a { color: var(--gray-800); }
-.nav a:hover { color: var(--teal-light); }
+.header.scrolled .nav a::after { background: var(--teal); }
 .header.scrolled .nav a:hover { color: var(--teal); }
 .header-actions {
   display: flex;
@@ -195,6 +212,7 @@ button, input, select, textarea { font: inherit; }
   font-size: 14px;
   font-weight: 600;
   color: var(--white);
+  transition: color 0.3s;
 }
 .header.scrolled .phone-link { color: var(--navy); }
 .menu-toggle {
@@ -293,6 +311,25 @@ button, input, select, textarea { font: inherit; }
   background: var(--teal-light);
 }
 
+/* Hero entrance animations */
+.hero .anim-item {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.hero .anim-item:nth-child(1) { animation-delay: 0.15s; }
+.hero .anim-item:nth-child(2) { animation-delay: 0.3s; }
+.hero .anim-item:nth-child(3) { animation-delay: 0.45s; }
+.hero .anim-item:nth-child(4) { animation-delay: 0.6s; }
+.hero .anim-item:nth-child(5) { animation-delay: 0.75s; }
+
+@keyframes heroFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ===== Services ===== */
 .services {
   background: var(--gray-50);
@@ -307,11 +344,11 @@ button, input, select, textarea { font: inherit; }
   border-radius: var(--radius-lg);
   padding: 36px 28px;
   box-shadow: var(--shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
   border: 1px solid transparent;
 }
 .service-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-10px);
   box-shadow: var(--shadow-lg);
   border-color: var(--gray-200);
 }
@@ -325,6 +362,11 @@ button, input, select, textarea { font: inherit; }
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+  transition: transform 0.3s ease, background 0.3s;
+}
+.service-card:hover .service-icon {
+  transform: scale(1.1);
+  background: rgba(13, 148, 136, 0.18);
 }
 .service-icon svg {
   width: 24px;
@@ -346,10 +388,11 @@ button, input, select, textarea { font: inherit; }
   font-size: 14px;
   font-weight: 600;
   color: var(--teal);
-  transition: gap 0.2s;
+  transition: color 0.2s, letter-spacing 0.2s;
 }
 .service-link:hover {
   color: var(--teal-dark);
+  letter-spacing: 0.3px;
 }
 
 /* ===== Benefits ===== */
@@ -391,6 +434,10 @@ button, input, select, textarea { font: inherit; }
   width: 100%;
   max-width: 400px;
   box-shadow: var(--shadow-lg);
+  transition: transform 0.4s ease;
+}
+.benefit-card:hover {
+  transform: translateY(-6px);
 }
 .benefit-card h4 {
   font-size: 20px;
@@ -419,6 +466,10 @@ button, input, select, textarea { font: inherit; }
 .process-step {
   text-align: center;
   padding: 24px 16px;
+  transition: transform 0.3s ease;
+}
+.process-step:hover {
+  transform: translateY(-6px);
 }
 .step-number {
   font-size: 42px;
@@ -427,6 +478,11 @@ button, input, select, textarea { font: inherit; }
   opacity: 0.25;
   line-height: 1;
   margin-bottom: 16px;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.process-step:hover .step-number {
+  opacity: 0.5;
+  transform: scale(1.08);
 }
 .process-step h3 {
   font-size: 18px;
@@ -532,6 +588,10 @@ button, input, select, textarea { font: inherit; }
   padding: 40px;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--gray-200);
+  transition: transform 0.4s ease, box-shadow 0.4s;
+}
+.contact-form-wrap:hover {
+  box-shadow: 0 16px 50px rgba(15, 39, 68, 0.14);
 }
 .contact-form h3 {
   font-size: 22px;
@@ -562,7 +622,7 @@ button, input, select, textarea { font: inherit; }
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   background: var(--gray-50);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
 }
 .form-group input:focus,
 .form-group select:focus,
@@ -637,6 +697,85 @@ button, input, select, textarea { font: inherit; }
   color: rgba(255,255,255,0.5);
 }
 
+/* ===== Floating WhatsApp ===== */
+.whatsapp-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  width: 60px;
+  height: 60px;
+  background: var(--wa-green);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+  animation: waPulse 2.5s infinite;
+}
+.whatsapp-float svg {
+  width: 32px;
+  height: 32px;
+}
+.whatsapp-float:hover {
+  transform: scale(1.12);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.55);
+  animation: none;
+}
+.wa-tooltip {
+  position: absolute;
+  right: 72px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(10px);
+  transition: all 0.25s ease;
+}
+.wa-tooltip::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: #1a1a1a;
+}
+.whatsapp-float:hover .wa-tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@keyframes waPulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45); }
+  50% { box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45), 0 0 0 12px rgba(37, 211, 102, 0.15); }
+}
+
+/* ===== Scroll Animations ===== */
+.anim-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.anim-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays via data-delay */
+.anim-on-scroll[data-delay="100"] { transition-delay: 0.1s; }
+.anim-on-scroll[data-delay="150"] { transition-delay: 0.15s; }
+.anim-on-scroll[data-delay="200"] { transition-delay: 0.2s; }
+.anim-on-scroll[data-delay="300"] { transition-delay: 0.3s; }
+
 /* ===== Responsive ===== */
 @media (max-width: 1024px) {
   .services-grid { grid-template-columns: repeat(2, 1fr); }
@@ -660,7 +799,7 @@ button, input, select, textarea { font: inherit; }
     transform: translateY(-120%);
     opacity: 0;
     pointer-events: none;
-    transition: all 0.3s ease;
+    transition: all 0.35s ease;
   }
   .nav.open {
     transform: translateY(0);
@@ -668,6 +807,7 @@ button, input, select, textarea { font: inherit; }
     pointer-events: auto;
   }
   .nav a { color: var(--navy) !important; font-size: 16px; }
+  .nav a::after { display: none; }
   .menu-toggle { display: flex; }
   .phone-link { display: none; }
   .header .btn-primary { display: none; }
@@ -687,20 +827,17 @@ button, input, select, textarea { font: inherit; }
   .about-stats { gap: 24px; }
   .cta-actions { flex-direction: column; align-items: center; }
   .cta-actions .btn { width: 100%; max-width: 320px; }
+  .whatsapp-float {
+    width: 54px;
+    height: 54px;
+    bottom: 20px;
+    right: 20px;
+  }
+  .whatsapp-float svg { width: 28px; height: 28px; }
+  .wa-tooltip { display: none; }
 }
 
 @media (max-width: 480px) {
   .hero-trust { flex-direction: column; gap: 12px; }
   .section-title { font-size: 26px; }
-}
-
-/* Subtle fade-in on scroll */
-.fade-in {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
