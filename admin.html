@@ -1,1 +1,692 @@
-PLACEHOLDER_WILL_BE_REPLACED
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>T.E.G Admin — Full CMS Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,system-ui,sans-serif;background:#f1f5f9;color:#1a1a1a;min-height:100vh}
+    .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+    .login-box{background:#fff;padding:40px;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.08);width:100%;max-width:380px;text-align:center}
+    .login-box h1{font-size:22px;margin-bottom:8px;color:#0a3d6b}
+    .login-box p{font-size:14px;color:#64748b;margin-bottom:28px}
+    .login-box input{width:100%;padding:12px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:15px;margin-bottom:16px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;font-size:15px;font-weight:600;border-radius:8px;border:none;cursor:pointer;text-decoration:none}
+    .btn-primary{background:#f5a623;color:#1a1a1a}
+    .btn-secondary{background:#0a3d6b;color:#fff}
+    .btn-outline{background:#fff;border:1px solid #e2e8f0;color:#1a1a1a}
+    .btn-sm{padding:8px 14px;font-size:13px}
+    .btn-danger{background:#fee2e2;color:#b91c1c}
+    .hidden{display:none!important}
+    .dashboard{display:none}.dashboard.active{display:block}
+    .topbar{background:#0a3d6b;color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+    .topbar h1{font-size:18px}
+    .topbar .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .layout{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 56px)}
+    .sidebar{background:#fff;border-right:1px solid #e2e8f0;padding:12px 0;overflow-y:auto}
+    .sidebar button{display:block;width:100%;text-align:left;padding:11px 18px;border:none;background:none;font-size:13px;font-weight:500;color:#475569;cursor:pointer}
+    .sidebar button:hover,.sidebar button.active{background:#e0f2fe;color:#0369a1;border-right:3px solid #0ea5e9}
+    .sidebar .group{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;padding:14px 18px 6px}
+    .main{padding:24px 28px;max-width:920px}
+    .panel{display:none;background:#fff;border-radius:12px;padding:24px;border:1px solid #e2e8f0}
+    .panel.active{display:block}
+    .panel h2{font-size:18px;margin-bottom:4px;color:#0a3d6b}
+    .panel .desc{font-size:13px;color:#64748b;margin-bottom:18px}
+    .form-group{margin-bottom:14px}
+    .form-group label{display:block;font-size:12px;font-weight:600;color:#475569;margin-bottom:5px}
+    .form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;font-family:inherit}
+    .form-group textarea{min-height:72px;resize:vertical}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:700px){.layout{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+    .upload-box{border:2px dashed #bae6fd;border-radius:10px;padding:14px;text-align:center;background:#f0f9ff;margin-bottom:10px;font-size:13px;color:#0369a1}
+    .upload-box input[type=file]{margin-top:8px}
+    .preview{max-width:160px;max-height:80px;margin-top:8px;border-radius:6px;display:none}
+    .preview.show{display:block}
+    .nav-item,.service-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin-bottom:10px;position:relative}
+    .nav-item .remove,.service-item .remove{position:absolute;top:10px;right:10px;background:#fee2e2;color:#b91c1c;border:none;width:28px;height:28px;border-radius:6px;cursor:pointer}
+    .actions-bar{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+    .section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin:16px 0 8px}
+    .note{background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:12px 14px;font-size:13px;color:#0369a1;margin-bottom:14px}
+    .note.warn{background:#fffbeb;border-color:#fde68a;color:#92400e}
+    .hint{font-size:11px;color:#94a3b8;margin-top:4px}
+    .toast{position:fixed;bottom:24px;right:24px;background:#0a3d6b;color:#fff;padding:12px 18px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:100}
+    .toast.show{opacity:1}
+    .status{font-size:12px;color:#64748b;margin-bottom:12px}
+    .badge{display:inline-block;background:#22c55e;color:#fff;font-size:10px;padding:2px 8px;border-radius:99px;margin-left:8px;vertical-align:middle}
+    .sub-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin-bottom:10px}
+    .sub-card.unread{border-left:3px solid #f5a623}
+    .sub-card h4{font-size:14px;margin-bottom:4px}
+    .sub-card p{font-size:13px;color:#64748b}
+  </style>
+</head>
+<body>
+  <div class="login-wrap" id="loginScreen">
+    <div class="login-box">
+      <h1>T.E.G Admin</h1>
+      <p>Full CMS — branding, media, SEO, NAP, nav</p>
+      <input type="password" id="password" placeholder="Password" onkeydown="if(event.key==='Enter')login()" />
+      <button class="btn btn-primary" style="width:100%" onclick="login()">Login</button>
+      <p id="loginHint" style="margin-top:8px;font-size:12px;color:#64748b"></p>
+    </div>
+  </div>
+
+  <div class="dashboard" id="dashboard">
+    <div class="topbar">
+      <h1>T.E.G CMS <span id="serverBadge" class="badge" style="display:none">Server</span></h1>
+      <div class="actions">
+        <a class="btn btn-outline btn-sm" href="index.html" target="_blank">View site</a>
+        <button class="btn btn-outline btn-sm" onclick="exportJSON()">Export</button>
+        <button class="btn btn-secondary btn-sm" onclick="saveAll()">Save All</button>
+        <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+      </div>
+    </div>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="group">Site</div>
+        <button class="active" data-panel="branding" onclick="showPanel('branding')">Branding & Logo</button>
+        <button data-panel="contact" onclick="showPanel('contact')">Phone / WhatsApp / Address</button>
+        <button data-panel="media" onclick="showPanel('media')">Media & Uploads</button>
+        <div class="group">SEO</div>
+        <button data-panel="seo" onclick="showPanel('seo')">Global SEO & Keywords</button>
+        <button data-panel="pages-seo" onclick="showPanel('pages-seo')">Per-page SEO</button>
+        <button data-panel="location" onclick="showPanel('location')">Location / GMB</button>
+        <button data-panel="services" onclick="showPanel('services')">Services + SEO</button>
+        <div class="group">Navigation</div>
+        <button data-panel="nav-main" onclick="showPanel('nav-main')">Main Nav</button>
+        <button data-panel="nav-footer" onclick="showPanel('nav-footer')">Footer Nav</button>
+        <button data-panel="nav-services" onclick="showPanel('nav-services')">Services Nav</button>
+        <div class="group">Leads</div>
+        <button data-panel="inbox" onclick="showPanel('inbox');loadInbox()">Quote Inbox</button>
+        <button data-panel="help" onclick="showPanel('help')">Help</button>
+      </aside>
+      <main class="main">
+        <p class="status" id="connStatus"></p>
+
+        <div class="panel active" id="panel-branding">
+          <h2>Branding & Logo</h2>
+          <p class="desc">Empty logo/favicon = keep current site defaults until you upload.</p>
+          <div class="form-group"><label>Site / business name</label><input id="brand-siteName" /></div>
+          <div class="form-row">
+            <div class="form-group"><label>Logo mark text</label><input id="brand-logoMark" placeholder="T.E.G" /></div>
+            <div class="form-group"><label>Logo text</label><input id="brand-logoText" placeholder="Carpet Steam Cleaning" /></div>
+          </div>
+          <div class="section-label">Logo image (optional upload)</div>
+          <div class="form-group"><label>Logo URL</label><input id="media-logo" placeholder="Leave empty to use text logo" /></div>
+          <div class="upload-box">Upload logo image<br/><input type="file" accept="image/*" onchange="serverUpload(this,'media-logo','logoPreview')" /><img id="logoPreview" class="preview" alt="" /></div>
+          <div class="section-label">Favicon</div>
+          <div class="form-group"><label>Favicon URL</label><input id="media-favicon" placeholder="Empty = favicon.svg" /></div>
+          <div class="upload-box">Upload favicon<br/><input type="file" accept="image/*,.ico,.svg" onchange="serverUpload(this,'media-favicon','favPreview')" /><img id="favPreview" class="preview" alt="" /></div>
+          <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Branding</button></div>
+        </div>
+
+        <div class="panel" id="panel-contact">
+          <h2>Phone, WhatsApp, Address</h2>
+          <p class="desc">Used across the whole site when set. Leave a field empty only if you intentionally want HTML default.</p>
+          <div class="form-row">
+            <div class="form-group"><label>Phone (display)</label><input id="contact-phone" placeholder="+1 (414) 775-3705" /></div>
+            <div class="form-group"><label>Phone tel: link</label><input id="contact-phoneTel" placeholder="+14147753705" /><p class="hint">Digits for click-to-call</p></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>WhatsApp (display)</label><input id="contact-whatsapp" placeholder="+1 (618) 434-0858" /></div>
+            <div class="form-group"><label>WhatsApp digits</label><input id="contact-whatsappDigits" placeholder="16184340858" /><p class="hint">For wa.me link</p></div>
+          </div>
+          <div class="form-group"><label>Email</label><input id="contact-email" /></div>
+          <div class="form-group"><label>Full address</label><input id="contact-address" /></div>
+          <div class="form-row">
+            <div class="form-group"><label>Address line 1</label><input id="contact-addressLine1" /></div>
+            <div class="form-group"><label>City</label><input id="contact-city" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Region / State</label><input id="contact-region" /></div>
+            <div class="form-group"><label>Postal</label><input id="contact-postal" /></div>
+          </div>
+          <div class="form-group"><label>Hours</label><input id="contact-hours" /></div>
+          <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Contact</button></div>
+        </div>
+
+        <div class="panel" id="panel-media">
+          <h2>Media & Uploads</h2>
+          <div class="note">Upload replaces the current asset on the live site. Leave empty to keep existing HTML / media/hero.mp4 defaults. Max ~50MB (video).</div>
+          <div class="section-label">Homepage hero</div>
+          <div class="form-group"><label>Hero video URL</label><input id="media-heroVideo" placeholder="Empty = media/hero.mp4" /></div>
+          <div class="upload-box">Upload hero video<br/><input type="file" accept="video/*" onchange="serverUpload(this,'media-heroVideo',null)" /></div>
+          <div class="form-group"><label>Hero poster image URL</label><input id="media-heroPoster" /></div>
+          <div class="upload-box">Upload poster<br/><input type="file" accept="image/*" onchange="serverUpload(this,'media-heroPoster','posterPreview')" /><img id="posterPreview" class="preview" alt="" /></div>
+          <div class="section-label">Share / social image</div>
+          <div class="form-group"><label>OG / share image URL</label><input id="media-ogImage" /></div>
+          <div class="upload-box">Upload OG image<br/><input type="file" accept="image/*" onchange="serverUpload(this,'media-ogImage','ogMediaPreview')" /><img id="ogMediaPreview" class="preview" alt="" /></div>
+          <div class="section-label">About page image</div>
+          <div class="form-group"><label>About image URL</label><input id="media-aboutImage" /></div>
+          <div class="upload-box">Upload about image<br/><input type="file" accept="image/*" onchange="serverUpload(this,'media-aboutImage','aboutPreview')" /><img id="aboutPreview" class="preview" alt="" /></div>
+          <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Media</button></div>
+        </div>
+
+        <div class="panel" id="panel-seo">
+          <h2>Global SEO & Keywords</h2>
+          <p class="desc">Applies primarily to the homepage. Keywords help local search targeting.</p>
+          <div class="form-group"><label>Page title</label><input id="seo-title" /></div>
+          <div class="form-group"><label>Meta description</label><textarea id="seo-description" rows="3"></textarea></div>
+          <div class="form-group"><label>Keywords</label><input id="seo-keywords" placeholder="carpet cleaning Milwaukee, steam cleaning..." /></div>
+          <div class="form-group"><label>Canonical URL</label><input id="seo-canonical" /></div>
+          <div class="section-label">Open Graph / Twitter</div>
+          <div class="form-group"><label>OG title</label><input id="seo-ogTitle" /></div>
+          <div class="form-group"><label>OG description</label><textarea id="seo-ogDescription" rows="2"></textarea></div>
+          <div class="form-group"><label>OG image URL</label><input id="seo-ogImage" placeholder="Or set under Media" /></div>
+          <div class="form-group"><label>Twitter title</label><input id="seo-twitterTitle" /></div>
+          <div class="form-group"><label>Twitter description</label><input id="seo-twitterDescription" /></div>
+          <div class="form-group"><label>Twitter image URL</label><input id="seo-twitterImage" /></div>
+          <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save SEO</button></div>
+        </div>
+
+        <div class="panel" id="panel-pages-seo">
+          <h2>Per-page SEO</h2>
+          <p class="desc">Override title, description, keywords, and canonical for individual pages. Empty = keep page HTML defaults.</p>
+          <div class="form-group"><label>Select page</label>
+            <select id="pageSeoSelect" onchange="loadPageSeoFields()">
+              <option value="index.html">Home (index.html)</option>
+              <option value="services.html">Services</option>
+              <option value="areas.html">Areas We Serve</option>
+              <option value="about.html">About</option>
+              <option value="faq.html">FAQ</option>
+              <option value="contact.html">Contact</option>
+              <option value="service-carpet-cleaning.html">Service: Carpet Cleaning</option>
+              <option value="service-tile-grout.html">Service: Tile & Grout</option>
+              <option value="service-couch-cleaning.html">Service: Couch / Upholstery</option>
+              <option value="service-steam-cleaning.html">Service: Steam Cleaning</option>
+              <option value="service-stain-removal.html">Service: Pet Odor & Stain</option>
+              <option value="service-commercial.html">Service: Commercial</option>
+              <option value="area-wauwatosa.html">Area: Wauwatosa</option>
+              <option value="area-brookfield.html">Area: Brookfield</option>
+              <option value="area-west-allis.html">Area: West Allis</option>
+              <option value="area-new-berlin.html">Area: New Berlin</option>
+              <option value="area-greenfield.html">Area: Greenfield</option>
+              <option value="area-franklin.html">Area: Franklin</option>
+              <option value="area-oak-creek.html">Area: Oak Creek</option>
+              <option value="area-greendale.html">Area: Greendale</option>
+              <option value="area-hales-corners.html">Area: Hales Corners</option>
+              <option value="area-muskego.html">Area: Muskego</option>
+              <option value="area-elm-grove.html">Area: Elm Grove</option>
+              <option value="area-pewaukee.html">Area: Pewaukee</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Title</label><input id="page-title" placeholder="Leave empty to keep HTML default" /></div>
+          <div class="form-group"><label>Meta description</label><textarea id="page-description" rows="3" placeholder="Leave empty to keep HTML default"></textarea></div>
+          <div class="form-group"><label>Keywords</label><input id="page-keywords" placeholder="carpet cleaning Wauwatosa, ..." /></div>
+          <div class="form-group"><label>Canonical URL</label><input id="page-canonical" placeholder="https://tegcarpetsteamcleaning.com/..." /></div>
+          <div class="actions-bar">
+            <button class="btn btn-outline btn-sm" onclick="clearPageSeo()">Clear this page override</button>
+            <button class="btn btn-primary" onclick="savePageSeoThenAll()">Save Page SEO</button>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-location">
+          <h2>Location / GMB</h2>
+          <p class="desc">Aligns with Google Business Profile NAP.</p>
+          <div class="form-group"><label>Business name</label><input id="loc-name" /></div>
+          <div class="form-group"><label>Full address</label><input id="loc-address" /></div>
+          <div class="form-row">
+            <div class="form-group"><label>City</label><input id="loc-city" /></div>
+            <div class="form-group"><label>Region</label><input id="loc-region" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Postal</label><input id="loc-postal" /></div>
+            <div class="form-group"><label>Geo region</label><input id="loc-geoRegion" placeholder="US-WI" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Latitude</label><input id="loc-lat" /></div>
+            <div class="form-group"><label>Longitude</label><input id="loc-lng" /></div>
+          </div>
+          <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Location</button></div>
+        </div>
+
+        <div class="panel" id="panel-services">
+          <h2>Services + per-service SEO</h2>
+          <div id="servicesList"></div>
+          <button class="btn btn-outline btn-sm" onclick="addService()">+ Add service</button>
+          <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Services</button></div>
+        </div>
+
+        <div class="panel" id="panel-nav-main">
+          <h2>Main navigation</h2>
+          <p class="desc">Header menu links. Order = display order.</p>
+          <div id="navMainList"></div>
+          <button class="btn btn-outline btn-sm" onclick="addNavItem('main')">+ Add link</button>
+          <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Main Nav</button></div>
+        </div>
+
+        <div class="panel" id="panel-nav-footer">
+          <h2>Footer navigation</h2>
+          <div id="navFooterList"></div>
+          <button class="btn btn-outline btn-sm" onclick="addNavItem('footer')">+ Add link</button>
+          <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Footer Nav</button></div>
+        </div>
+
+        <div class="panel" id="panel-nav-services">
+          <h2>Services navigation (footer)</h2>
+          <div id="navServicesList"></div>
+          <button class="btn btn-outline btn-sm" onclick="addNavItem('services')">+ Add link</button>
+          <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Services Nav</button></div>
+        </div>
+
+        <div class="panel" id="panel-inbox">
+          <h2>Quote Inbox</h2>
+          <button class="btn btn-outline btn-sm" onclick="loadInbox()">Refresh</button>
+          <div id="inboxList" style="margin-top:14px"></div>
+        </div>
+
+        <div class="panel" id="panel-help">
+          <h2>How this works</h2>
+          <div class="note">
+            <strong>Rule:</strong> If you upload or save a value in the panel, the live site uses it.
+            If a field is empty, the site keeps the current HTML / default media (e.g. media/hero.mp4, text logo).
+          </div>
+          <div class="note">
+            1. Run <code>npm start</code> (or Railway deploy)<br/>
+            2. Open <code>/admin.html</code><br/>
+            3. Edit Branding, Contact, Media, SEO, Navs<br/>
+            4. <strong>Save All</strong> — writes <code>data/content.json</code><br/>
+            5. Public site loads <code>/api/content</code> via <code>site-config.js</code>
+          </div>
+          <div class="note warn">Password: env <code>ADMIN_PASSWORD</code> or default <code>teg2026</code>. Change in production.</div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="admin-api.js"></script>
+  <script>
+    let serverMode = false;
+    let cache = null;
+    window._pagesSeo = {};
+
+    async function login() {
+      const pw = document.getElementById('password').value;
+      if (!pw) return;
+      try {
+        const ok = await TEG.loginServer(pw);
+        if (ok) {
+          serverMode = true;
+          document.getElementById('serverBadge').style.display = 'inline-block';
+          enterDashboard();
+          return;
+        }
+      } catch (e) {}
+      // Local fallback (no server)
+      if (pw === 'teg2026' || pw.length >= 4) {
+        sessionStorage.setItem('teg_admin', '1');
+        sessionStorage.setItem('teg_admin_key', pw);
+        serverMode = false;
+        enterDashboard();
+        return;
+      }
+      document.getElementById('loginHint').textContent = 'Wrong password';
+    }
+
+    async function enterDashboard() {
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('dashboard').classList.add('active');
+      document.getElementById('connStatus').textContent = serverMode
+        ? 'Connected — Save writes to server (data/content.json + /uploads)'
+        : 'Local mode — Save uses browser only. Run server for uploads & live site API.';
+      await loadContent();
+    }
+
+    function logout() {
+      sessionStorage.removeItem('teg_admin');
+      sessionStorage.removeItem('teg_admin_key');
+      location.reload();
+    }
+
+    if (sessionStorage.getItem('teg_admin')) {
+      serverMode = !!sessionStorage.getItem('teg_admin_key');
+      enterDashboard();
+    }
+
+    function showPanel(id) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active'));
+      document.getElementById('panel-' + id).classList.add('active');
+      const btn = document.querySelector('[data-panel="' + id + '"]');
+      if (btn) btn.classList.add('active');
+    }
+
+    function val(id) {
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+    function set(id, v) {
+      const el = document.getElementById(id);
+      if (el) el.value = v != null ? v : '';
+    }
+    function showPreview(id, url) {
+      const img = document.getElementById(id);
+      if (!img) return;
+      if (url) { img.src = url; img.classList.add('show'); }
+      else { img.classList.remove('show'); }
+    }
+
+    async function loadContent() {
+      let data = null;
+      if (serverMode) {
+        try { data = await TEG.loadContentServer(); } catch (e) {}
+      }
+      if (!data) {
+        try { data = JSON.parse(localStorage.getItem('teg_content') || 'null'); } catch (e) {}
+      }
+      if (!data) {
+        try {
+          const r = await fetch('/api/content');
+          if (r.ok) data = await r.json();
+        } catch (e) {}
+      }
+      if (data) fill(data);
+      else showToast('Could not load content — using empty form');
+    }
+
+    function fill(d) {
+      cache = d;
+      const b = d.branding || {};
+      const m = d.media || {};
+      const c = d.contact || {};
+      const s = d.seo || {};
+      const loc = d.location || {};
+      set('brand-siteName', b.siteName); set('brand-logoMark', b.logoMark); set('brand-logoText', b.logoText);
+      set('media-logo', m.logo || b.logoUrl || '');
+      set('media-favicon', m.favicon || b.faviconUrl || '');
+      set('media-heroVideo', m.heroVideo || m.video || '');
+      set('media-heroPoster', m.heroPoster || m.poster || '');
+      set('media-ogImage', m.ogImage || m.og || '');
+      set('media-aboutImage', m.aboutImage || m.about || '');
+      set('contact-phone', c.phone); set('contact-phoneTel', c.phoneTel);
+      set('contact-whatsapp', c.whatsapp); set('contact-whatsappDigits', c.whatsappDigits);
+      set('contact-email', c.email); set('contact-address', c.address);
+      set('contact-addressLine1', c.addressLine1); set('contact-city', c.city);
+      set('contact-region', c.region); set('contact-postal', c.postal); set('contact-hours', c.hours);
+      set('seo-title', s.title); set('seo-description', s.description); set('seo-keywords', s.keywords);
+      set('seo-canonical', s.canonical); set('seo-ogTitle', s.ogTitle); set('seo-ogDescription', s.ogDescription);
+      set('seo-ogImage', s.ogImage || ''); set('seo-twitterTitle', s.twitterTitle);
+      set('seo-twitterDescription', s.twitterDescription); set('seo-twitterImage', s.twitterImage || '');
+      set('loc-name', loc.name); set('loc-city', loc.city); set('loc-address', loc.address);
+      set('loc-region', loc.region); set('loc-postal', loc.postal); set('loc-lat', loc.lat);
+      set('loc-lng', loc.lng); set('loc-geoRegion', loc.geoRegion);
+      renderServices(d.services || []);
+      const nav = d.nav || {};
+      renderNav('main', nav.main || []);
+      renderNav('footer', nav.footer || []);
+      renderNav('services', nav.services || []);
+      window._pagesSeo = d.pages || {};
+      loadPageSeoFields();
+      showPreview('logoPreview', val('media-logo'));
+      showPreview('favPreview', val('media-favicon'));
+      showPreview('posterPreview', val('media-heroPoster'));
+      showPreview('ogMediaPreview', val('media-ogImage'));
+      showPreview('aboutPreview', val('media-aboutImage'));
+    }
+
+    function collect() {
+      const data = cache ? JSON.parse(JSON.stringify(cache)) : {};
+      data.branding = {
+        siteName: val('brand-siteName'),
+        logoMark: val('brand-logoMark'),
+        logoText: val('brand-logoText'),
+        logoUrl: val('media-logo'),
+        faviconUrl: val('media-favicon')
+      };
+      data.media = {
+        logo: val('media-logo'),
+        favicon: val('media-favicon'),
+        heroVideo: val('media-heroVideo'),
+        heroPoster: val('media-heroPoster'),
+        ogImage: val('media-ogImage'),
+        aboutImage: val('media-aboutImage'),
+        video: val('media-heroVideo'),
+        poster: val('media-heroPoster'),
+        og: val('media-ogImage'),
+        about: val('media-aboutImage')
+      };
+      data.contact = {
+        phone: val('contact-phone'),
+        phoneTel: val('contact-phoneTel'),
+        whatsapp: val('contact-whatsapp'),
+        whatsappDigits: val('contact-whatsappDigits'),
+        email: val('contact-email'),
+        address: val('contact-address'),
+        addressLine1: val('contact-addressLine1'),
+        city: val('contact-city'),
+        region: val('contact-region'),
+        postal: val('contact-postal'),
+        hours: val('contact-hours')
+      };
+      data.seo = {
+        title: val('seo-title'),
+        description: val('seo-description'),
+        keywords: val('seo-keywords'),
+        canonical: val('seo-canonical'),
+        ogTitle: val('seo-ogTitle'),
+        ogDescription: val('seo-ogDescription'),
+        ogImage: val('seo-ogImage') || val('media-ogImage'),
+        twitterTitle: val('seo-twitterTitle'),
+        twitterDescription: val('seo-twitterDescription'),
+        twitterImage: val('seo-twitterImage')
+      };
+      data.location = {
+        name: val('loc-name'),
+        city: val('loc-city'),
+        address: val('loc-address'),
+        region: val('loc-region'),
+        postal: val('loc-postal'),
+        lat: val('loc-lat'),
+        lng: val('loc-lng'),
+        geoRegion: val('loc-geoRegion')
+      };
+      data.services = collectServices();
+      data.nav = {
+        main: collectNav('main'),
+        footer: collectNav('footer'),
+        services: collectNav('services')
+      };
+      data.pages = window._pagesSeo || data.pages || {};
+      const sel = document.getElementById('pageSeoSelect');
+      if (sel) {
+        const key = sel.value;
+        const t = (document.getElementById('page-title') || {}).value || '';
+        const desc = (document.getElementById('page-description') || {}).value || '';
+        const kw = (document.getElementById('page-keywords') || {}).value || '';
+        const can = (document.getElementById('page-canonical') || {}).value || '';
+        if (!data.pages) data.pages = {};
+        if (t || desc || kw || can) {
+          data.pages[key] = { title: t.trim(), description: desc.trim(), keywords: kw.trim(), canonical: can.trim() };
+        }
+        window._pagesSeo = data.pages;
+      }
+      return data;
+    }
+
+    async function saveAll() {
+      const data = collect();
+      localStorage.setItem('teg_content', JSON.stringify(data));
+      cache = data;
+      if (serverMode) {
+        try {
+          await TEG.saveContentServer(data);
+          showToast('Saved to server ✓ — live site will pick up changes');
+          return;
+        } catch (e) {
+          showToast('Server save failed — saved locally');
+        }
+      } else showToast('Saved locally');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    async function serverUpload(input, fieldId, previewId) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      if (!serverMode) {
+        showToast('Start server (npm start) to upload files');
+        return;
+      }
+      try {
+        showToast('Uploading…');
+        const url = await TEG.uploadFile(file);
+        set(fieldId, url);
+        if (previewId) showPreview(previewId, url);
+        showToast('Uploaded — click Save All to apply');
+      } catch (e) {
+        showToast(e.message || 'Upload failed');
+      }
+    }
+
+    function renderServices(list) {
+      const box = document.getElementById('servicesList');
+      if (!box) return;
+      box.innerHTML = '';
+      (list || []).forEach((svc, i) => {
+        const div = document.createElement('div');
+        div.className = 'service-item';
+        div.innerHTML = '<button type="button" class="remove" onclick="this.parentElement.remove()">×</button>' +
+          '<div class="form-group"><label>Name</label><input class="svc-name" value="' + esc(svc.name || '') + '" /></div>' +
+          '<div class="form-group"><label>Description</label><textarea class="svc-desc" rows="2">' + esc(svc.description || '') + '</textarea></div>' +
+          '<div class="form-group"><label>Href</label><input class="svc-href" value="' + esc(svc.href || '') + '" /></div>' +
+          '<div class="form-row"><div class="form-group"><label>SEO title</label><input class="svc-seoTitle" value="' + esc(svc.seoTitle || '') + '" /></div>' +
+          '<div class="form-group"><label>SEO keywords</label><input class="svc-seoKeywords" value="' + esc(svc.seoKeywords || '') + '" /></div></div>' +
+          '<div class="form-group"><label>SEO description</label><textarea class="svc-seoDesc" rows="2">' + esc(svc.seoDescription || '') + '</textarea></div>';
+        box.appendChild(div);
+      });
+    }
+
+    function collectServices() {
+      const box = document.getElementById('servicesList');
+      if (!box) return [];
+      return Array.from(box.querySelectorAll('.service-item')).map(el => ({
+        name: el.querySelector('.svc-name').value.trim(),
+        description: el.querySelector('.svc-desc').value.trim(),
+        href: el.querySelector('.svc-href').value.trim(),
+        seoTitle: el.querySelector('.svc-seoTitle').value.trim(),
+        seoKeywords: el.querySelector('.svc-seoKeywords').value.trim(),
+        seoDescription: el.querySelector('.svc-seoDesc').value.trim()
+      }));
+    }
+
+    function addService() {
+      const list = collectServices();
+      list.push({ name: 'New service', description: '', href: 'services.html', seoTitle: '', seoKeywords: '', seoDescription: '' });
+      renderServices(list);
+    }
+
+    function navListId(cat) {
+      return cat === 'main' ? 'navMainList' : cat === 'footer' ? 'navFooterList' : 'navServicesList';
+    }
+
+    function renderNav(cat, items) {
+      const box = document.getElementById(navListId(cat));
+      if (!box) return;
+      box.innerHTML = '';
+      (items || []).forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'nav-item';
+        div.innerHTML = '<button type="button" class="remove" onclick="this.parentElement.remove()">×</button>' +
+          '<div class="form-row"><div class="form-group"><label>Label</label><input class="nav-label" value="' + esc(item.label || '') + '" /></div>' +
+          '<div class="form-group"><label>URL / href</label><input class="nav-href" value="' + esc(item.href || '') + '" /></div></div>';
+        box.appendChild(div);
+      });
+    }
+
+    function collectNav(cat) {
+      const box = document.getElementById(navListId(cat));
+      if (!box) return [];
+      return Array.from(box.querySelectorAll('.nav-item')).map(el => ({
+        label: el.querySelector('.nav-label').value.trim(),
+        href: el.querySelector('.nav-href').value.trim()
+      })).filter(x => x.label || x.href);
+    }
+
+    function addNavItem(cat) {
+      const items = collectNav(cat);
+      items.push({ label: 'New link', href: 'index.html' });
+      renderNav(cat, items);
+    }
+
+    function esc(s) {
+      return String(s || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+    }
+
+    async function loadInbox() {
+      const box = document.getElementById('inboxList');
+      if (!serverMode) {
+        box.innerHTML = '<p class="desc">Server required for inbox.</p>';
+        return;
+      }
+      try {
+        const list = await TEG.loadSubmissions();
+        if (!list.length) { box.innerHTML = '<p class="desc">No submissions yet.</p>'; return; }
+        box.innerHTML = list.map(s =>
+          '<div class="sub-card ' + (s.read ? '' : 'unread') + '"><h4>' + esc(s.name) + '</h4>' +
+          '<p>' + esc(s.phone) + ' · ' + esc(s.email) + '</p>' +
+          '<p>' + esc(s.service) + '</p><p>' + esc(s.message) + '</p>' +
+          '<p style="font-size:11px;color:#94a3b8">' + esc(s.createdAt) + '</p></div>'
+        ).join('');
+      } catch (e) {
+        box.innerHTML = '<p class="desc">Could not load inbox.</p>';
+      }
+    }
+
+    function loadPageSeoFields() {
+      window._pagesSeo = window._pagesSeo || {};
+      const sel = document.getElementById('pageSeoSelect');
+      if (!sel) return;
+      const key = sel.value;
+      const p = window._pagesSeo[key] || {};
+      const setv = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
+      setv('page-title', p.title);
+      setv('page-description', p.description);
+      setv('page-keywords', p.keywords);
+      setv('page-canonical', p.canonical);
+    }
+
+    function clearPageSeo() {
+      const sel = document.getElementById('pageSeoSelect');
+      if (!sel) return;
+      const key = sel.value;
+      window._pagesSeo = window._pagesSeo || {};
+      delete window._pagesSeo[key];
+      loadPageSeoFields();
+      showToast('Cleared override for ' + key + ' — Save All to apply');
+    }
+
+    function savePageSeoThenAll() {
+      const sel = document.getElementById('pageSeoSelect');
+      if (!sel) return saveAll();
+      const key = sel.value;
+      window._pagesSeo = window._pagesSeo || {};
+      const t = ((document.getElementById('page-title') || {}).value || '').trim();
+      const desc = ((document.getElementById('page-description') || {}).value || '').trim();
+      const kw = ((document.getElementById('page-keywords') || {}).value || '').trim();
+      const can = ((document.getElementById('page-canonical') || {}).value || '').trim();
+      if (t || desc || kw || can) {
+        window._pagesSeo[key] = { title: t, description: desc, keywords: kw, canonical: can };
+      } else {
+        delete window._pagesSeo[key];
+      }
+      return saveAll();
+    }
+
+    function exportJSON() {
+      const data = collect();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'teg-content.json';
+      a.click();
+    }
+  </script>
+</body>
+</html>
