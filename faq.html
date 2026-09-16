@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FAQ | Frequently Asked Questions | T.E.G Carpet Steam Cleaning</title>
-  <meta name="description" content="Frequently asked questions about T.E.G Carpet Steam Cleaning in Milwaukee. Pricing, products safety, drying time, furniture moving and more." />
+  <meta name="description" content="Frequently asked questions about T.E.G Carpet Steam Cleaning in Milwaukee. Pricing, product safety, drying time, furniture moving and more." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://tegcarpetsteamcleaning.com/faq.html" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="styles-extra.css" />
@@ -22,8 +23,49 @@
     .faq-item[open] summary::after { content: '\2212'; }
     .faq-item p { padding: 0 22px 18px; color: var(--gray-600); line-height: 1.7; margin: 0; }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What services does T.E.G offer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We offer carpet cleaning, tile and grout cleaning, upholstery / couch cleaning, steam cleaning, carpet stain removal, commercial carpet cleaning, area rug cleaning, pet odor & stain removal, and more across Greater Milwaukee."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does carpet cleaning cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pricing depends on the size of the area, the service type, and the condition of the carpet. We provide a clear, honest quote before we start any work. There are no hidden fees."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are your cleaning products safe for children and pets?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We use professional-grade solutions that are effective on soil and stains, and safe for children and pets once dry."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does carpet cleaning take to dry?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most carpet dries within 4 to 8 hours depending on carpet thickness, humidity, and airflow."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="page-inner">
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="header scrolled" id="header">
     <div class="container header-inner">
       <a href="index.html" class="logo"><span class="logo-mark">T.E.G</span><span class="logo-text">Carpet Steam Cleaning</span></a>
@@ -34,15 +76,20 @@
         <a href="about.html">About</a>
         <a href="faq.html" class="active">FAQ</a>
         <a href="contact.html">Contact</a>
+        <div class="nav-mobile-cta">
+          <a href="tel:+14147753705" class="phone-link phone-shake">+1 (414) 775-3705</a>
+          <a href="contact.html" class="btn btn-primary">Get a Free Quote</a>
+        </div>
       </nav>
       <div class="header-actions">
         <a href="tel:+14147753705" class="phone-link phone-shake">+1 (414) 775-3705</a>
         <a href="contact.html" class="btn btn-primary">Get a Quote</a>
-        <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
 
+  <main id="main">
   <section class="page-hero">
     <div class="container">
       <p class="section-eyebrow">Good to know</p>
@@ -139,6 +186,7 @@
       </div>
     </div>
   </section>
+  </main>
 
   <footer class="footer">
     <div class="container">
@@ -163,7 +211,7 @@
         <div class="footer-contact">
           <h4>Contact</h4>
           <a href="tel:+14147753705">+1 (414) 775-3705</a>
-          <p>Milwaukee, WI 53217</p>
+          <p>4111 N Port Washington Rd suite 1<br />Milwaukee, WI 53217</p>
         </div>
       </div>
       <div class="footer-bottom">
