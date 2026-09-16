@@ -31,6 +31,95 @@
   text-align: center;
 }
 
+/* === PREMIUM CTA BUTTONS (all pages) === */
+.btn {
+  font-weight: 700 !important;
+  letter-spacing: 0.01em;
+  border-radius: 12px !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease !important;
+}
+.btn-primary {
+  background: linear-gradient(180deg, #ffb84d 0%, #f5a623 55%, #e09415 100%) !important;
+  color: #1a1a1a !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(245, 166, 35, 0.4), inset 0 1px 0 rgba(255,255,255,0.35) !important;
+}
+.btn-primary:hover {
+  background: linear-gradient(180deg, #ffc266 0%, #f5a623 50%, #d98910 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(245, 166, 35, 0.5), inset 0 1px 0 rgba(255,255,255,0.4) !important;
+}
+.btn-primary:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 8px rgba(245, 166, 35, 0.35) !important;
+}
+.btn-lg {
+  padding: 16px 28px !important;
+  font-size: 16px !important;
+  min-height: 52px;
+}
+.btn-outline,
+.btn-outline-white {
+  background: rgba(255,255,255,0.12) !important;
+  border: 2px solid rgba(255,255,255,0.85) !important;
+  color: #fff !important;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12) !important;
+}
+.btn-outline:hover,
+.btn-outline-white:hover {
+  background: rgba(255,255,255,0.22) !important;
+  border-color: #fff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18) !important;
+}
+
+/* Light backgrounds: navy outline for Call button */
+.svc-hero .btn-outline,
+.page-hero + * .btn-outline,
+.section .btn-outline {
+  background: #fff !important;
+  border: 2px solid #0a3d6b !important;
+  color: #0a3d6b !important;
+  box-shadow: 0 2px 10px rgba(10, 61, 107, 0.1) !important;
+}
+.svc-hero .btn-outline:hover,
+.section .btn-outline:hover {
+  background: #0a3d6b !important;
+  color: #fff !important;
+  border-color: #0a3d6b !important;
+}
+
+.cta-actions,
+.svc-hero-ctas,
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+.cta-banner {
+  background: linear-gradient(135deg, #041e36 0%, #0a3d6b 45%, #0284c7 100%) !important;
+  padding: 72px 0 !important;
+}
+.cta-banner h2 {
+  font-weight: 800 !important;
+  letter-spacing: -0.02em;
+}
+.cta-banner p {
+  opacity: 0.9;
+  margin-bottom: 28px !important;
+}
+.cta-actions {
+  justify-content: center;
+}
+.cta-actions .btn-primary {
+  min-width: 220px;
+}
+.cta-actions .btn-outline-white {
+  min-width: 200px;
+}
+
 /* === VIDEO: no zoom anywhere === */
 .hero-video-wrap {
   overflow: hidden !important;
@@ -233,7 +322,7 @@ body.menu-open { overflow: hidden; }
   }
   .hero-trust { display: none !important; }
 
-  /* ===== GLOBAL CTA FIX — all pages ===== */
+  /* Premium mobile CTAs — full width, big tap targets */
   .hero-ctas,
   .cta-actions,
   .svc-hero-ctas,
@@ -241,10 +330,8 @@ body.menu-open { overflow: hidden; }
     display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
-    gap: 10px !important;
+    gap: 12px !important;
     width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
   }
   .hero-ctas .btn,
   .cta-actions .btn,
@@ -252,37 +339,55 @@ body.menu-open { overflow: hidden; }
   .svc-cta-actions .btn,
   .cta-banner .btn,
   .svc-hero .btn,
-  a.btn.btn-lg,
-  a.btn.btn-primary.btn-lg,
-  a.btn.btn-outline.btn-lg,
-  a.btn.btn-outline-white.btn-lg {
+  a.btn.btn-lg {
     display: flex !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    margin: 0 !important;
     justify-content: center !important;
     align-items: center !important;
-    padding: 14px 16px !important;
-    font-size: 15px !important;
+    padding: 16px 18px !important;
+    min-height: 52px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
     white-space: normal !important;
     text-align: center !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
   }
-  .hero-ctas .btn-primary {
-    background: #f5a623 !important;
+  .hero-ctas .btn-primary,
+  .cta-actions .btn-primary,
+  .svc-hero-ctas .btn-primary {
+    background: linear-gradient(180deg, #ffb84d 0%, #f5a623 55%, #e09415 100%) !important;
     color: #1a1a1a !important;
     border: none !important;
+    box-shadow: 0 6px 18px rgba(245, 166, 35, 0.45) !important;
   }
   .hero-ctas .btn-outline {
-    background: transparent !important;
-    border: 2px solid rgba(255,255,255,0.65) !important;
+    background: rgba(255,255,255,0.15) !important;
+    border: 2px solid rgba(255,255,255,0.9) !important;
     color: #fff !important;
   }
   .svc-hero-ctas .btn-outline {
-    border-color: #0a3d6b !important;
+    background: #fff !important;
+    border: 2px solid #0a3d6b !important;
     color: #0a3d6b !important;
+  }
+  .cta-actions .btn-outline-white {
+    background: rgba(255,255,255,0.12) !important;
+    border: 2px solid rgba(255,255,255,0.9) !important;
+    color: #fff !important;
+  }
+  .cta-banner {
+    padding: 52px 0 !important;
+  }
+  .cta-banner h2 {
+    font-size: 22px !important;
+    margin-bottom: 10px !important;
+  }
+  .cta-banner p {
+    font-size: 14px !important;
+    margin-bottom: 22px !important;
   }
 
   .mobile-trust {
@@ -364,9 +469,6 @@ body.menu-open { overflow: hidden; }
     flex-direction: column !important;
     gap: 12px !important;
   }
-
-  .cta-banner { padding: 48px 0 !important; }
-  .cta-banner h2 { font-size: 22px !important; }
 
   .contact-grid {
     grid-template-columns: 1fr !important;
