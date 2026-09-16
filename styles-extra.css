@@ -30,6 +30,13 @@
   background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 40%, #ffffff 100%);
   text-align: center;
 }
+.page-hero .hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 24px;
+}
 
 /* Hiddekel-style CTA banner */
 .cta-banner {
@@ -176,6 +183,96 @@ body.menu-open { overflow: hidden; }
 .hero-content { position: relative; z-index: 2; }
 .mobile-trust { display: none; }
 
+/* ===== City page: Neighborhoods ===== */
+.neighborhoods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+.neighborhood-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px 20px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.neighborhood-card:hover {
+  border-color: #0ea5e9;
+  box-shadow: 0 8px 24px rgba(14,165,233,0.1);
+}
+.neighborhood-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--heading, #0f172a);
+  margin: 0 0 8px;
+}
+.neighborhood-card p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ===== City page: Neighboring area pills ===== */
+.neighbor-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 24px;
+}
+.neighbor-pill {
+  display: inline-block;
+  background: #f1f5f9;
+  color: #0a3d6b;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.neighbor-pill:hover {
+  background: #0ea5e9;
+  border-color: #0ea5e9;
+  color: #fff;
+}
+
+/* ===== City page: Before / After ===== */
+.before-after-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 28px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ba-card {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  color: #64748b;
+}
+.ba-card strong {
+  display: block;
+  font-size: 15px;
+  color: #0a3d6b;
+  margin-bottom: 6px;
+}
+.ba-card span {
+  font-size: 13px;
+}
+
+/* ===== Mobile nav CTA block ===== */
+.nav-mobile-cta {
+  display: none;
+}
+
 /* ========== MOBILE ========== */
 @media (max-width: 768px) {
   :root { --header-h: 56px; }
@@ -238,6 +335,30 @@ body.menu-open { overflow: hidden; }
     border-bottom: 1px solid #f1f5f9 !important;
   }
   .nav a::after { display: none !important; }
+
+  /* Phone + CTA inside mobile menu */
+  .nav-mobile-cta {
+    display: flex !important;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+  }
+  .nav-mobile-cta .phone-link {
+    display: block !important;
+    color: #0a3d6b !important;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
+    padding: 12px;
+  }
+  .nav-mobile-cta .btn-primary {
+    display: flex !important;
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
 
   .hero {
     position: relative !important;
@@ -382,6 +503,9 @@ body.menu-open { overflow: hidden; }
   .page-hero { padding: 100px 0 36px !important; }
   .svc-hero { padding: 100px 0 36px !important; }
   .svc-hero h1 { font-size: 24px !important; }
+
+  .before-after-grid { grid-template-columns: 1fr !important; }
+  .neighborhoods-grid { grid-template-columns: 1fr !important; }
 
   .whatsapp-float { width: 52px !important; height: 52px !important; bottom: 16px !important; right: 16px !important; }
 }
