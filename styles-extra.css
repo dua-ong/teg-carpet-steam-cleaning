@@ -30,7 +30,7 @@
   text-align: center;
 }
 
-/* No video zoom - base override */
+/* No video zoom */
 .hero-video-wrap {
   overflow: hidden !important;
   background: #0a3d6b;
@@ -50,6 +50,51 @@ video.hero-video {
 @keyframes heroZoom {
   from { transform: none; }
   to { transform: none; }
+}
+
+/* Home Areas section - Hiddekel style */
+.home-areas {
+  background: linear-gradient(180deg, #062a4a 0%, #0a3d6b 100%);
+  color: #fff;
+  padding: 80px 0;
+}
+.home-areas .section-eyebrow {
+  color: #7dd3fc;
+}
+.home-areas .section-title {
+  color: #fff;
+}
+.home-areas .section-desc {
+  color: rgba(255,255,255,0.85);
+}
+.home-areas-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 820px;
+  margin: 0 auto 28px;
+}
+.home-areas .area-chip {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: background 0.25s, transform 0.25s, border-color 0.25s;
+  text-decoration: none;
+}
+.home-areas .area-chip:hover {
+  background: #0ea5e9;
+  border-color: #0ea5e9;
+  transform: translateY(-2px);
+  color: #fff;
+}
+.home-areas-cta {
+  text-align: center;
 }
 
 .menu-toggle { z-index: 1002; position: relative; }
@@ -94,30 +139,20 @@ body.menu-open { overflow: hidden; }
   .phone-link { display: none !important; }
   .header .btn-primary { display: none !important; }
 
-  /* Hero ~ half viewport like Hiddekel mobile */
   .hero {
     min-height: 52vh !important;
     max-height: 56vh !important;
     align-items: flex-end !important;
   }
-  .hero-content {
-    padding: 20px 16px 18px !important;
-  }
+  .hero-content { padding: 20px 16px 18px !important; }
   .hero-title { font-size: 26px !important; }
-  .hero-desc {
-    font-size: 14px !important;
-    margin-bottom: 14px !important;
-  }
-  .hero-ctas {
-    flex-direction: column !important;
-    gap: 10px !important;
-    margin-bottom: 10px !important;
-  }
+  .hero-desc { font-size: 14px !important; margin-bottom: 14px !important; }
+  .hero-ctas { flex-direction: column !important; gap: 10px !important; margin-bottom: 10px !important; }
   .hero-ctas .btn { width: 100% !important; }
-  .hero-video {
-    animation: none !important;
-    transform: none !important;
-  }
+  .hero-video { animation: none !important; transform: none !important; }
+
+  .home-areas { padding: 48px 0 !important; }
+  .home-areas .area-chip { font-size: 13px; padding: 9px 14px; }
 
   .section { padding: 48px 0 !important; }
   .services-grid { grid-template-columns: 1fr !important; }
