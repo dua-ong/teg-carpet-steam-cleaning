@@ -1,75 +1,129 @@
 {
+  "branding": {
+    "siteName": "T.E.G Carpet & Furniture Steam Cleaning",
+    "logoMark": "T.E.G",
+    "logoText": "Carpet Steam Cleaning",
+    "logoUrl": "",
+    "faviconUrl": ""
+  },
   "seo": {
     "title": "T.E.G Carpet Steam Cleaning | Professional Carpet & Furniture Cleaning in Milwaukee",
-    "description": "Professional carpet, couch, tile & steam cleaning services by T.E.G in Milwaukee, WI.",
-    "keywords": "carpet cleaning Milwaukee, steam cleaning, tile grout cleaning, couch cleaning",
+    "description": "Professional carpet, couch, tile & steam cleaning services by T.E.G Carpet & Furniture Steam Cleaning in Milwaukee, WI. Serving 12 western suburbs.",
+    "keywords": "carpet cleaning Milwaukee, steam cleaning Milwaukee, tile grout cleaning, couch cleaning, upholstery cleaning, pet odor removal, commercial carpet cleaning Wauwatosa Brookfield",
     "canonical": "https://tegcarpetsteamcleaning.com/",
     "ogTitle": "T.E.G Carpet Steam Cleaning | Milwaukee",
-    "ogDescription": "Professional carpet & steam cleaning in Milwaukee, WI.",
-    "ogImage": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80",
+    "ogDescription": "Professional carpet & steam cleaning in Milwaukee, WI. Upfront pricing, kid & pet safe.",
+    "ogImage": "",
     "twitterTitle": "T.E.G Carpet Steam Cleaning | Milwaukee",
     "twitterDescription": "Professional carpet & steam cleaning in Milwaukee, WI.",
-    "twitterImage": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80"
+    "twitterImage": ""
   },
   "media": {
-    "video": "https://videos.pexels.com/video-files/6195186/6195186-uhd_2560_1440_25fps.mp4",
-    "poster": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1920&q=80",
-    "og": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80",
-    "about": ""
+    "heroVideo": "",
+    "heroPoster": "",
+    "ogImage": "",
+    "aboutImage": "",
+    "logo": "",
+    "favicon": ""
+  },
+  "contact": {
+    "phone": "+1 (414) 775-3705",
+    "phoneTel": "+14147753705",
+    "whatsapp": "+1 (618) 434-0858",
+    "whatsappDigits": "16184340858",
+    "email": "contact@teg-carpetsteamcleaning.com",
+    "address": "4111 N Port Washington Rd suite 1, Milwaukee, WI 53217",
+    "addressLine1": "4111 N Port Washington Rd suite 1",
+    "city": "Milwaukee",
+    "region": "WI",
+    "postal": "53217",
+    "hours": "Monday – Sunday 08:00 AM – 07:00 PM"
+  },
+  "location": {
+    "name": "T.E.G Carpet & Furniture Steam Cleaning",
+    "city": "Milwaukee",
+    "address": "4111 N Port Washington Rd suite 1, Milwaukee, WI 53217, United States",
+    "region": "WI",
+    "postal": "53217",
+    "lat": "43.0895",
+    "lng": "-87.8910",
+    "geoRegion": "US-WI"
+  },
+  "nav": {
+    "main": [
+      { "label": "Home", "href": "index.html" },
+      { "label": "Services", "href": "services.html" },
+      { "label": "Areas We Serve", "href": "areas.html" },
+      { "label": "About", "href": "about.html" },
+      { "label": "FAQ", "href": "faq.html" },
+      { "label": "Contact", "href": "contact.html" }
+    ],
+    "footer": [
+      { "label": "Home", "href": "index.html" },
+      { "label": "Services", "href": "services.html" },
+      { "label": "Areas We Serve", "href": "areas.html" },
+      { "label": "About", "href": "about.html" },
+      { "label": "FAQ", "href": "faq.html" },
+      { "label": "Contact", "href": "contact.html" }
+    ],
+    "services": [
+      { "label": "Carpet Cleaning", "href": "service-carpet-cleaning.html" },
+      { "label": "Tile & Grout", "href": "service-tile-grout.html" },
+      { "label": "Upholstery", "href": "service-couch-cleaning.html" },
+      { "label": "Steam Cleaning", "href": "service-steam-cleaning.html" },
+      { "label": "Pet Odor & Stain", "href": "service-stain-removal.html" },
+      { "label": "Commercial", "href": "service-commercial.html" }
+    ]
   },
   "services": [
     {
       "name": "Carpet Cleaning",
       "description": "Deep extraction carpet cleaning that restores color, softness, and freshness.",
+      "href": "service-carpet-cleaning.html",
       "seoTitle": "Carpet Cleaning Milwaukee | T.E.G",
-      "seoDescription": "Professional carpet cleaning in Milwaukee, WI."
+      "seoDescription": "Professional carpet cleaning in Milwaukee, WI. Hot water extraction, upfront pricing.",
+      "seoKeywords": "carpet cleaning Milwaukee, deep carpet clean, hot water extraction"
     },
     {
       "name": "Tile & Grout Cleaning",
       "description": "Powerful cleaning for tile and grout. Restores shine and hygiene.",
-      "seoTitle": "Tile & Grout Cleaning Milwaukee",
-      "seoDescription": "Tile and grout cleaning in Milwaukee by T.E.G."
+      "href": "service-tile-grout.html",
+      "seoTitle": "Tile & Grout Cleaning Milwaukee | T.E.G",
+      "seoDescription": "Tile and grout cleaning in Milwaukee by T.E.G.",
+      "seoKeywords": "tile cleaning Milwaukee, grout cleaning"
     },
     {
-      "name": "Couch Cleaning",
+      "name": "Upholstery / Couch Cleaning",
       "description": "Upholstery and sofa cleaning for stains, dust, allergens and odors.",
+      "href": "service-couch-cleaning.html",
       "seoTitle": "Couch Cleaning Milwaukee | T.E.G",
-      "seoDescription": "Professional couch cleaning in Milwaukee."
+      "seoDescription": "Professional couch and upholstery cleaning in Milwaukee.",
+      "seoKeywords": "couch cleaning Milwaukee, upholstery cleaning"
     },
     {
       "name": "Steam Cleaning",
       "description": "High-temperature steam sanitizes carpets and surfaces naturally.",
+      "href": "service-steam-cleaning.html",
       "seoTitle": "Steam Cleaning Milwaukee | T.E.G",
-      "seoDescription": "Steam carpet cleaning in Milwaukee."
+      "seoDescription": "Steam carpet cleaning in Milwaukee.",
+      "seoKeywords": "steam cleaning Milwaukee"
     },
     {
-      "name": "Carpet Stain Removal",
-      "description": "Specialized treatment for coffee, wine, ink and pet accidents.",
-      "seoTitle": "Carpet Stain Removal Milwaukee",
-      "seoDescription": "Expert carpet stain removal in Milwaukee, WI."
+      "name": "Pet Odor & Stain Removal",
+      "description": "Specialized treatment for pet accidents and set-in stains.",
+      "href": "service-stain-removal.html",
+      "seoTitle": "Pet Odor & Stain Removal Milwaukee | T.E.G",
+      "seoDescription": "Expert pet odor and carpet stain removal in Milwaukee, WI.",
+      "seoKeywords": "pet odor removal Milwaukee, carpet stain removal"
     },
     {
       "name": "Commercial Carpet Cleaning",
       "description": "Reliable cleaning for offices, shops and commercial properties.",
-      "seoTitle": "Commercial Carpet Cleaning Milwaukee",
-      "seoDescription": "Commercial carpet cleaning in Milwaukee."
+      "href": "service-commercial.html",
+      "seoTitle": "Commercial Carpet Cleaning Milwaukee | T.E.G",
+      "seoDescription": "Commercial carpet cleaning in Milwaukee.",
+      "seoKeywords": "commercial carpet cleaning Milwaukee"
     }
   ],
-  "location": {
-    "name": "T.E.G Carpet Steam Cleaning",
-    "city": "Milwaukee",
-    "address": "4111 N Port Washington Rd suite 1, Milwaukee, WI 53217, United States",
-    "region": "WI",
-    "postal": "53217",
-    "lat": "43.118",
-    "lng": "-87.906",
-    "geoRegion": "US-WI"
-  },
-  "contact": {
-    "phone": "+1 (414) 775-3705",
-    "whatsapp": "16184340858",
-    "email": "contact@teg-carpetsteamcleaning.com",
-    "address": "4111 N Port Washington Rd suite 1, Milwaukee, WI 53217, United States",
-    "hours": "Monday – Sunday 08:00 AM – 07:00 PM"
-  }
+  "pages": {}
 }
