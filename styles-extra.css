@@ -153,10 +153,12 @@ a:focus-visible {
   color: #0a3d6b !important;
 }
 
-/* === VIDEO: no zoom; stronger overlay for AA contrast on hero text === */
+/* === HOMEPAGE HERO: video only — no stock poster image ===
+   Solid navy while video buffers, then fade video in */
 .hero-video-wrap {
   overflow: hidden !important;
-  background: #0a3d6b !important;
+  background: #062a4a !important;
+  background-image: none !important;
   z-index: 0 !important;
 }
 .hero-video,
@@ -167,6 +169,13 @@ video.hero-video {
   object-position: center center !important;
   transform: none !important;
   animation: none !important;
+  /* Hide until first frame is ready — no poster flash */
+  opacity: 0 !important;
+  transition: opacity 0.45s ease !important;
+}
+.hero-video.is-ready,
+video.hero-video.is-ready {
+  opacity: 1 !important;
 }
 .hero-overlay {
   background: linear-gradient(180deg, rgba(6,42,74,0.35) 0%, rgba(6,42,74,0.45) 40%, rgba(6,42,74,0.85) 100%) !important;
@@ -550,4 +559,5 @@ body.menu-open { overflow: hidden; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  .hero-video, video.hero-video { opacity: 1 !important; transition: none !important; }
 }
