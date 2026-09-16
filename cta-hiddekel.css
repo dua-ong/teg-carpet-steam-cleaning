@@ -1,0 +1,89 @@
+/* Hiddekel-style CTA banner */
+.cta-banner {
+  background: #0a2540 !important;
+  background-image: none !important;
+  padding: 56px 0 !important;
+  text-align: left !important;
+  color: #fff !important;
+}
+.cta-banner::before { display: none !important; }
+.cta-banner .container {
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-banner h2 {
+  font-size: clamp(26px, 4vw, 34px) !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  color: #fff !important;
+  margin-bottom: 14px !important;
+}
+.cta-banner p {
+  font-size: 16px !important;
+  line-height: 1.55 !important;
+  color: rgba(255,255,255,0.78) !important;
+  margin-bottom: 28px !important;
+  max-width: 520px;
+  opacity: 1 !important;
+}
+.cta-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+}
+.cta-banner .btn,
+.cta-actions .btn {
+  display: inline-flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 14px 28px !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  border-radius: 10px !important;
+  min-width: 200px;
+  box-shadow: none !important;
+  text-decoration: none !important;
+}
+.cta-banner .btn-primary,
+.cta-actions .btn-primary {
+  background: #f5a623 !important;
+  background-image: none !important;
+  color: #1a1a1a !important;
+  border: none !important;
+}
+.cta-banner .btn-primary:hover {
+  background: #e09415 !important;
+  transform: none !important;
+}
+.cta-banner .btn-outline-white,
+.cta-actions .btn-outline-white {
+  background: transparent !important;
+  border: 2px solid rgba(255,255,255,0.55) !important;
+  color: #fff !important;
+}
+.cta-banner .btn-outline-white:hover {
+  background: rgba(255,255,255,0.1) !important;
+  border-color: #fff !important;
+  transform: none !important;
+}
+@media (max-width: 768px) {
+  .cta-banner {
+    padding: 40px 0 !important;
+    text-align: left !important;
+    background: #0a2540 !important;
+  }
+  .cta-banner .container { padding: 0 20px !important; }
+  .cta-banner h2 { font-size: 24px !important; }
+  .cta-banner p { font-size: 15px !important; margin-bottom: 24px !important; }
+  .cta-actions {
+    align-items: stretch !important;
+    width: 100% !important;
+  }
+  .cta-banner .btn,
+  .cta-actions .btn {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
