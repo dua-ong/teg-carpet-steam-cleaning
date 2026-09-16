@@ -1,38 +1,42 @@
-# T.E.G Carpet Steam Cleaning — Website + Admin
+# T.E.G Carpet Steam Cleaning — Complete Website
 
-Premium modern website for **T.E.G Carpet Steam Cleaning** (Milwaukee, WI).
+Premium multi-page website for **T.E.G Carpet & Furniture Steam Cleaning** (Milwaukee, WI).
 
-## Live files
-- `index.html` — main website
-- `styles.css` — styles
-- `script.js` — interactions & animations
-- `admin.html` — **basic single-user content panel**
-- `content.json` — editable content snapshot
+## Pages
+| File | Description |
+|------|-------------|
+| `index.html` | Homepage — video hero, services, why us, process, about, contact |
+| `services.html` | All 6 services with company-style image cards |
+| `about.html` | Company story |
+| `contact.html` | Contact info + quote form |
+| `areas.html` | Areas We Serve (Milwaukee region) |
+| `admin.html` | Content panel (SEO, media, services) |
 
-## Admin Panel (for single person)
+## Features
+- Sky blue + yellow brand theme
+- Premium scroll animations
+- Phone link with attention shake
+- Floating WhatsApp button
+- Full SEO: meta, Open Graph, Twitter, geo, JSON-LD LocalBusiness
+- `robots.txt` + `sitemap.xml`
+- Quote form opens email to `contact@teg-carpetsteamcleaning.com`
+- Fully responsive
 
-Open **`admin.html`** in the browser.
+## Admin Panel
+Open `admin.html` → password: **teg2026**
 
-**Default password:** `teg2026`
+Edit SEO/OG, media (upload or URL), services + SEO, location, contact → **Save All** → **Export JSON** → send to developer.
 
-### What you can edit
-- SEO title, description, keywords
-- Hero video & poster image URLs
-- Services / categories (add, edit, remove)
-- Contact phone, WhatsApp, email, address, hours
+## Business info
+- **Phone:** +1 (414) 775-3705
+- **WhatsApp:** +1 (618) 434-0858
+- **Email:** contact@teg-carpetsteamcleaning.com
+- **Address:** 4111 N Port Washington Rd suite 1, Milwaukee, WI 53217
+- **Hours:** Mon–Sun 8:00 AM – 7:00 PM
 
-### How to update the live site
-1. Login to `admin.html`
-2. Make changes → click **Save All**
-3. Click **Export JSON** → `teg-content.json` downloads
-4. Send that file to the developer
-5. Developer updates the website files
+## How to view
+1. Download ZIP from GitHub
+2. Open `index.html` in browser
 
-This is intentionally simple (no server required). Data is stored in browser localStorage until you export.
-
-## Contact (source of truth)
-- Phone: +1 (414) 775-3705
-- Email: contact@teg-carpetsteamcleaning.com
-- Address: 4111 N Port Washington Rd suite 1, Milwaukee, WI 53217
-
-Repo: private — [dua-ong/teg-carpet-steam-cleaning](https://github.com/dua-ong/teg-carpet-steam-cleaning)
+## Deploy
+Upload all files to any static host (Netlify, Vercel, cPanel, etc.). Point domain to the folder containing `index.html`.
