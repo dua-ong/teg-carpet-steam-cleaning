@@ -7,6 +7,37 @@
   document.head.appendChild(s);
 })();
 
+// Hero video: no poster image — dark bg until video is ready, then fade in + play
+(function initHeroVideo() {
+  var hv = document.getElementById('heroVideo') || document.querySelector('video.hero-video');
+  if (!hv) return;
+  // Never keep a stock poster flash on homepage
+  hv.removeAttribute('poster');
+
+  function markReady() {
+    hv.classList.add('is-ready');
+    var p = hv.play();
+    if (p && typeof p.catch === 'function') p.catch(function () {});
+  }
+
+  if (hv.readyState >= 2) {
+    markReady();
+  } else {
+    hv.addEventListener('loadeddata', markReady, { once: true });
+    hv.addEventListener('canplay', markReady, { once: true });
+    hv.addEventListener('playing', markReady, { once: true });
+  }
+  // Retry play on first user gesture (iOS autoplay policies)
+  function unlock() {
+    hv.muted = true;
+    markReady();
+    document.removeEventListener('touchstart', unlock);
+    document.removeEventListener('click', unlock);
+  }
+  document.addEventListener('touchstart', unlock, { once: true, passive: true });
+  document.addEventListener('click', unlock, { once: true });
+})();
+
 // Header scroll
 const header = document.getElementById('header');
 const menuToggle = document.getElementById('menuToggle');

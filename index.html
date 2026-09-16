@@ -7,10 +7,14 @@
   <meta name="description" content="Professional carpet, couch, tile & steam cleaning services by T.E.G Carpet & Furniture Steam Cleaning in Milwaukee, WI. Serving 12 western suburbs." />
   <link rel="canonical" href="https://tegcarpetsteamcleaning.com/" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="styles-extra.css" />
   <link rel="stylesheet" href="services-cards.css" />
+  <!-- Preload hero video so it starts sooner on mobile -->
+  <link rel="preload" href="media/hero.mp4" as="video" type="video/mp4" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -70,14 +74,15 @@
       <div class="header-actions">
         <a href="tel:+14147753705" class="phone-link phone-shake">+1 (414) 775-3705</a>
         <a href="contact.html" class="btn btn-primary">Get a Quote</a>
-        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
 
+  <!-- Homepage hero: video only (no stock poster image). Dark navy shows until video is ready. -->
   <section class="hero">
     <div class="hero-video-wrap">
-      <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=70">
+      <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto">
         <source src="media/hero.mp4" type="video/mp4" />
       </video>
       <div class="hero-overlay"></div>
