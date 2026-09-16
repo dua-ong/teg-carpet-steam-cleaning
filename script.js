@@ -1,3 +1,12 @@
+// Load CMS config applicator (panel uploads / SEO / NAP / logo override HTML defaults when set)
+(function loadSiteConfig() {
+  if (window.TEG_SITE) return;
+  var s = document.createElement('script');
+  s.src = 'site-config.js';
+  s.async = false;
+  document.head.appendChild(s);
+})();
+
 // Header scroll
 const header = document.getElementById('header');
 const menuToggle = document.getElementById('menuToggle');
