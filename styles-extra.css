@@ -169,7 +169,6 @@ video.hero-video {
   object-position: center center !important;
   transform: none !important;
   animation: none !important;
-  /* Hide until first frame is ready — no poster flash */
   opacity: 0 !important;
   transition: opacity 0.45s ease !important;
 }
@@ -320,26 +319,37 @@ body.menu-open { overflow: hidden; }
     max-width: 100vw !important;
   }
 
-  body:not(.page-inner) .header,
+  /* Homepage mobile navbar: frosted glass over hero (not fully transparent) */
+  body:not(.page-inner) .header {
+    height: var(--header-h) !important;
+    background: rgba(6, 42, 74, 0.72) !important;
+    background-color: rgba(6, 42, 74, 0.72) !important;
+    backdrop-filter: blur(14px) saturate(1.15) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(1.15) !important;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  body:not(.page-inner) .header.scrolled {
+    background: rgba(255, 255, 255, 0.96) !important;
+    background-color: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  /* Fallback for other pages if needed */
   .header {
     height: var(--header-h) !important;
-    background: transparent !important;
-    background-color: transparent !important;
-    backdrop-filter: none !important;
-    box-shadow: none !important;
   }
-  .header.scrolled {
-    background: rgba(255,255,255,0.97) !important;
-    backdrop-filter: blur(12px) !important;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.08) !important;
-  }
+
   .header-inner { padding: 0 14px !important; }
-  .logo-mark { font-size: 17px !important; color: #ffffff !important; }
-  .header.scrolled .logo-mark { color: #0ea5e9 !important; }
+  body:not(.page-inner) .logo-mark { font-size: 17px !important; color: #ffffff !important; }
+  body:not(.page-inner) .header.scrolled .logo-mark { color: #0ea5e9 !important; }
   .logo-text { display: none !important; }
   .menu-toggle { display: flex !important; padding: 8px; }
-  .menu-toggle span { background: #fff !important; width: 20px; }
-  .header.scrolled .menu-toggle span { background: #0a3d6b !important; }
+  body:not(.page-inner) .menu-toggle span { background: #fff !important; width: 20px; }
+  body:not(.page-inner) .header.scrolled .menu-toggle span { background: #0a3d6b !important; }
   .phone-link,
   .header .btn-primary { display: none !important; }
 
@@ -534,7 +544,11 @@ body.menu-open { overflow: hidden; }
   .contact-grid { grid-template-columns: 1fr !important; }
   .form-row { grid-template-columns: 1fr !important; }
 
-  .page-inner .header { background: #fff !important; }
+  .page-inner .header {
+    background: #fff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
   .page-inner .logo-mark { color: #0ea5e9 !important; }
   .page-inner .menu-toggle span { background: #0a3d6b !important; }
   .page-hero { padding: 100px 0 36px !important; }
