@@ -12,13 +12,44 @@ if (header) {
   }
 }
 
+// Mobile menu
 if (menuToggle && nav) {
-  menuToggle.addEventListener('click', () => {
-    nav.classList.toggle('open');
-    menuToggle.classList.toggle('active');
+  function closeMenu() {
+    nav.classList.remove('open');
+    menuToggle.classList.remove('active');
+    document.body.classList.remove('menu-open');
+  }
+
+  function openMenu() {
+    nav.classList.add('open');
+    menuToggle.classList.add('active');
+    document.body.classList.add('menu-open');
+  }
+
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (nav.classList.contains('open')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   });
+
+  // Close when any nav link is clicked
   nav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => nav.classList.remove('open'));
+    link.addEventListener('click', () => closeMenu());
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('open') && !nav.contains(e.target) && !menuToggle.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
   });
 }
 
