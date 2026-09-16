@@ -12,19 +12,29 @@ if (header) {
   }
 }
 
-// Mobile menu
+// Mobile menu (keyboard + ARIA)
 if (menuToggle && nav) {
+  function setMenuState(open) {
+    nav.classList.toggle('open', open);
+    menuToggle.classList.toggle('active', open);
+    document.body.classList.toggle('menu-open', open);
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) {
+      const first = nav.querySelector('a');
+      if (first) first.focus();
+    }
+  }
+
   function closeMenu() {
-    nav.classList.remove('open');
-    menuToggle.classList.remove('active');
-    document.body.classList.remove('menu-open');
+    setMenuState(false);
   }
 
   function openMenu() {
-    nav.classList.add('open');
-    menuToggle.classList.add('active');
-    document.body.classList.add('menu-open');
+    setMenuState(true);
   }
+
+  menuToggle.setAttribute('aria-expanded', 'false');
+  menuToggle.setAttribute('aria-controls', 'nav');
 
   menuToggle.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -35,19 +45,16 @@ if (menuToggle && nav) {
     }
   });
 
-  // Close when any nav link is clicked
   nav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => closeMenu());
   });
 
-  // Close when clicking outside
   document.addEventListener('click', (e) => {
     if (nav.classList.contains('open') && !nav.contains(e.target) && !menuToggle.contains(e.target)) {
       closeMenu();
     }
   });
 
-  // Close on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMenu();
   });
@@ -56,12 +63,10 @@ if (menuToggle && nav) {
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// API base — same origin when running on Node server; empty for static
 const API_BASE = window.location.port === '3000' || window.TEG_API
   ? (window.TEG_API || '')
   : '';
 
-// Quote form → backend API (fallback mailto if API offline)
 const form = document.getElementById('quoteForm');
 if (form) {
   form.addEventListener('submit', async (e) => {
@@ -94,7 +99,6 @@ if (form) {
       }
       throw new Error(data.error || 'Server error');
     } catch (err) {
-      // Fallback: open email client
       const subject = encodeURIComponent('Quote Request — T.E.G Carpet Cleaning');
       const body = encodeURIComponent(
         'Name: ' + name + '\nPhone: ' + phone + '\nEmail: ' + email +
@@ -110,7 +114,6 @@ if (form) {
   });
 }
 
-// Scroll animations
 const scrollObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add('visible');
