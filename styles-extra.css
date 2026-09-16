@@ -163,6 +163,24 @@ body.menu-open {
   overflow: hidden;
 }
 
+/* ===== CTA buttons base improvements ===== */
+.cta-actions,
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.cta-actions .btn,
+.hero-ctas .btn {
+  min-height: 48px;
+  padding: 14px 24px;
+  font-size: 15px;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.3;
+}
+
 @media (max-width: 768px) {
   .nav {
     position: fixed !important;
@@ -215,21 +233,47 @@ body.menu-open {
     padding: 120px 0 48px !important;
   }
   .hero-content {
-    padding: 48px 20px !important;
+    padding: 48px 16px !important;
   }
   .hero-title {
-    font-size: 32px !important;
+    font-size: 30px !important;
     line-height: 1.15 !important;
   }
   .hero-desc {
     font-size: 15px !important;
+    margin-bottom: 28px !important;
   }
-  .hero-ctas {
+
+  /* ===== CTA FIX MOBILE ===== */
+  .hero-ctas,
+  .cta-actions {
     flex-direction: column !important;
-  }
-  .hero-ctas .btn {
+    align-items: stretch !important;
     width: 100% !important;
+    gap: 12px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
+  .hero-ctas .btn,
+  .cta-actions .btn {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 50px !important;
+    padding: 14px 20px !important;
+    font-size: 15px !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+  /* Remove any inline margin-left that breaks layout */
+  .cta-actions .btn + .btn,
+  .hero-ctas .btn + .btn,
+  a.btn[style*="margin-left"] {
+    margin-left: 0 !important;
+  }
+
   .section {
     padding: 60px 0 !important;
   }
@@ -255,14 +299,6 @@ body.menu-open {
     flex-direction: column !important;
     text-align: center !important;
   }
-  .cta-actions {
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-  .cta-actions .btn {
-    width: 100% !important;
-    max-width: 320px !important;
-  }
   .whatsapp-float {
     width: 52px !important;
     height: 52px !important;
@@ -275,17 +311,35 @@ body.menu-open {
   .container {
     padding: 0 16px !important;
   }
+
+  /* Area page CTAs */
+  .section a.btn {
+    display: inline-flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: center !important;
+    margin-left: 0 !important;
+    margin-bottom: 12px !important;
+  }
+  .section a.btn + a.btn {
+    margin-left: 0 !important;
+  }
 }
 
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 28px !important;
+    font-size: 26px !important;
   }
   .section-title {
-    font-size: 24px !important;
+    font-size: 22px !important;
   }
   .hero-trust {
     flex-direction: column !important;
     gap: 10px !important;
+  }
+  .hero-ctas .btn,
+  .cta-actions .btn {
+    font-size: 14px !important;
+    padding: 13px 16px !important;
   }
 }
