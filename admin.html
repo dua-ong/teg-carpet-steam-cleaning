@@ -69,7 +69,6 @@
       <p>Backend panel — SEO, media, quotes</p>
       <input type="password" id="password" placeholder="Password" />
       <button class="btn btn-primary" onclick="login()">Login</button>
-      <p style="margin-top:16px;font-size:12px;color:#94a3b8">Default: <strong>teg2026</strong></p>
       <p id="loginHint" style="margin-top:8px;font-size:12px;color:#64748b"></p>
     </div>
   </div>
@@ -178,7 +177,7 @@
               <li><code>npm install</code></li>
               <li><code>npm start</code></li>
               <li>Open <code>http://localhost:3000</code></li>
-              <li>Admin: <code>/admin.html</code> — password teg2026</li>
+              <li>Admin: <code>/admin.html</code></li>
             </ol>
           </div>
           <p style="font-size:14px;color:#475569">Form submissions <code>data/submissions.json</code> mein save hoti hain. Content <code>data/content.json</code> mein.</p>
@@ -326,103 +325,17 @@
           return;
         } catch (e) {
           showToast('Server save failed — saved locally');
-          return;
         }
+      } else {
+        showToast('Saved locally');
       }
-      showToast('Saved locally');
     }
 
-    function escapeHtml(str) {
-      return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
-    function renderServices(services) {
-      const list = document.getElementById('servicesList');
-      list.innerHTML = '';
-      services.forEach((s, i) => {
-        const div = document.createElement('div');
-        div.className = 'service-item';
-        div.innerHTML = `<button class="remove" onclick="removeService(${i})">×</button>
-          <div class="form-group"><label>Name</label><input data-i="${i}" data-f="name" value="${escapeHtml(s.name)}" onchange="updSvc(this)" /></div>
-          <div class="form-group"><label>Description</label><textarea data-i="${i}" data-f="description" onchange="updSvc(this)">${escapeHtml(s.description)}</textarea></div>
-          <div class="form-group"><label>SEO Title</label><input data-i="${i}" data-f="seoTitle" value="${escapeHtml(s.seoTitle||'')}" onchange="updSvc(this)" /></div>
-          <div class="form-group"><label>SEO Description</label><textarea data-i="${i}" data-f="seoDescription" onchange="updSvc(this)">${escapeHtml(s.seoDescription||'')}</textarea></div>`;
-        list.appendChild(div);
-      });
-    }
-
-    function updSvc(el) {
-      const data = collect();
-      if (!data.services[el.dataset.i]) return;
-      data.services[el.dataset.i][el.dataset.f] = el.value;
-      localStorage.setItem('teg_content', JSON.stringify(data));
-      cache = data;
-    }
-    function addService() {
-      const data = collect();
-      data.services = data.services || [];
-      data.services.push({ name: 'New Service', description: '', seoTitle: '', seoDescription: '' });
-      localStorage.setItem('teg_content', JSON.stringify(data));
-      cache = data;
-      renderServices(data.services);
-    }
-    function removeService(i) {
-      if (!confirm('Remove?')) return;
-      const data = collect();
-      data.services.splice(i, 1);
-      localStorage.setItem('teg_content', JSON.stringify(data));
-      cache = data;
-      renderServices(data.services);
-    }
-
-    async function serverUpload(input, fieldId, previewId) {
-      const file = input.files && input.files[0];
-      if (!file) return;
-      if (serverMode) {
-        try {
-          const url = await TEG.uploadFile(file);
-          document.getElementById(fieldId).value = url;
-          const prev = document.getElementById(previewId);
-          if (prev) { prev.src = url; prev.classList.add('show'); }
-          showToast('Uploaded to server');
-          return;
-        } catch (e) {
-          showToast('Upload failed: ' + e.message);
-        }
-      }
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        document.getElementById(fieldId).value = e.target.result;
-        const prev = document.getElementById(previewId);
-        if (prev) { prev.src = e.target.result; prev.classList.add('show'); }
-        showToast('Loaded locally (start server for real upload)');
-      };
-      reader.readAsDataURL(file);
-    }
-
-    async function loadInbox() {
-      const box = document.getElementById('inboxList');
-      if (!serverMode) {
-        box.innerHTML = '<p class="note warn">Server offline. Run <code>npm start</code> to see quotes.</p>';
-        return;
-      }
-      try {
-        const list = await TEG.loadSubmissions();
-        if (!list.length) {
-          box.innerHTML = '<p style="color:#64748b">No quote requests yet.</p>';
-          return;
-        }
-        box.innerHTML = list.map(s => `
-          <div class="sub-card ${s.read ? '' : 'unread'}">
-            <h4>${escapeHtml(s.name)} ${s.read ? '' : '<span class="badge">New</span>'}</h4>
-            <p><strong>Phone:</strong> ${escapeHtml(s.phone)} · <strong>Email:</strong> ${escapeHtml(s.email)}</p>
-            <p><strong>Service:</strong> ${escapeHtml(s.service || '—')}</p>
-            <p>${escapeHtml(s.message || '')}</p>
-            <p style="font-size:12px;color:#94a3b8">${escapeHtml(s.createdAt || '')}</p>
-          </div>`).join('');
-      } catch (e) {
-        box.innerHTML = '<p class="note warn">Could not load inbox: ' + escapeHtml(e.message) + '</p>';
-      }
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
     }
 
     function exportJSON() {
@@ -432,17 +345,90 @@
       a.href = URL.createObjectURL(blob);
       a.download = 'teg-content.json';
       a.click();
-      showToast('JSON exported');
     }
 
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2800);
+    function renderServices(list) {
+      const box = document.getElementById('servicesList');
+      box.innerHTML = '';
+      list.forEach((s, i) => {
+        const div = document.createElement('div');
+        div.className = 'service-item';
+        div.innerHTML = `
+          <button class="remove" onclick="removeService(${i})">×</button>
+          <div class="form-group"><label>Name</label><input type="text" data-i="${i}" data-f="name" value="${(s.name||'').replace(/"/g,'"')}" onchange="updateService(this)" /></div>
+          <div class="form-group"><label>Description</label><textarea data-i="${i}" data-f="description" onchange="updateService(this)">${s.description||''}</textarea></div>
+          <div class="form-group"><label>SEO Title</label><input type="text" data-i="${i}" data-f="seoTitle" value="${(s.seoTitle||'').replace(/"/g,'"')}" onchange="updateService(this)" /></div>
+          <div class="form-group"><label>SEO Description</label><textarea data-i="${i}" data-f="seoDescription" onchange="updateService(this)">${s.seoDescription||''}</textarea></div>
+        `;
+        box.appendChild(div);
+      });
     }
 
-    document.getElementById('password')?.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+    function updateService(el) {
+      const i = +el.dataset.i;
+      const f = el.dataset.f;
+      if (!cache) cache = getLocal();
+      if (!cache.services) cache.services = [];
+      if (!cache.services[i]) cache.services[i] = {};
+      cache.services[i][f] = el.value;
+    }
+
+    function addService() {
+      if (!cache) cache = getLocal();
+      if (!cache.services) cache.services = [];
+      cache.services.push({ name: '', description: '', seoTitle: '', seoDescription: '' });
+      renderServices(cache.services);
+    }
+
+    function removeService(i) {
+      if (!cache) cache = getLocal();
+      cache.services.splice(i, 1);
+      renderServices(cache.services);
+    }
+
+    async function serverUpload(input, targetId, previewId) {
+      const file = input.files[0];
+      if (!file) return;
+      if (!serverMode) {
+        showToast('Server offline — upload not available');
+        return;
+      }
+      try {
+        const url = await TEG.uploadFile(file);
+        document.getElementById(targetId).value = url;
+        const prev = document.getElementById(previewId);
+        if (prev) { prev.src = url; prev.classList.add('show'); }
+        showToast('Uploaded');
+      } catch (e) {
+        showToast('Upload failed: ' + e.message);
+      }
+    }
+
+    async function loadInbox() {
+      const box = document.getElementById('inboxList');
+      if (!serverMode) {
+        box.innerHTML = '<p class="note warn">Server offline — inbox not available</p>';
+        return;
+      }
+      try {
+        const list = await TEG.loadSubmissions();
+        if (!list.length) {
+          box.innerHTML = '<p style="color:#64748b">No submissions yet</p>';
+          return;
+        }
+        box.innerHTML = list.map(s => `
+          <div class="sub-card ${s.read ? '' : 'unread'}">
+            <h4>${s.name || '—'} <small style="font-weight:400;color:#64748b">${new Date(s.createdAt).toLocaleString()}</small></h4>
+            <p><strong>Phone:</strong> ${s.phone || '—'}</p>
+            <p><strong>Email:</strong> ${s.email || '—'}</p>
+            <p><strong>Service:</strong> ${s.service || '—'}</p>
+            <p>${s.message || ''}</p>
+          </div>
+        `).join('');
+      } catch (e) {
+        box.innerHTML = '<p class="note warn">Failed to load inbox</p>';
+      }
+    }
   </script>
 </body>
 </html>
