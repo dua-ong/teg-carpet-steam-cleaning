@@ -10,7 +10,21 @@
 }
 
 .logo-img { width: 44px; height: 44px; object-fit: contain; border-radius: 50%; flex-shrink: 0; }
-.logo { display: flex; align-items: center; gap: 10px; }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  max-width: 70%;
+}
+.logo-mark {
+  white-space: nowrap;
+}
+.logo-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .page-inner .header {
   background: #ffffff !important;
@@ -37,6 +51,7 @@
   background-image: url("https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=70");
   background-size: cover;
   background-position: center;
+  z-index: 0;
 }
 .hero-video,
 video.hero-video {
@@ -52,21 +67,14 @@ video.hero-video {
   to { transform: none; }
 }
 
-/* Home Areas section - Hiddekel style */
 .home-areas {
   background: linear-gradient(180deg, #062a4a 0%, #0a3d6b 100%);
   color: #fff;
   padding: 80px 0;
 }
-.home-areas .section-eyebrow {
-  color: #7dd3fc;
-}
-.home-areas .section-title {
-  color: #fff;
-}
-.home-areas .section-desc {
-  color: rgba(255,255,255,0.85);
-}
+.home-areas .section-eyebrow { color: #7dd3fc; }
+.home-areas .section-title { color: #fff; }
+.home-areas .section-desc { color: rgba(255,255,255,0.85); }
 .home-areas-chips {
   display: flex;
   flex-wrap: wrap;
@@ -93,9 +101,7 @@ video.hero-video {
   transform: translateY(-2px);
   color: #fff;
 }
-.home-areas-cta {
-  text-align: center;
-}
+.home-areas-cta { text-align: center; }
 
 .menu-toggle { z-index: 1002; position: relative; }
 .menu-toggle span { transition: transform 0.25s ease, opacity 0.25s ease; }
@@ -104,8 +110,45 @@ video.hero-video {
 .menu-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 body.menu-open { overflow: hidden; }
 
+/* Header always above hero */
+.header {
+  z-index: 1000 !important;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
 @media (max-width: 768px) {
-  :root { --header-h: 64px; }
+  :root { --header-h: 60px; }
+
+  /* Solid header bar so logo never mixes with hero text */
+  .header {
+    height: var(--header-h) !important;
+    background: rgba(6, 42, 74, 0.92) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.15);
+  }
+  .header.scrolled {
+    background: rgba(255,255,255,0.97) !important;
+  }
+  .logo-mark {
+    font-size: 18px !important;
+    color: #7dd3fc !important;
+  }
+  .header.scrolled .logo-mark {
+    color: var(--sky-dark) !important;
+  }
+  /* Hide long logo text on phone — only T.E.G shows */
+  .logo-text {
+    display: none !important;
+  }
+  .menu-toggle span {
+    background: #fff !important;
+  }
+  .header.scrolled .menu-toggle span {
+    background: var(--navy) !important;
+  }
 
   .nav {
     position: fixed !important;
@@ -139,17 +182,49 @@ body.menu-open { overflow: hidden; }
   .phone-link { display: none !important; }
   .header .btn-primary { display: none !important; }
 
+  /* Hero: clear space under fixed header, no overlap */
   .hero {
-    min-height: 52vh !important;
-    max-height: 56vh !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    height: auto !important;
+    padding-top: var(--header-h) !important;
     align-items: flex-end !important;
   }
-  .hero-content { padding: 20px 16px 18px !important; }
-  .hero-title { font-size: 26px !important; }
-  .hero-desc { font-size: 14px !important; margin-bottom: 14px !important; }
-  .hero-ctas { flex-direction: column !important; gap: 10px !important; margin-bottom: 10px !important; }
+  .hero-content {
+    padding: 28px 16px 32px !important;
+    width: 100%;
+  }
+  .hero-eyebrow {
+    font-size: 11px !important;
+    margin-bottom: 8px !important;
+  }
+  .hero-title {
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 10px !important;
+  }
+  .hero-title-white,
+  .hero-title-gold {
+    display: block;
+  }
+  .hero-desc {
+    font-size: 14px !important;
+    margin-bottom: 16px !important;
+    line-height: 1.5 !important;
+  }
+  .hero-ctas {
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin-bottom: 12px !important;
+  }
   .hero-ctas .btn { width: 100% !important; }
   .hero-video { animation: none !important; transform: none !important; }
+  .hero-trust {
+    gap: 8px 12px !important;
+  }
+  .hero-trust span {
+    font-size: 11px !important;
+  }
 
   .home-areas { padding: 48px 0 !important; }
   .home-areas .area-chip { font-size: 13px; padding: 9px 14px; }
@@ -169,18 +244,25 @@ body.menu-open { overflow: hidden; }
   .whatsapp-float svg { width: 26px; height: 26px; }
   .wa-tooltip { display: none; }
   .anim-on-scroll {
-    transform: translateY(20px) scale(0.99);
-    filter: blur(1px);
+    transform: translateY(16px) scale(0.99);
+    filter: none;
   }
   .container { padding: 0 16px !important; }
+
+  /* Inner pages keep white header */
+  .page-inner .header {
+    background: #ffffff !important;
+  }
+  .page-inner .logo-mark {
+    color: var(--sky-dark) !important;
+  }
+  .page-inner .menu-toggle span {
+    background: var(--navy) !important;
+  }
 }
 
 @media (max-width: 480px) {
-  .hero {
-    min-height: 48vh !important;
-    max-height: 52vh !important;
-  }
-  .hero-title { font-size: 24px !important; }
-  .hero-trust { flex-direction: column; gap: 8px; }
+  .hero-title { font-size: 22px !important; }
+  .hero-trust { flex-direction: column; gap: 6px; }
   .section-title { font-size: 20px !important; }
 }
