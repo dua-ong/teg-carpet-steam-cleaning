@@ -407,12 +407,13 @@ body.menu-open { overflow: hidden; }
     min-height: 48px;
   }
 
+  /* height:auto so short phones grow to fit title+CTAs (no clip under nav) */
   .hero {
     position: relative !important;
-    min-height: 58vh !important;
-    height: 58vh !important;
-    max-height: 62vh !important;
-    padding-top: 0 !important;
+    min-height: 70vh !important;
+    height: auto !important;
+    max-height: none !important;
+    padding-top: calc(var(--header-h) + 12px) !important;
     display: flex !important;
     align-items: flex-end !important;
     overflow: hidden !important;
@@ -441,7 +442,8 @@ body.menu-open { overflow: hidden; }
   .hero-content {
     position: relative !important;
     z-index: 2 !important;
-    padding: calc(var(--header-h) + 32px) 16px 20px !important;
+    /* hero already has padding-top for nav; keep content compact */
+    padding: 8px 16px 22px !important;
     width: 100% !important;
   }
   .hero-eyebrow {
@@ -562,8 +564,9 @@ body.menu-open { overflow: hidden; }
 }
 
 @media (max-width: 480px) {
-  .hero { min-height: 56vh !important; height: 56vh !important; }
+  .hero { min-height: 68vh !important; height: auto !important; }
   .hero-title { font-size: 20px !important; }
+  .hero-desc { font-size: 12px !important; }
 }
 
 /* Prefers reduced motion */
