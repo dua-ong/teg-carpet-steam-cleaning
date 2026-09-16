@@ -409,9 +409,9 @@ body.menu-open { overflow: hidden; }
 
   .hero {
     position: relative !important;
-    min-height: 52vh !important;
-    height: 52vh !important;
-    max-height: 56vh !important;
+    min-height: 58vh !important;
+    height: 58vh !important;
+    max-height: 62vh !important;
     padding-top: 0 !important;
     display: flex !important;
     align-items: flex-end !important;
@@ -441,7 +441,7 @@ body.menu-open { overflow: hidden; }
   .hero-content {
     position: relative !important;
     z-index: 2 !important;
-    padding: calc(var(--header-h) + 8px) 16px 18px !important;
+    padding: calc(var(--header-h) + 32px) 16px 20px !important;
     width: 100% !important;
   }
   .hero-eyebrow {
@@ -562,7 +562,7 @@ body.menu-open { overflow: hidden; }
 }
 
 @media (max-width: 480px) {
-  .hero { min-height: 50vh !important; height: 50vh !important; }
+  .hero { min-height: 56vh !important; height: 56vh !important; }
   .hero-title { font-size: 20px !important; }
 }
 
