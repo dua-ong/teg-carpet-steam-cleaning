@@ -1,42 +1,57 @@
-# T.E.G Carpet Steam Cleaning — Complete Website
+# T.E.G Carpet Steam Cleaning — Full Website + Backend
 
-Premium multi-page website for **T.E.G Carpet & Furniture Steam Cleaning** (Milwaukee, WI).
+Premium multi-page site for **T.E.G Carpet & Furniture Steam Cleaning** (Milwaukee, WI) with a **Node.js backend**.
+
+## Backend features
+- **POST /api/contact** — quote form saves to `data/submissions.json`
+- **GET/PUT /api/admin/content** — SEO, media, services, location, contact
+- **GET /api/admin/submissions** — view quote requests in admin
+- **POST /api/admin/upload** — real file upload to `/uploads`
+- Serves all static HTML/CSS/JS
+
+## Run locally
+```bash
+npm install
+npm start
+```
+Open: **http://localhost:3000**
+
+Admin: **http://localhost:3000/admin.html**  
+Password: **teg2026** (or set `ADMIN_PASSWORD` env)
+
+```bash
+ADMIN_PASSWORD=yourpass PORT=3000 npm start
+```
+
+## Deploy
+1. Upload project to a VPS / Railway / Render / any Node host
+2. `npm install && npm start`
+3. Point domain to the server port (or reverse proxy with Nginx)
+
+**Important:** Backend must be running for form save + admin server save. Without server, form falls back to mailto.
 
 ## Pages
 | File | Description |
 |------|-------------|
-| `index.html` | Homepage — video hero, services, why us, process, about, contact |
-| `services.html` | All 6 services with company-style image cards |
-| `about.html` | Company story |
-| `contact.html` | Contact info + quote form |
-| `areas.html` | Areas We Serve (Milwaukee region) |
-| `admin.html` | Content panel (SEO, media, services) |
+| `index.html` | Homepage |
+| `services.html` | All services |
+| `service-*.html` | Individual service detail pages |
+| `about.html` / `contact.html` / `areas.html` | Inner pages |
+| `admin.html` | Admin panel |
 
-## Features
-- Sky blue + yellow brand theme
-- Premium scroll animations
-- Phone link with attention shake
-- Floating WhatsApp button
-- Full SEO: meta, Open Graph, Twitter, geo, JSON-LD LocalBusiness
-- `robots.txt` + `sitemap.xml`
-- Quote form opens email to `contact@teg-carpetsteamcleaning.com`
-- Fully responsive
+## API summary
+| Method | Path | Auth |
+|--------|------|------|
+| GET | `/api/health` | — |
+| GET | `/api/content` | — |
+| POST | `/api/contact` | — |
+| POST | `/api/admin/login` | password body |
+| GET/PUT | `/api/admin/content` | header `x-admin-key` |
+| GET | `/api/admin/submissions` | header `x-admin-key` |
+| POST | `/api/admin/upload` | header `x-admin-key` + multipart file |
 
-## Admin Panel
-Open `admin.html` → password: **teg2026**
-
-Edit SEO/OG, media (upload or URL), services + SEO, location, contact → **Save All** → **Export JSON** → send to developer.
-
-## Business info
-- **Phone:** +1 (414) 775-3705
-- **WhatsApp:** +1 (618) 434-0858
-- **Email:** contact@teg-carpetsteamcleaning.com
-- **Address:** 4111 N Port Washington Rd suite 1, Milwaukee, WI 53217
-- **Hours:** Mon–Sun 8:00 AM – 7:00 PM
-
-## How to view
-1. Download ZIP from GitHub
-2. Open `index.html` in browser
-
-## Deploy
-Upload all files to any static host (Netlify, Vercel, cPanel, etc.). Point domain to the folder containing `index.html`.
+## Business
+- Phone: +1 (414) 775-3705
+- WhatsApp: +1 (618) 434-0858
+- Email: contact@teg-carpetsteamcleaning.com
+- Address: 4111 N Port Washington Rd suite 1, Milwaukee, WI 53217
