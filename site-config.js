@@ -41,13 +41,6 @@
     });
   }
 
-  function setAllHref(selector, href) {
-    if (!nonempty(href)) return;
-    document.querySelectorAll(selector).forEach(function (el) {
-      el.setAttribute('href', href);
-    });
-  }
-
   function telHref(phone, phoneTel) {
     if (nonempty(phoneTel)) return 'tel:' + phoneTel.replace(/\s/g, '');
     if (!nonempty(phone)) return '';
@@ -107,12 +100,10 @@
       document.querySelectorAll('a.phone-link, a.phone-shake').forEach(function (a) {
         if (a.closest && a.closest('.whatsapp-float')) return;
         if (tel) a.setAttribute('href', tel);
-        // Only replace pure phone text nodes
         if (/^\+?[\d\s().-]{7,}$/.test((a.textContent || '').trim()) || (a.textContent || '').indexOf('414') !== -1) {
           a.textContent = c.phone;
         }
       });
-      // Generic tel: links that look like the business number
       document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
         if (tel) a.setAttribute('href', tel);
         var t = (a.textContent || '').trim();
@@ -157,7 +148,12 @@
 
     const vid = document.querySelector('video.hero-video');
     if (vid) {
-      if (nonempty(poster)) vid.setAttribute('poster', poster);
+      // Homepage: never keep a stock/Unsplash poster unless admin explicitly uploaded one
+      if (nonempty(poster)) {
+        vid.setAttribute('poster', poster);
+      } else {
+        vid.removeAttribute('poster');
+      }
       if (nonempty(video)) {
         var src = vid.querySelector('source');
         if (src) {
@@ -179,7 +175,6 @@
 
   function applySeo(seo, media) {
     if (!seo) return;
-    // Homepage-only global SEO overrides; inner pages keep their own unless pages{} used later
     var path = (location.pathname || '').split('/').pop() || 'index.html';
     if (path === '' || path === 'index.html' || path === '/') {
       if (nonempty(seo.title)) document.title = seo.title;
@@ -210,12 +205,10 @@
 
   function rebuildNav(ulSelector, items, isMain) {
     if (!items || !items.length) return;
-    // Main header nav: #nav with links + optional .nav-mobile-cta at end
     var nav = document.getElementById('nav');
     if (!nav || !isMain) return;
 
     var mobileCta = nav.querySelector('.nav-mobile-cta');
-    // Remove existing top-level links only
     Array.prototype.slice.call(nav.children).forEach(function (child) {
       if (child.classList && child.classList.contains('nav-mobile-cta')) return;
       if (child.tagName === 'A') child.remove();
@@ -239,7 +232,6 @@
     if (!nav) return;
     if (nav.main && nav.main.length) rebuildNav('#nav', nav.main, true);
 
-    // Footer quick links: first .footer-links block that has Home link pattern
     if (nav.footer && nav.footer.length) {
       var blocks = document.querySelectorAll('.footer-links');
       if (blocks[0]) {
@@ -263,7 +255,6 @@
 
     if (nav.services && nav.services.length) {
       var svcBlocks = document.querySelectorAll('.footer-links');
-      // second footer-links often is Services
       if (svcBlocks[1]) {
         var h = svcBlocks[1].querySelector('h4');
         svcBlocks[1].innerHTML = '';
@@ -318,7 +309,6 @@
       } catch (e) {}
       return data;
     } catch (e) {
-      // Static hosting without API — try localStorage mirror from admin
       try {
         var local = localStorage.getItem('teg_content');
         if (local) return JSON.parse(local);
@@ -327,9 +317,6 @@
     }
   }
 
-  // Run early
   loadContent().then(applyAll);
-
-  // Expose for admin preview / debug
   window.TEG_SITE = { loadContent: loadContent, applyAll: applyAll };
 })();
