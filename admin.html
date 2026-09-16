@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TEG Admin Panel — SEO, Media, Services</title>
+  <title>TEG Admin — Backend Panel</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
@@ -13,40 +13,34 @@
     .login-box h1{font-size:22px;margin-bottom:8px;color:#0a3d6b}
     .login-box p{font-size:14px;color:#64748b;margin-bottom:28px}
     .login-box input{width:100%;padding:12px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:15px;margin-bottom:16px}
-    .login-box input:focus{outline:none;border-color:#f5a623;box-shadow:0 0 0 3px rgba(245,166,35,.2)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;font-size:15px;font-weight:600;border-radius:8px;border:none;cursor:pointer;transition:.2s}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;font-size:15px;font-weight:600;border-radius:8px;border:none;cursor:pointer}
     .btn-primary{background:#f5a623;color:#1a1a1a;width:100%}
-    .btn-primary:hover{background:#e09415}
     .btn-secondary{background:#0a3d6b;color:#fff}
-    .btn-secondary:hover{background:#062a4a}
     .btn-outline{background:#fff;border:1px solid #e2e8f0;color:#1a1a1a}
-    .btn-outline:hover{background:#f8fafc}
+    .btn-sm{padding:8px 14px;font-size:13px}
     .hidden{display:none!important}
     .dashboard{display:none}.dashboard.active{display:block}
     .topbar{background:#0a3d6b;color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-    .topbar h1{font-size:18px;font-weight:600}
-    .topbar .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .topbar h1{font-size:18px}
+    .topbar .actions{display:flex;gap:10px;flex-wrap:wrap}
     .layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 56px)}
     .sidebar{background:#fff;border-right:1px solid #e2e8f0;padding:20px 0}
     .sidebar button{display:block;width:100%;text-align:left;padding:12px 20px;border:none;background:none;font-size:14px;font-weight:500;color:#475569;cursor:pointer}
     .sidebar button:hover,.sidebar button.active{background:#e0f2fe;color:#0369a1;border-right:3px solid #0ea5e9}
     .main{padding:28px 32px;max-width:960px}
-    .panel{display:none;background:#fff;border-radius:12px;padding:28px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #e2e8f0}
+    .panel{display:none;background:#fff;border-radius:12px;padding:28px;border:1px solid #e2e8f0}
     .panel.active{display:block}
     .panel h2{font-size:18px;margin-bottom:6px;color:#0a3d6b}
     .panel .desc{font-size:13px;color:#64748b;margin-bottom:20px}
     .form-group{margin-bottom:16px}
     .form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#334155}
-    .form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;font-family:inherit}
-    .form-group input:focus,.form-group textarea:focus{outline:none;border-color:#0ea5e9;box-shadow:0 0 0 3px rgba(14,165,233,.15)}
-    .form-group textarea{min-height:72px;resize:vertical}
+    .form-group input,.form-group textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;font-family:inherit}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     .section-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0ea5e9;margin:24px 0 12px;padding-top:12px;border-top:1px solid #e2e8f0}
     .section-label:first-of-type{margin-top:0;border-top:none;padding-top:0}
     .service-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:16px;margin-bottom:14px;position:relative}
-    .service-item .remove{position:absolute;top:12px;right:12px;background:#fee2e2;color:#b91c1c;border:none;width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:16px}
+    .service-item .remove{position:absolute;top:12px;right:12px;background:#fee2e2;color:#b91c1c;border:none;width:28px;height:28px;border-radius:6px;cursor:pointer}
     .upload-box{border:2px dashed #bae6fd;border-radius:10px;padding:16px;text-align:center;background:#f0f9ff;margin-bottom:12px}
-    .upload-box input[type=file]{font-size:13px}
     .preview{max-width:200px;max-height:120px;margin-top:10px;border-radius:8px;display:none}
     .preview.show{display:block}
     .actions-bar{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
@@ -54,13 +48,17 @@
     .toast.show{opacity:1;transform:translateY(0)}
     .note{background:#e0f2fe;border:1px solid #7dd3fc;border-radius:8px;padding:12px 16px;font-size:13px;color:#0c4a6e;margin-bottom:16px}
     .note.warn{background:#fff7ed;border-color:#fed7aa;color:#9a3412}
+    .badge{display:inline-block;background:#0ea5e9;color:#fff;font-size:11px;padding:2px 8px;border-radius:999px;margin-left:6px}
+    .sub-card{border:1px solid #e2e8f0;border-radius:10px;padding:16px;margin-bottom:12px;background:#f8fafc}
+    .sub-card.unread{border-color:#0ea5e9;background:#f0f9ff}
+    .sub-card h4{font-size:15px;margin-bottom:6px}
+    .sub-card p{font-size:13px;color:#475569;margin:4px 0}
+    .status{font-size:12px;margin-bottom:12px}
+    .status.on{color:#059669}.status.off{color:#b45309}
     @media(max-width:768px){
       .layout{grid-template-columns:1fr}
-      .sidebar{display:flex;overflow-x:auto;padding:10px;border-right:none;border-bottom:1px solid #e2e8f0}
-      .sidebar button{white-space:nowrap;border-right:none!important;border-bottom:3px solid transparent}
-      .sidebar button.active{border-bottom-color:#0ea5e9}
+      .sidebar{display:flex;overflow-x:auto;padding:10px}
       .form-row{grid-template-columns:1fr}
-      .main{padding:16px}
     }
   </style>
 </head>
@@ -68,20 +66,21 @@
   <div class="login-wrap" id="loginScreen">
     <div class="login-box">
       <h1>T.E.G Admin</h1>
-      <p>SEO · Media upload · Services · Location</p>
-      <input type="password" id="password" placeholder="Enter password" />
+      <p>Backend panel — SEO, media, quotes</p>
+      <input type="password" id="password" placeholder="Password" />
       <button class="btn btn-primary" onclick="login()">Login</button>
-      <p style="margin-top:16px;font-size:12px;color:#94a3b8">Password: <strong>teg2026</strong></p>
+      <p style="margin-top:16px;font-size:12px;color:#94a3b8">Default: <strong>teg2026</strong></p>
+      <p id="loginHint" style="margin-top:8px;font-size:12px;color:#64748b"></p>
     </div>
   </div>
 
   <div class="dashboard" id="dashboard">
     <div class="topbar">
-      <h1>T.E.G Content Panel</h1>
+      <h1>T.E.G Admin <span id="serverBadge" class="badge" style="display:none">Server</span></h1>
       <div class="actions">
-        <button class="btn btn-outline" style="padding:8px 14px;font-size:13px" onclick="exportJSON()">Export JSON</button>
-        <button class="btn btn-secondary" style="padding:8px 14px;font-size:13px" onclick="saveAll()">Save All</button>
-        <button class="btn btn-outline" style="padding:8px 14px;font-size:13px" onclick="logout()">Logout</button>
+        <button class="btn btn-outline btn-sm" onclick="exportJSON()">Export JSON</button>
+        <button class="btn btn-secondary btn-sm" onclick="saveAll()">Save All</button>
+        <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
       </div>
     </div>
     <div class="layout">
@@ -91,194 +90,163 @@
         <button data-panel="services" onclick="showPanel('services')">Services + SEO</button>
         <button data-panel="location" onclick="showPanel('location')">Location SEO</button>
         <button data-panel="contact" onclick="showPanel('contact')">Contact</button>
-        <button data-panel="help" onclick="showPanel('help')">How to Update</button>
+        <button data-panel="inbox" onclick="showPanel('inbox'); loadInbox()">Quote Inbox</button>
+        <button data-panel="help" onclick="showPanel('help')">Help</button>
       </aside>
       <main class="main">
+        <p class="status" id="connStatus"></p>
 
-        <!-- SEO & OG -->
         <div class="panel active" id="panel-seo">
           <h2>SEO & Open Graph</h2>
-          <p class="desc">Search engines + Facebook/WhatsApp/Twitter share previews.</p>
-
           <div class="section-label">Basic SEO</div>
-          <div class="form-group"><label>Page Title (≤60 chars ideal)</label><input type="text" id="seo-title" /></div>
-          <div class="form-group"><label>Meta Description (≤160 chars)</label><textarea id="seo-description"></textarea></div>
-          <div class="form-group"><label>Keywords (comma separated)</label><input type="text" id="seo-keywords" /></div>
-          <div class="form-group"><label>Canonical URL</label><input type="url" id="seo-canonical" placeholder="https://tegcarpetsteamcleaning.com/" /></div>
-
-          <div class="section-label">Open Graph (OG) — social share</div>
+          <div class="form-group"><label>Page Title</label><input type="text" id="seo-title" /></div>
+          <div class="form-group"><label>Meta Description</label><textarea id="seo-description"></textarea></div>
+          <div class="form-group"><label>Keywords</label><input type="text" id="seo-keywords" /></div>
+          <div class="form-group"><label>Canonical URL</label><input type="url" id="seo-canonical" /></div>
+          <div class="section-label">Open Graph</div>
           <div class="form-group"><label>OG Title</label><input type="text" id="seo-og-title" /></div>
           <div class="form-group"><label>OG Description</label><textarea id="seo-og-description"></textarea></div>
-          <div class="form-group"><label>OG Image URL (1200×630 recommended)</label><input type="url" id="seo-og-image" placeholder="https://..." /></div>
-          <div class="upload-box">
-            <label style="font-weight:600;margin-bottom:8px;display:block">Or upload OG image</label>
-            <input type="file" accept="image/*" onchange="handleUpload(this,'seo-og-image','ogPreview')" />
-            <img id="ogPreview" class="preview" alt="OG preview" />
-          </div>
-
-          <div class="section-label">Twitter Card</div>
+          <div class="form-group"><label>OG Image URL</label><input type="url" id="seo-og-image" /></div>
+          <div class="upload-box"><input type="file" accept="image/*" onchange="serverUpload(this,'seo-og-image','ogPreview')" /><img id="ogPreview" class="preview" /></div>
+          <div class="section-label">Twitter</div>
           <div class="form-group"><label>Twitter Title</label><input type="text" id="seo-twitter-title" /></div>
           <div class="form-group"><label>Twitter Description</label><textarea id="seo-twitter-description"></textarea></div>
           <div class="form-group"><label>Twitter Image URL</label><input type="url" id="seo-twitter-image" /></div>
-
           <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save SEO</button></div>
         </div>
 
-        <!-- Media -->
         <div class="panel" id="panel-media">
           <h2>Media Upload</h2>
-          <p class="desc">Hero video, poster, and site images. Upload file OR paste URL.</p>
-          <div class="note warn">Uploaded images are stored as data in the browser for export. For live site, host images online and use the public URL (recommended for large files).</div>
-
-          <div class="section-label">Hero Video</div>
-          <div class="form-group"><label>Video URL (mp4)</label><input type="url" id="media-video" placeholder="https://...mp4" /></div>
-
-          <div class="section-label">Hero Poster / Fallback</div>
+          <p class="desc">Server running ho to files <code>/uploads</code> pe save hoti hain.</p>
+          <div class="form-group"><label>Hero Video URL</label><input type="url" id="media-video" /></div>
           <div class="form-group"><label>Poster Image URL</label><input type="url" id="media-poster" /></div>
-          <div class="upload-box">
-            <input type="file" accept="image/*" onchange="handleUpload(this,'media-poster','posterPreview')" />
-            <img id="posterPreview" class="preview" alt="Poster" />
-          </div>
-
-          <div class="section-label">OG / Social Share Image</div>
-          <div class="form-group"><label>Share Image URL</label><input type="url" id="media-og" /></div>
-          <div class="upload-box">
-            <input type="file" accept="image/*" onchange="handleUpload(this,'media-og','mediaOgPreview')" />
-            <img id="mediaOgPreview" class="preview" alt="OG" />
-          </div>
-
-          <div class="section-label">Extra / About Image</div>
-          <div class="form-group"><label>About Image URL</label><input type="url" id="media-about" /></div>
-          <div class="upload-box">
-            <input type="file" accept="image/*" onchange="handleUpload(this,'media-about','aboutPreview')" />
-            <img id="aboutPreview" class="preview" alt="About" />
-          </div>
-
+          <div class="upload-box"><input type="file" accept="image/*" onchange="serverUpload(this,'media-poster','posterPreview')" /><img id="posterPreview" class="preview" /></div>
+          <div class="form-group"><label>OG / Share Image</label><input type="url" id="media-og" /></div>
+          <div class="upload-box"><input type="file" accept="image/*" onchange="serverUpload(this,'media-og','mediaOgPreview')" /><img id="mediaOgPreview" class="preview" /></div>
+          <div class="form-group"><label>About Image</label><input type="url" id="media-about" /></div>
+          <div class="upload-box"><input type="file" accept="image/*" onchange="serverUpload(this,'media-about','aboutPreview')" /><img id="aboutPreview" class="preview" /></div>
           <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Media</button></div>
         </div>
 
-        <!-- Services + SEO -->
         <div class="panel" id="panel-services">
-          <h2>Services + SEO Metadata</h2>
-          <p class="desc">Service name, description, and SEO fields for each service.</p>
+          <h2>Services + SEO</h2>
           <div id="servicesList"></div>
           <button class="btn btn-outline" onclick="addService()" style="margin-top:8px">+ Add Service</button>
           <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Services</button></div>
         </div>
 
-        <!-- Location SEO -->
         <div class="panel" id="panel-location">
-          <h2>Location-Based SEO</h2>
-          <p class="desc">Local business / Google maps style data.</p>
+          <h2>Location SEO</h2>
           <div class="form-group"><label>Business Name</label><input type="text" id="loc-name" /></div>
-          <div class="form-group"><label>City / Area Served</label><input type="text" id="loc-city" placeholder="Milwaukee, WI" /></div>
-          <div class="form-group"><label>Full Address</label><textarea id="loc-address"></textarea></div>
+          <div class="form-group"><label>City</label><input type="text" id="loc-city" /></div>
+          <div class="form-group"><label>Address</label><textarea id="loc-address"></textarea></div>
           <div class="form-row">
-            <div class="form-group"><label>Region (State)</label><input type="text" id="loc-region" placeholder="WI" /></div>
-            <div class="form-group"><label>Postal Code</label><input type="text" id="loc-postal" placeholder="53217" /></div>
+            <div class="form-group"><label>Region</label><input type="text" id="loc-region" /></div>
+            <div class="form-group"><label>Postal</label><input type="text" id="loc-postal" /></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label>Latitude</label><input type="text" id="loc-lat" placeholder="43.118" /></div>
-            <div class="form-group"><label>Longitude</label><input type="text" id="loc-lng" placeholder="-87.906" /></div>
+            <div class="form-group"><label>Lat</label><input type="text" id="loc-lat" /></div>
+            <div class="form-group"><label>Lng</label><input type="text" id="loc-lng" /></div>
           </div>
-          <div class="form-group"><label>Geo Region meta (e.g. US-WI)</label><input type="text" id="loc-geo-region" /></div>
+          <div class="form-group"><label>Geo Region</label><input type="text" id="loc-geo-region" /></div>
           <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Location</button></div>
         </div>
 
-        <!-- Contact -->
         <div class="panel" id="panel-contact">
-          <h2>Contact Information</h2>
-          <p class="desc">Phone, email, hours, WhatsApp.</p>
+          <h2>Contact</h2>
           <div class="form-row">
             <div class="form-group"><label>Phone</label><input type="text" id="contact-phone" /></div>
-            <div class="form-group"><label>WhatsApp (country code, no +)</label><input type="text" id="contact-whatsapp" placeholder="16184340858" /></div>
+            <div class="form-group"><label>WhatsApp</label><input type="text" id="contact-whatsapp" /></div>
           </div>
           <div class="form-group"><label>Email</label><input type="email" id="contact-email" /></div>
-          <div class="form-group"><label>Address (display)</label><textarea id="contact-address"></textarea></div>
-          <div class="form-group"><label>Working Hours</label><input type="text" id="contact-hours" /></div>
+          <div class="form-group"><label>Address</label><textarea id="contact-address"></textarea></div>
+          <div class="form-group"><label>Hours</label><input type="text" id="contact-hours" /></div>
           <div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Contact</button></div>
         </div>
 
-        <!-- Help -->
+        <div class="panel" id="panel-inbox">
+          <h2>Quote Inbox</h2>
+          <p class="desc">Website form se aane wali requests (server chahiye).</p>
+          <button class="btn btn-outline btn-sm" onclick="loadInbox()">Refresh</button>
+          <div id="inboxList" style="margin-top:16px"></div>
+        </div>
+
         <div class="panel" id="panel-help">
-          <h2>How to Update the Live Site</h2>
-          <div class="note">This panel saves in your browser. Export JSON and send to developer to update the public website.</div>
-          <ol style="padding-left:20px;line-height:1.9;font-size:14px;color:#334155">
-            <li>Edit SEO, Media, Services, Location, Contact.</li>
-            <li>Click <strong>Save All</strong>.</li>
-            <li>Click <strong>Export JSON</strong> → <code>teg-content.json</code> downloads.</li>
-            <li>Send that file to the developer.</li>
-            <li>For images: upload to your host / CDN and paste the public URL (best for performance).</li>
-          </ol>
-          <p style="margin-top:16px;font-size:13px;color:#64748b">Password: <strong>teg2026</strong></p>
+          <h2>Backend kaise chalaye</h2>
+          <div class="note">
+            <ol style="padding-left:18px;line-height:1.8">
+              <li><code>npm install</code></li>
+              <li><code>npm start</code></li>
+              <li>Open <code>http://localhost:3000</code></li>
+              <li>Admin: <code>/admin.html</code> — password teg2026</li>
+            </ol>
+          </div>
+          <p style="font-size:14px;color:#475569">Form submissions <code>data/submissions.json</code> mein save hoti hain. Content <code>data/content.json</code> mein.</p>
         </div>
       </main>
     </div>
   </div>
-
   <div class="toast" id="toast"></div>
 
+  <script src="admin-api.js"></script>
   <script>
     const PASSWORD = 'teg2026';
+    let serverMode = false;
+    let cache = null;
+
     const DEFAULT = {
-      seo: {
-        title: 'T.E.G Carpet Steam Cleaning | Professional Carpet & Furniture Cleaning in Milwaukee',
-        description: 'Professional carpet, couch, tile & steam cleaning services by T.E.G in Milwaukee, WI. Deep stain removal, eco-friendly methods, residential & commercial.',
-        keywords: 'carpet cleaning Milwaukee, steam cleaning Milwaukee, tile grout cleaning, couch cleaning, commercial carpet cleaning WI',
-        canonical: 'https://tegcarpetsteamcleaning.com/',
-        ogTitle: 'T.E.G Carpet Steam Cleaning | Milwaukee',
-        ogDescription: 'Professional carpet & steam cleaning in Milwaukee, WI. Licensed, insured, free quotes.',
-        ogImage: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80',
-        twitterTitle: 'T.E.G Carpet Steam Cleaning | Milwaukee',
-        twitterDescription: 'Professional carpet & steam cleaning in Milwaukee, WI.',
-        twitterImage: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80'
-      },
-      media: {
-        video: 'https://videos.pexels.com/video-files/6195186/6195186-uhd_2560_1440_25fps.mp4',
-        poster: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1920&q=80',
-        og: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80',
-        about: ''
-      },
-      services: [
-        { name: 'Carpet Cleaning', description: 'Deep extraction carpet cleaning that restores color, softness, and freshness.', seoTitle: 'Carpet Cleaning Milwaukee | T.E.G', seoDescription: 'Professional carpet cleaning in Milwaukee, WI. Deep stain removal and steam cleaning.' },
-        { name: 'Tile & Grout Cleaning', description: 'Powerful cleaning for tile and grout. Restores shine and hygiene.', seoTitle: 'Tile & Grout Cleaning Milwaukee', seoDescription: 'Tile and grout cleaning services in Milwaukee by T.E.G.' },
-        { name: 'Couch Cleaning', description: 'Upholstery and sofa cleaning for stains, dust, allergens and odors.', seoTitle: 'Couch Cleaning Milwaukee | T.E.G', seoDescription: 'Professional couch and upholstery cleaning in Milwaukee.' },
-        { name: 'Steam Cleaning', description: 'High-temperature steam sanitizes carpets and surfaces naturally.', seoTitle: 'Steam Cleaning Milwaukee | T.E.G', seoDescription: 'Steam carpet cleaning in Milwaukee — deep sanitize, eco-friendly.' },
-        { name: 'Carpet Stain Removal', description: 'Specialized treatment for coffee, wine, ink and pet accidents.', seoTitle: 'Carpet Stain Removal Milwaukee', seoDescription: 'Expert carpet stain removal in Milwaukee, WI.' },
-        { name: 'Commercial Carpet Cleaning', description: 'Reliable cleaning for offices, shops and commercial properties.', seoTitle: 'Commercial Carpet Cleaning Milwaukee', seoDescription: 'Commercial carpet cleaning for offices and businesses in Milwaukee.' }
-      ],
-      location: {
-        name: 'T.E.G Carpet Steam Cleaning',
-        city: 'Milwaukee',
-        address: '4111 N Port Washington Rd suite 1, Milwaukee, WI 53217, United States',
-        region: 'WI',
-        postal: '53217',
-        lat: '43.118',
-        lng: '-87.906',
-        geoRegion: 'US-WI'
-      },
-      contact: {
-        phone: '+1 (414) 775-3705',
-        whatsapp: '16184340858',
-        email: 'contact@teg-carpetsteamcleaning.com',
-        address: '4111 N Port Washington Rd suite 1, Milwaukee, WI 53217, United States',
-        hours: 'Monday – Sunday 08:00 AM – 07:00 PM'
-      }
+      seo: { title: '', description: '', keywords: '', canonical: '', ogTitle: '', ogDescription: '', ogImage: '', twitterTitle: '', twitterDescription: '', twitterImage: '' },
+      media: { video: '', poster: '', og: '', about: '' },
+      services: [],
+      location: { name: '', city: '', address: '', region: '', postal: '', lat: '', lng: '', geoRegion: '' },
+      contact: { phone: '', whatsapp: '', email: '', address: '', hours: '' }
     };
 
-    function login() {
-      if (document.getElementById('password').value === PASSWORD) {
+    async function login() {
+      const pass = document.getElementById('password').value;
+      document.getElementById('loginHint').textContent = 'Checking…';
+      try {
+        const ok = await TEG.loginServer(pass);
+        if (ok) {
+          serverMode = true;
+          enterDash();
+          return;
+        }
+      } catch (e) {
+        /* offline — local fallback */
+      }
+      if (pass === PASSWORD) {
         sessionStorage.setItem('teg_admin', '1');
-        document.getElementById('loginScreen').classList.add('hidden');
-        document.getElementById('dashboard').classList.add('active');
-        loadData();
-      } else alert('Wrong password');
+        sessionStorage.setItem('teg_admin_key', pass);
+        serverMode = false;
+        enterDash();
+        document.getElementById('loginHint').textContent = 'Local mode (server offline)';
+      } else {
+        document.getElementById('loginHint').textContent = 'Wrong password';
+        alert('Wrong password');
+      }
     }
-    function logout() { sessionStorage.removeItem('teg_admin'); location.reload(); }
-    if (sessionStorage.getItem('teg_admin') === '1') {
+
+    function enterDash() {
       document.getElementById('loginScreen').classList.add('hidden');
       document.getElementById('dashboard').classList.add('active');
+      document.getElementById('serverBadge').style.display = serverMode ? 'inline-block' : 'none';
+      document.getElementById('connStatus').className = 'status ' + (serverMode ? 'on' : 'off');
+      document.getElementById('connStatus').textContent = serverMode
+        ? 'Connected to backend — Save writes to server'
+        : 'Local mode — Save uses browser only (run npm start for full backend)';
       loadData();
+    }
+
+    function logout() {
+      sessionStorage.removeItem('teg_admin');
+      sessionStorage.removeItem('teg_admin_key');
+      location.reload();
+    }
+
+    if (sessionStorage.getItem('teg_admin') === '1') {
+      serverMode = !!sessionStorage.getItem('teg_admin_key');
+      enterDash();
     }
 
     function showPanel(id) {
@@ -288,38 +256,33 @@
       document.querySelector('[data-panel="' + id + '"]').classList.add('active');
     }
 
-    function getData() {
+    function getLocal() {
       const s = localStorage.getItem('teg_content');
       return s ? JSON.parse(s) : JSON.parse(JSON.stringify(DEFAULT));
     }
 
-    function handleUpload(input, fieldId, previewId) {
-      const file = input.files && input.files[0];
-      if (!file) return;
-      if (file.size > 1.5 * 1024 * 1024) {
-        alert('File is large (>1.5MB). Prefer hosting online and pasting the URL for better performance.');
+    async function loadData() {
+      let data = getLocal();
+      if (serverMode) {
+        try {
+          data = await TEG.loadContentServer();
+          localStorage.setItem('teg_content', JSON.stringify(data));
+        } catch (e) {
+          showToast('Server load failed — using local');
+        }
       }
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const dataUrl = e.target.result;
-        document.getElementById(fieldId).value = dataUrl;
-        const prev = document.getElementById(previewId);
-        if (prev) { prev.src = dataUrl; prev.classList.add('show'); }
-        showToast('Image loaded — click Save');
-      };
-      reader.readAsDataURL(file);
+      cache = data;
+      fillForm(data);
     }
 
-    function loadData() {
-      const d = getData();
-      const seo = d.seo || {};
-      set('seo-title', seo.title); set('seo-description', seo.description); set('seo-keywords', seo.keywords);
-      set('seo-canonical', seo.canonical); set('seo-og-title', seo.ogTitle); set('seo-og-description', seo.ogDescription);
-      set('seo-og-image', seo.ogImage); set('seo-twitter-title', seo.twitterTitle);
-      set('seo-twitter-description', seo.twitterDescription); set('seo-twitter-image', seo.twitterImage);
+    function fillForm(d) {
+      const s = d.seo || {};
+      set('seo-title', s.title); set('seo-description', s.description); set('seo-keywords', s.keywords);
+      set('seo-canonical', s.canonical); set('seo-og-title', s.ogTitle); set('seo-og-description', s.ogDescription);
+      set('seo-og-image', s.ogImage); set('seo-twitter-title', s.twitterTitle);
+      set('seo-twitter-description', s.twitterDescription); set('seo-twitter-image', s.twitterImage);
       const m = d.media || {};
       set('media-video', m.video); set('media-poster', m.poster); set('media-og', m.og); set('media-about', m.about);
-      showPreview('posterPreview', m.poster); showPreview('mediaOgPreview', m.og); showPreview('aboutPreview', m.about); showPreview('ogPreview', seo.ogImage);
       const loc = d.location || {};
       set('loc-name', loc.name); set('loc-city', loc.city); set('loc-address', loc.address);
       set('loc-region', loc.region); set('loc-postal', loc.postal); set('loc-lat', loc.lat); set('loc-lng', loc.lng); set('loc-geo-region', loc.geoRegion);
@@ -330,10 +293,43 @@
     }
 
     function set(id, v) { const el = document.getElementById(id); if (el) el.value = v || ''; }
-    function showPreview(id, url) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      if (url && (url.startsWith('http') || url.startsWith('data:'))) { el.src = url; el.classList.add('show'); }
+    function val(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+    function collect() {
+      const data = cache || getLocal();
+      data.seo = {
+        title: val('seo-title'), description: val('seo-description'), keywords: val('seo-keywords'),
+        canonical: val('seo-canonical'), ogTitle: val('seo-og-title'), ogDescription: val('seo-og-description'),
+        ogImage: val('seo-og-image'), twitterTitle: val('seo-twitter-title'),
+        twitterDescription: val('seo-twitter-description'), twitterImage: val('seo-twitter-image')
+      };
+      data.media = { video: val('media-video'), poster: val('media-poster'), og: val('media-og'), about: val('media-about') };
+      data.location = {
+        name: val('loc-name'), city: val('loc-city'), address: val('loc-address'),
+        region: val('loc-region'), postal: val('loc-postal'), lat: val('loc-lat'), lng: val('loc-lng'), geoRegion: val('loc-geo-region')
+      };
+      data.contact = {
+        phone: val('contact-phone'), whatsapp: val('contact-whatsapp'), email: val('contact-email'),
+        address: val('contact-address'), hours: val('contact-hours')
+      };
+      return data;
+    }
+
+    async function saveAll() {
+      const data = collect();
+      localStorage.setItem('teg_content', JSON.stringify(data));
+      cache = data;
+      if (serverMode) {
+        try {
+          await TEG.saveContentServer(data);
+          showToast('Saved to server ✓');
+          return;
+        } catch (e) {
+          showToast('Server save failed — saved locally');
+          return;
+        }
+      }
+      showToast('Saved locally');
     }
 
     function escapeHtml(str) {
@@ -346,73 +342,97 @@
       services.forEach((s, i) => {
         const div = document.createElement('div');
         div.className = 'service-item';
-        div.innerHTML = `
-          <button class="remove" onclick="removeService(${i})" title="Remove">×</button>
-          <div class="form-group"><label>Service Name</label>
-            <input type="text" data-i="${i}" data-field="name" value="${escapeHtml(s.name)}" onchange="updateService(this)" /></div>
-          <div class="form-group"><label>Description</label>
-            <textarea data-i="${i}" data-field="description" onchange="updateService(this)">${escapeHtml(s.description)}</textarea></div>
-          <div class="form-group"><label>SEO Title</label>
-            <input type="text" data-i="${i}" data-field="seoTitle" value="${escapeHtml(s.seoTitle || '')}" onchange="updateService(this)" /></div>
-          <div class="form-group"><label>SEO Description</label>
-            <textarea data-i="${i}" data-field="seoDescription" onchange="updateService(this)">${escapeHtml(s.seoDescription || '')}</textarea></div>
-        `;
+        div.innerHTML = `<button class="remove" onclick="removeService(${i})">×</button>
+          <div class="form-group"><label>Name</label><input data-i="${i}" data-f="name" value="${escapeHtml(s.name)}" onchange="updSvc(this)" /></div>
+          <div class="form-group"><label>Description</label><textarea data-i="${i}" data-f="description" onchange="updSvc(this)">${escapeHtml(s.description)}</textarea></div>
+          <div class="form-group"><label>SEO Title</label><input data-i="${i}" data-f="seoTitle" value="${escapeHtml(s.seoTitle||'')}" onchange="updSvc(this)" /></div>
+          <div class="form-group"><label>SEO Description</label><textarea data-i="${i}" data-f="seoDescription" onchange="updSvc(this)">${escapeHtml(s.seoDescription||'')}</textarea></div>`;
         list.appendChild(div);
       });
     }
 
-    function updateService(el) {
-      const data = getData();
-      data.services[+el.dataset.i][el.dataset.field] = el.value;
+    function updSvc(el) {
+      const data = collect();
+      if (!data.services[el.dataset.i]) return;
+      data.services[el.dataset.i][el.dataset.f] = el.value;
       localStorage.setItem('teg_content', JSON.stringify(data));
+      cache = data;
     }
     function addService() {
-      const data = getData();
-      data.services.push({ name: 'New Service', description: 'Description...', seoTitle: '', seoDescription: '' });
+      const data = collect();
+      data.services = data.services || [];
+      data.services.push({ name: 'New Service', description: '', seoTitle: '', seoDescription: '' });
       localStorage.setItem('teg_content', JSON.stringify(data));
+      cache = data;
       renderServices(data.services);
     }
     function removeService(i) {
-      if (!confirm('Remove this service?')) return;
-      const data = getData();
+      if (!confirm('Remove?')) return;
+      const data = collect();
       data.services.splice(i, 1);
       localStorage.setItem('teg_content', JSON.stringify(data));
+      cache = data;
       renderServices(data.services);
     }
 
-    function saveAll() {
-      const data = getData();
-      data.seo = {
-        title: val('seo-title'), description: val('seo-description'), keywords: val('seo-keywords'),
-        canonical: val('seo-canonical'), ogTitle: val('seo-og-title'), ogDescription: val('seo-og-description'),
-        ogImage: val('seo-og-image'), twitterTitle: val('seo-twitter-title'),
-        twitterDescription: val('seo-twitter-description'), twitterImage: val('seo-twitter-image')
+    async function serverUpload(input, fieldId, previewId) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      if (serverMode) {
+        try {
+          const url = await TEG.uploadFile(file);
+          document.getElementById(fieldId).value = url;
+          const prev = document.getElementById(previewId);
+          if (prev) { prev.src = url; prev.classList.add('show'); }
+          showToast('Uploaded to server');
+          return;
+        } catch (e) {
+          showToast('Upload failed: ' + e.message);
+        }
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        document.getElementById(fieldId).value = e.target.result;
+        const prev = document.getElementById(previewId);
+        if (prev) { prev.src = e.target.result; prev.classList.add('show'); }
+        showToast('Loaded locally (start server for real upload)');
       };
-      data.media = {
-        video: val('media-video'), poster: val('media-poster'), og: val('media-og'), about: val('media-about')
-      };
-      data.location = {
-        name: val('loc-name'), city: val('loc-city'), address: val('loc-address'),
-        region: val('loc-region'), postal: val('loc-postal'), lat: val('loc-lat'), lng: val('loc-lng'), geoRegion: val('loc-geo-region')
-      };
-      data.contact = {
-        phone: val('contact-phone'), whatsapp: val('contact-whatsapp'), email: val('contact-email'),
-        address: val('contact-address'), hours: val('contact-hours')
-      };
-      localStorage.setItem('teg_content', JSON.stringify(data));
-      showToast('Saved successfully');
+      reader.readAsDataURL(file);
     }
-    function val(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+    async function loadInbox() {
+      const box = document.getElementById('inboxList');
+      if (!serverMode) {
+        box.innerHTML = '<p class="note warn">Server offline. Run <code>npm start</code> to see quotes.</p>';
+        return;
+      }
+      try {
+        const list = await TEG.loadSubmissions();
+        if (!list.length) {
+          box.innerHTML = '<p style="color:#64748b">No quote requests yet.</p>';
+          return;
+        }
+        box.innerHTML = list.map(s => `
+          <div class="sub-card ${s.read ? '' : 'unread'}">
+            <h4>${escapeHtml(s.name)} ${s.read ? '' : '<span class="badge">New</span>'}</h4>
+            <p><strong>Phone:</strong> ${escapeHtml(s.phone)} · <strong>Email:</strong> ${escapeHtml(s.email)}</p>
+            <p><strong>Service:</strong> ${escapeHtml(s.service || '—')}</p>
+            <p>${escapeHtml(s.message || '')}</p>
+            <p style="font-size:12px;color:#94a3b8">${escapeHtml(s.createdAt || '')}</p>
+          </div>`).join('');
+      } catch (e) {
+        box.innerHTML = '<p class="note warn">Could not load inbox: ' + escapeHtml(e.message) + '</p>';
+      }
+    }
 
     function exportJSON() {
-      saveAll();
-      const data = getData();
+      const data = collect();
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = 'teg-content.json';
       a.click();
-      showToast('JSON exported — send to developer');
+      showToast('JSON exported');
     }
 
     function showToast(msg) {
