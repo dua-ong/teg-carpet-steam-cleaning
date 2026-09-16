@@ -25,34 +25,57 @@ if (menuToggle && nav) {
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// Quote form → opens email client with details (works without backend)
+// API base — same origin when running on Node server; empty for static
+const API_BASE = window.location.port === '3000' || window.TEG_API
+  ? (window.TEG_API || '')
+  : '';
+
+// Quote form → backend API (fallback mailto if API offline)
 const form = document.getElementById('quoteForm');
 if (form) {
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = (form.querySelector('#name') || {}).value || '';
     const phone = (form.querySelector('#phone') || {}).value || '';
     const email = (form.querySelector('#email') || {}).value || '';
     const service = (form.querySelector('#service') || {}).value || '';
     const message = (form.querySelector('#message') || {}).value || '';
-    const subject = encodeURIComponent('Quote Request — T.E.G Carpet Cleaning');
-    const body = encodeURIComponent(
-      'Name: ' + name + '\nPhone: ' + phone + '\nEmail: ' + email +
-      '\nService: ' + service + '\n\nDetails:\n' + message
-    );
     const btn = form.querySelector('button[type="submit"]');
     const original = btn.textContent;
-    btn.textContent = 'Opening email…';
+    btn.textContent = 'Sending…';
     btn.disabled = true;
-    window.location.href = 'mailto:contact@teg-carpetsteamcleaning.com?subject=' + subject + '&body=' + body;
-    setTimeout(() => {
-      btn.textContent = 'Request Sent — Check Email';
-      form.reset();
+
+    try {
+      const res = await fetch(API_BASE + '/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, email, service, message })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        btn.textContent = 'Request Received ✓';
+        form.reset();
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.disabled = false;
+        }, 3500);
+        return;
+      }
+      throw new Error(data.error || 'Server error');
+    } catch (err) {
+      // Fallback: open email client
+      const subject = encodeURIComponent('Quote Request — T.E.G Carpet Cleaning');
+      const body = encodeURIComponent(
+        'Name: ' + name + '\nPhone: ' + phone + '\nEmail: ' + email +
+        '\nService: ' + service + '\n\nDetails:\n' + message
+      );
+      window.location.href = 'mailto:contact@teg-carpetsteamcleaning.com?subject=' + subject + '&body=' + body;
+      btn.textContent = 'Opening email…';
       setTimeout(() => {
         btn.textContent = original;
         btn.disabled = false;
-      }, 3000);
-    }, 600);
+      }, 2500);
+    }
   });
 }
 
@@ -65,7 +88,6 @@ const scrollObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.anim-on-scroll').forEach(el => scrollObserver.observe(el));
 
-// Smooth in-page anchors
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const id = this.getAttribute('href');
@@ -80,7 +102,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Phone shake attention
 function startPhoneShake() {
   const phones = document.querySelectorAll('.phone-link, .phone-shake');
   if (!phones.length) return;
