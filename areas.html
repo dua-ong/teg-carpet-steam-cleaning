@@ -16,19 +16,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="styles-extra.css" />
+  <style>
+    .areas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .area-card { display: block; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 20px; text-decoration: none; color: inherit; transition: all 0.3s ease; }
+    .area-card:hover { border-color: var(--sky); box-shadow: 0 8px 24px rgba(14,165,233,0.12); transform: translateY(-4px); }
+    .area-card h3 { font-size: 17px; font-weight: 700; color: var(--heading); margin-bottom: 6px; }
+    .area-card p { font-size: 13px; color: var(--gray-600); margin: 0; line-height: 1.5; }
+    .areas-note { text-align: center; margin-top: 36px; color: var(--gray-600); }
+  </style>
 </head>
 <body class="page-inner">
   <header class="header scrolled" id="header">
     <div class="container header-inner">
-      <a href="index.html" class="logo">
-        <img src="https://tegcarpetsteamcleaning.com/wp-content/uploads/2024/11/Untitled-design-1-1.png" alt="T.E.G" class="logo-img" width="48" height="48" />
-        <span class="logo-text">Carpet Steam Cleaning</span>
-      </a>
+      <a href="index.html" class="logo"><span class="logo-mark">T.E.G</span><span class="logo-text">Carpet Steam Cleaning</span></a>
       <nav class="nav" id="nav">
         <a href="index.html">Home</a>
         <a href="services.html">Services</a>
         <a href="areas.html" class="active">Areas We Serve</a>
         <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
         <a href="contact.html">Contact</a>
       </nav>
       <div class="header-actions">
@@ -42,36 +48,71 @@
   <section class="page-hero">
     <div class="container">
       <p class="section-eyebrow">Service Area</p>
-      <h1 class="section-title">Areas We Serve in Milwaukee & Beyond</h1>
-      <p class="section-desc">Local experts serving homes and businesses across Milwaukee, WI and nearby communities.</p>
+      <h1 class="section-title">Proudly Serving Milwaukee's Western Suburbs</h1>
+      <p class="section-desc">We bring professional carpet, tile, and upholstery cleaning directly to your home or business across Greater Milwaukee. No travel hassle on your end. Just clean spaces.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
       <div class="section-header centered anim-on-scroll">
-        <h2 class="section-title">Milwaukee & Surrounding Areas</h2>
-        <p class="section-desc">We proudly provide carpet, steam, tile, couch and commercial cleaning throughout the greater Milwaukee region.</p>
+        <h2 class="section-title">Twelve communities, one local crew</h2>
+        <p class="section-desc">If you're on the list, you're inside our normal route — no travel surcharge.</p>
       </div>
+
       <div class="areas-grid anim-on-scroll">
-        <div class="area-chip">Milwaukee</div>
-        <div class="area-chip">Wauwatosa</div>
-        <div class="area-chip">Brookfield</div>
-        <div class="area-chip">Whitefish Bay</div>
-        <div class="area-chip">Shorewood</div>
-        <div class="area-chip">Glendale</div>
-        <div class="area-chip">West Allis</div>
-        <div class="area-chip">Greenfield</div>
-        <div class="area-chip">Oak Creek</div>
-        <div class="area-chip">Franklin</div>
-        <div class="area-chip">New Berlin</div>
-        <div class="area-chip">Menomonee Falls</div>
-        <div class="area-chip">Brown Deer</div>
-        <div class="area-chip">Cudahy</div>
-        <div class="area-chip">South Milwaukee</div>
-        <div class="area-chip">Fox Point</div>
+        <a href="area-wauwatosa.html" class="area-card">
+          <h3>Wauwatosa</h3>
+          <p>From the historic homes of the Village to newer builds near Mayfair.</p>
+        </a>
+        <a href="area-new-berlin.html" class="area-card">
+          <h3>New Berlin</h3>
+          <p>Established neighborhoods and larger residential properties.</p>
+        </a>
+        <a href="area-brookfield.html" class="area-card">
+          <h3>Brookfield</h3>
+          <p>Mix of established homes and newer construction.</p>
+        </a>
+        <a href="area-west-allis.html" class="area-card">
+          <h3>West Allis</h3>
+          <p>Established neighborhoods and older housing stock.</p>
+        </a>
+        <a href="area-greenfield.html" class="area-card">
+          <h3>Greenfield</h3>
+          <p>Residential neighborhoods full of family homes.</p>
+        </a>
+        <a href="area-muskego.html" class="area-card">
+          <h3>Muskego</h3>
+          <p>Lakeside homes and family neighborhoods.</p>
+        </a>
+        <a href="area-franklin.html" class="area-card">
+          <h3>Franklin</h3>
+          <p>One of Milwaukee County's fastest-growing communities.</p>
+        </a>
+        <a href="area-pewaukee.html" class="area-card">
+          <h3>Pewaukee</h3>
+          <p>Lakefront character and residential neighborhoods.</p>
+        </a>
+        <a href="area-oak-creek.html" class="area-card">
+          <h3>Oak Creek</h3>
+          <p>New homes and established businesses.</p>
+        </a>
+        <a href="area-elm-grove.html" class="area-card">
+          <h3>Elm Grove</h3>
+          <p>Distinctive homes and tree-lined streets.</p>
+        </a>
+        <a href="area-hales-corners.html" class="area-card">
+          <h3>Hales Corners</h3>
+          <p>Small community, same professional standard.</p>
+        </a>
+        <a href="area-greendale.html" class="area-card">
+          <h3>Greendale</h3>
+          <p>Historic homes and tight-knit community character.</p>
+        </a>
       </div>
-      <p class="areas-note anim-on-scroll">Don’t see your city? Call us — we often serve additional nearby locations.</p>
+
+      <p class="areas-note anim-on-scroll">Don’t see your city? Call us — we often serve additional nearby locations in Greater Milwaukee.</p>
+
       <div style="text-align:center;margin-top:40px" class="anim-on-scroll">
         <a href="tel:+14147753705" class="btn btn-primary btn-lg phone-shake">Call +1 (414) 775-3705</a>
         <a href="contact.html" class="btn btn-primary btn-lg" style="margin-left:12px;background:#0ea5e9;color:#fff">Request a Quote</a>
@@ -103,6 +144,7 @@
           <a href="services.html">Services</a>
           <a href="areas.html">Areas We Serve</a>
           <a href="about.html">About</a>
+          <a href="faq.html">FAQ</a>
           <a href="contact.html">Contact</a>
         </div>
         <div class="footer-links">
