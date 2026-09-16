@@ -119,32 +119,49 @@
   font-size: 15px;
 }
 
-/* ===== FIX: Stop video zoom ===== */
-.hero-video {
+/* ===== FORCE: No video zoom anywhere ===== */
+.hero-video-wrap {
+  overflow: hidden !important;
+  background: #062a4a !important;
+  position: absolute !important;
+  inset: 0 !important;
+}
+.hero-video,
+video.hero-video {
   transform: none !important;
   animation: none !important;
+  scale: 1 !important;
   object-fit: cover !important;
+  object-position: center center !important;
   width: 100% !important;
   height: 100% !important;
-}
-.hero-video-wrap {
-  overflow: hidden;
-  background: #062a4a;
+  max-width: none !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
 }
 .hero-overlay {
-  z-index: 1;
+  z-index: 1 !important;
   background: linear-gradient(
     135deg,
-    rgba(6, 42, 74, 0.55) 0%,
-    rgba(10, 61, 107, 0.45) 40%,
-    rgba(14, 165, 233, 0.28) 100%
+    rgba(6, 42, 74, 0.6) 0%,
+    rgba(10, 61, 107, 0.5) 40%,
+    rgba(14, 165, 233, 0.3) 100%
   ) !important;
 }
 .hero-content {
-  z-index: 2;
+  z-index: 2 !important;
 }
 
-/* ===== FIX: Mobile menu ===== */
+/* Kill the keyframes completely */
+@keyframes heroZoom {
+  from { transform: none; }
+  to { transform: none; }
+}
+
+/* ===== Mobile menu ===== */
 .menu-toggle {
   z-index: 1002;
   position: relative;
@@ -158,12 +175,11 @@
 .menu-toggle.active span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
-
 body.menu-open {
   overflow: hidden;
 }
 
-/* ===== CTA buttons base improvements ===== */
+/* CTA buttons */
 .cta-actions,
 .hero-ctas {
   display: flex;
@@ -182,6 +198,51 @@ body.menu-open {
 }
 
 @media (max-width: 768px) {
+  /* Shorter hero on phone - not full screen height */
+  .hero {
+    min-height: 0 !important;
+    height: auto !important;
+    padding-top: var(--header-h) !important;
+    padding-bottom: 40px !important;
+  }
+  .hero-video-wrap {
+    position: absolute !important;
+    inset: 0 !important;
+  }
+  .hero-content {
+    padding: 36px 16px 28px !important;
+    position: relative !important;
+    z-index: 2 !important;
+  }
+  .hero-title {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 14px !important;
+  }
+  .hero-desc {
+    font-size: 14px !important;
+    margin-bottom: 22px !important;
+  }
+  .hero-eyebrow {
+    font-size: 11px !important;
+    margin-bottom: 10px !important;
+  }
+  .hero-trust {
+    gap: 10px 16px !important;
+    margin-top: 8px !important;
+  }
+  .hero-trust span {
+    font-size: 12px !important;
+  }
+
+  /* No zoom - double force */
+  .hero-video,
+  video.hero-video {
+    transform: none !important;
+    animation: none !important;
+    scale: 1 !important;
+  }
+
   .nav {
     position: fixed !important;
     top: var(--header-h) !important;
@@ -214,45 +275,24 @@ body.menu-open {
     border-bottom: 1px solid #f1f5f9;
     display: block !important;
   }
-  .nav a:last-child {
-    border-bottom: none;
-  }
-  .nav a::after {
-    display: none !important;
-  }
-  .menu-toggle {
-    display: flex !important;
-  }
+  .nav a:last-child { border-bottom: none; }
+  .nav a::after { display: none !important; }
+  .menu-toggle { display: flex !important; }
   .header-actions .phone-link,
   .header-actions .btn-primary {
     display: none !important;
   }
 
-  /* Better mobile spacing */
   .page-hero {
     padding: 120px 0 48px !important;
   }
-  .hero-content {
-    padding: 48px 16px !important;
-  }
-  .hero-title {
-    font-size: 30px !important;
-    line-height: 1.15 !important;
-  }
-  .hero-desc {
-    font-size: 15px !important;
-    margin-bottom: 28px !important;
-  }
 
-  /* ===== CTA FIX MOBILE ===== */
   .hero-ctas,
   .cta-actions {
     flex-direction: column !important;
     align-items: stretch !important;
     width: 100% !important;
     gap: 12px !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
   }
   .hero-ctas .btn,
   .cta-actions .btn {
@@ -260,37 +300,24 @@ body.menu-open {
     max-width: 100% !important;
     display: flex !important;
     justify-content: center !important;
-    align-items: center !important;
-    min-height: 50px !important;
-    padding: 14px 20px !important;
+    min-height: 48px !important;
+    padding: 14px 18px !important;
     font-size: 15px !important;
-    box-sizing: border-box !important;
     margin: 0 !important;
   }
-  /* Remove any inline margin-left that breaks layout */
-  .cta-actions .btn + .btn,
-  .hero-ctas .btn + .btn,
   a.btn[style*="margin-left"] {
     margin-left: 0 !important;
   }
 
-  .section {
-    padding: 60px 0 !important;
-  }
+  .section { padding: 56px 0 !important; }
   .services-grid,
-  .process-steps {
-    grid-template-columns: 1fr !important;
-  }
+  .process-steps { grid-template-columns: 1fr !important; }
   .contact-grid {
     grid-template-columns: 1fr !important;
-    gap: 36px !important;
+    gap: 32px !important;
   }
-  .form-row {
-    grid-template-columns: 1fr !important;
-  }
-  .contact-form-wrap {
-    padding: 24px 20px !important;
-  }
+  .form-row { grid-template-columns: 1fr !important; }
+  .contact-form-wrap { padding: 24px 18px !important; }
   .footer-grid {
     grid-template-columns: 1fr !important;
     gap: 28px !important;
@@ -305,14 +332,9 @@ body.menu-open {
     bottom: 18px !important;
     right: 18px !important;
   }
-  .wa-tooltip {
-    display: none !important;
-  }
-  .container {
-    padding: 0 16px !important;
-  }
+  .wa-tooltip { display: none !important; }
+  .container { padding: 0 16px !important; }
 
-  /* Area page CTAs */
   .section a.btn {
     display: inline-flex !important;
     width: 100% !important;
@@ -321,25 +343,18 @@ body.menu-open {
     margin-left: 0 !important;
     margin-bottom: 12px !important;
   }
-  .section a.btn + a.btn {
-    margin-left: 0 !important;
-  }
 }
 
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: 26px !important;
-  }
-  .section-title {
-    font-size: 22px !important;
-  }
+  .hero-title { font-size: 24px !important; }
+  .section-title { font-size: 22px !important; }
   .hero-trust {
     flex-direction: column !important;
-    gap: 10px !important;
+    gap: 8px !important;
   }
   .hero-ctas .btn,
   .cta-actions .btn {
     font-size: 14px !important;
-    padding: 13px 16px !important;
+    padding: 12px 14px !important;
   }
 }
