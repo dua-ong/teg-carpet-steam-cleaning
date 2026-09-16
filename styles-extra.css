@@ -119,6 +119,33 @@
   font-size: 15px;
 }
 
+/* Hero video — ensure visible */
+.hero-video-wrap {
+  overflow: hidden;
+  background: #062a4a;
+}
+.hero-video {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-overlay {
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(6, 42, 74, 0.55) 0%,
+    rgba(10, 61, 107, 0.45) 40%,
+    rgba(14, 165, 233, 0.28) 100%
+  ) !important;
+}
+.hero-content {
+  z-index: 2;
+}
+
 @media (max-width: 768px) {
   .page-hero {
     padding: 130px 0 50px;
