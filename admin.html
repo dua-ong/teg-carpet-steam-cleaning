@@ -1,1 +1,246 @@
-SEE_FILE
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>T.E.G Admin — Full CMS Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;background:#f1f5f9;color:#1a1a1a;min-height:100vh}.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}.login-box{background:#fff;padding:40px;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.08);width:100%;max-width:380px;text-align:center}.login-box h1{font-size:22px;margin-bottom:8px;color:#0a3d6b}.login-box p{font-size:14px;color:#64748b;margin-bottom:28px}.login-box input{width:100%;padding:12px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:15px;margin-bottom:16px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;font-size:15px;font-weight:600;border-radius:8px;border:none;cursor:pointer;text-decoration:none}.btn-primary{background:#f5a623;color:#1a1a1a}.btn-secondary{background:#0a3d6b;color:#fff}.btn-outline{background:#fff;border:1px solid #e2e8f0;color:#1a1a1a}.btn-sm{padding:8px 14px;font-size:13px}.btn-danger{background:#fee2e2;color:#b91c1c}.hidden{display:none!important}.dashboard{display:none}.dashboard.active{display:block}.topbar{background:#0a3d6b;color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}.topbar h1{font-size:18px}.topbar .actions{display:flex;gap:10px;flex-wrap:wrap}.layout{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 56px)}.sidebar{background:#fff;border-right:1px solid #e2e8f0;padding:12px 0;overflow-y:auto}.sidebar button{display:block;width:100%;text-align:left;padding:11px 18px;border:none;background:none;font-size:13px;font-weight:500;color:#475569;cursor:pointer}.sidebar button:hover,.sidebar button.active{background:#e0f2fe;color:#0369a1;border-right:3px solid #0ea5e9}.sidebar .group{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;padding:14px 18px 6px}.main{padding:24px 28px;max-width:920px}.panel{display:none;background:#fff;border-radius:12px;padding:24px;border:1px solid #e2e8f0}.panel.active{display:block}.panel h2{font-size:18px;margin-bottom:4px;color:#0a3d6b}.panel .desc{font-size:13px;color:#64748b;margin-bottom:18px}.form-group{margin-bottom:14px}.form-group label{display:block;font-size:12px;font-weight:600;color:#475569;margin-bottom:5px}.form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;font-family:inherit}.form-group textarea{min-height:72px;resize:vertical}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:700px){.layout{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}.upload-box{border:2px dashed #bae6fd;border-radius:10px;padding:14px;text-align:center;background:#f0f9ff;margin-bottom:10px;font-size:13px;color:#0369a1}.upload-box input[type=file]{margin-top:8px}.preview{max-width:160px;max-height:80px;margin-top:8px;border-radius:6px;display:none}.preview.show{display:block}.nav-item,.service-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin-bottom:10px;position:relative}.nav-item .remove,.service-item .remove{position:absolute;top:10px;right:10px;background:#fee2e2;color:#b91c1c;border:none;width:28px;height:28px;border-radius:6px;cursor:pointer}.actions-bar{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin:16px 0 8px}.note{background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:12px 14px;font-size:13px;color:#0369a1;margin-bottom:14px}.note.warn{background:#fffbeb;border-color:#fde68a;color:#92400e}.hint{font-size:11px;color:#94a3b8;margin-top:4px}.toast{position:fixed;bottom:24px;right:24px;background:#0a3d6b;color:#fff;padding:12px 18px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:100}.toast.show{opacity:1}.status{font-size:12px;color:#64748b;margin-bottom:12px}.badge{display:inline-block;background:#22c55e;color:#fff;font-size:10px;padding:2px 8px;border-radius:99px;margin-left:8px;vertical-align:middle}.sub-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin-bottom:10px}.sub-card.unread{border-left:3px solid #f5a623}.sub-card h4{font-size:14px;margin-bottom:4px}.sub-card p{font-size:13px;color:#64748b}
+</style>
+</head>
+<body>
+<div class="login-wrap" id="loginScreen">
+<div class="login-box">
+<h1>T.E.G Admin</h1>
+<p>Full CMS — branding, media, SEO, NAP, nav, before/after</p>
+<input type="password" id="password" placeholder="Password" onkeydown="if(event.key==='Enter')login()" />
+<button class="btn btn-primary" style="width:100%" onclick="login()">Login</button>
+<p id="loginHint" style="margin-top:8px;font-size:12px;color:#64748b"></p>
+</div>
+</div>
+<div class="dashboard" id="dashboard">
+<div class="topbar">
+<h1>T.E.G CMS <span id="serverBadge" class="badge" style="display:none">Server</span></h1>
+<div class="actions">
+<a class="btn btn-outline btn-sm" href="index.html" target="_blank">View site</a>
+<button class="btn btn-outline btn-sm" onclick="exportJSON()">Export</button>
+<button class="btn btn-secondary btn-sm" onclick="saveAll()">Save All</button>
+<button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+</div>
+</div>
+<div class="layout">
+<aside class="sidebar">
+<div class="group">Site</div>
+<button class="active" data-panel="branding" onclick="showPanel('branding')">Branding & Logo</button>
+<button data-panel="contact" onclick="showPanel('contact')">Phone / WhatsApp / Address</button>
+<button data-panel="media" onclick="showPanel('media')">Media & Uploads</button>
+<button data-panel="pageheroes" onclick="showPanel('pageheroes')">Page hero images</button>
+<button data-panel="beforeafter" onclick="showPanel('beforeafter');renderBeforeAfterPanel()">Before / After galleries</button>
+<div class="group">SEO</div>
+<button data-panel="seo" onclick="showPanel('seo')">Global SEO & Keywords</button>
+<button data-panel="pages-seo" onclick="showPanel('pages-seo')">Per-page SEO</button>
+<button data-panel="location" onclick="showPanel('location')">Location / GMB</button>
+<button data-panel="services" onclick="showPanel('services')">Services + SEO</button>
+<div class="group">Navigation</div>
+<button data-panel="nav-main" onclick="showPanel('nav-main')">Main Nav</button>
+<button data-panel="nav-footer" onclick="showPanel('nav-footer')">Footer Nav</button>
+<button data-panel="nav-services" onclick="showPanel('nav-services')">Services Nav</button>
+<div class="group">Leads</div>
+<button data-panel="inbox" onclick="showPanel('inbox');loadInbox()">Quote Inbox</button>
+<button data-panel="help" onclick="showPanel('help')">Help</button>
+</aside>
+<main class="main">
+<p class="status" id="connStatus"></p>
+
+<div class="panel active" id="panel-branding">
+<h2>Branding & Logo</h2>
+<p class="desc">Empty logo/favicon = keep text logo until you upload.</p>
+<div class="form-group"><label>Site / business name</label><input id="brand-siteName" /></div>
+<div class="form-row">
+<div class="form-group"><label>Logo mark text</label><input id="brand-logoMark" placeholder="T.E.G" /></div>
+<div class="form-group"><label>Logo text</label><input id="brand-logoText" placeholder="Carpet Steam Cleaning" /></div>
+</div>
+<div class="section-label">Logo image</div>
+<div class="form-group"><label>Logo URL</label><input id="media-logo" /></div>
+<div class="upload-box">Upload logo<br/><input type="file" accept="image/*" onchange="serverUpload(this,'media-logo','logoPreview')" /><img id="logoPreview" class="preview" alt="" /></div>
+<div class="section-label">Favicon</div>
+<div class="form-group"><label>Favicon URL</label><input id="media-favicon" /></div>
+<div class="upload-box">Upload favicon<br/><input type="file" accept="image/*,.ico,.svg" onchange="serverUpload(this,'media-favicon','favPreview')" /><img id="favPreview" class="preview" alt="" /></div>
+<div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Branding</button></div>
+</div>
+
+<div class="panel" id="panel-contact">
+<h2>Phone, WhatsApp, Address</h2>
+<div class="form-row">
+<div class="form-group"><label>Phone (display)</label><input id="contact-phone" /></div>
+<div class="form-group"><label>Phone tel:</label><input id="contact-phoneTel" /></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>WhatsApp</label><input id="contact-whatsapp" /></div>
+<div class="form-group"><label>WhatsApp digits</label><input id="contact-whatsappDigits" /></div>
+</div>
+<div class="form-group"><label>Email</label><input id="contact-email" /></div>
+<div class="form-group"><label>Full address</label><input id="contact-address" /></div>
+<div class="form-row">
+<div class="form-group"><label>Address line 1</label><input id="contact-addressLine1" /></div>
+<div class="form-group"><label>City</label><input id="contact-city" /></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Region</label><input id="contact-region" /></div>
+<div class="form-group"><label>Postal</label><input id="contact-postal" /></div>
+</div>
+<div class="form-group"><label>Hours</label><input id="contact-hours" /></div>
+<div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Contact</button></div>
+</div>
+
+<div class="panel" id="panel-media">
+<h2>Media & Uploads</h2>
+<div class="note">Prefer a <strong>hero image</strong> for speed. Nothing is hardcoded — empty = no media until you upload.</div>
+<div class="section-label">Homepage hero (image preferred)</div>
+<div class="form-group"><label>Hero image URL</label><input id="media-heroImage" placeholder="Recommended" /></div>
+<div class="upload-box">Upload hero image<br/><input type="file" accept="image/*" onchange="serverUpload(this,'media-heroImage','heroImgPreview')" /><img id="heroImgPreview" class="preview" alt="" /></div>
+<div class="form-group"><label>Hero video URL (optional)</label><input id="media-heroVideo" /></div>
+<div class="upload-box">Upload hero video<br/><input type="file" accept="video/*" onchange="serverUpload(this,'media-heroVideo',null)" /></div>
+<div class="form-group"><label>Hero poster</label><input id="media-heroPoster" /></div>
+<div class="upload-box">Upload poster<br/><input type="file" accept="image/*" onchange="serverUpload(this,'media-heroPoster','posterPreview')" /><img id="posterPreview" class="preview" alt="" /></div>
+<div class="section-label">Share / social</div>
+<div class="form-group"><label>OG image URL</label><input id="media-ogImage" /></div>
+<div class="upload-box">Upload OG<br/><input type="file" accept="image/*" onchange="serverUpload(this,'media-ogImage','ogMediaPreview')" /><img id="ogMediaPreview" class="preview" alt="" /></div>
+<div class="section-label">About image</div>
+<div class="form-group"><label>About image URL</label><input id="media-aboutImage" /></div>
+<div class="upload-box">Upload about<br/><input type="file" accept="image/*" onchange="serverUpload(this,'media-aboutImage','aboutPreview')" /><img id="aboutPreview" class="preview" alt="" /></div>
+<div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Media</button></div>
+</div>
+
+<div class="panel" id="panel-pageheroes">
+<h2>Page hero images</h2>
+<p class="desc">One image for Services page and one for Areas page. Service detail pages use the image set on that service.</p>
+<div class="form-group"><label>Services page (services.html)</label><input id="pm-services" /></div>
+<div class="upload-box">Upload<br/><input type="file" accept="image/*" onchange="serverUpload(this,'pm-services',null)" /></div>
+<div class="form-group"><label>Areas page (areas.html)</label><input id="pm-areas" /></div>
+<div class="upload-box">Upload<br/><input type="file" accept="image/*" onchange="serverUpload(this,'pm-areas',null)" /></div>
+<div class="form-group"><label>About</label><input id="pm-about" /></div>
+<div class="upload-box">Upload<br/><input type="file" accept="image/*" onchange="serverUpload(this,'pm-about',null)" /></div>
+<div class="form-group"><label>FAQ</label><input id="pm-faq" /></div>
+<div class="upload-box">Upload<br/><input type="file" accept="image/*" onchange="serverUpload(this,'pm-faq',null)" /></div>
+<div class="form-group"><label>Contact</label><input id="pm-contact" /></div>
+<div class="upload-box">Upload<br/><input type="file" accept="image/*" onchange="serverUpload(this,'pm-contact',null)" /></div>
+<div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save page heroes</button></div>
+</div>
+
+<div class="panel" id="panel-beforeafter">
+<h2>Before / After galleries</h2>
+<div class="note">Upload pairs once per service. They auto-show on that service page — no re-upload per location.</div>
+<div class="form-group"><label>Select service</label><select id="baServiceSelect" onchange="renderBaPairs()"></select></div>
+<div id="baPairsList"></div>
+<button class="btn btn-outline btn-sm" type="button" onclick="addBaPair()">+ Add before/after pair</button>
+<div class="actions-bar"><button class="btn btn-primary" onclick="saveBaThenAll()">Save galleries</button></div>
+</div>
+
+<div class="panel" id="panel-seo">
+<h2>Global SEO</h2>
+<div class="form-group"><label>Page title</label><input id="seo-title" /></div>
+<div class="form-group"><label>Meta description</label><textarea id="seo-description" rows="3"></textarea></div>
+<div class="form-group"><label>Keywords</label><input id="seo-keywords" /></div>
+<div class="form-group"><label>Canonical</label><input id="seo-canonical" /></div>
+<div class="section-label">Open Graph / Twitter</div>
+<div class="form-group"><label>OG title</label><input id="seo-ogTitle" /></div>
+<div class="form-group"><label>OG description</label><textarea id="seo-ogDescription" rows="2"></textarea></div>
+<div class="form-group"><label>OG image</label><input id="seo-ogImage" /></div>
+<div class="form-group"><label>Twitter title</label><input id="seo-twitterTitle" /></div>
+<div class="form-group"><label>Twitter description</label><input id="seo-twitterDescription" /></div>
+<div class="form-group"><label>Twitter image</label><input id="seo-twitterImage" /></div>
+<div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save SEO</button></div>
+</div>
+
+<div class="panel" id="panel-pages-seo">
+<h2>Per-page SEO</h2>
+<div class="form-group"><label>Select page</label>
+<select id="pageSeoSelect" onchange="loadPageSeoFields()">
+<option value="index.html">Home</option>
+<option value="services.html">Services</option>
+<option value="areas.html">Areas</option>
+<option value="about.html">About</option>
+<option value="faq.html">FAQ</option>
+<option value="contact.html">Contact</option>
+<option value="service-carpet-cleaning.html">Carpet Cleaning</option>
+<option value="service-tile-grout.html">Tile & Grout</option>
+<option value="service-couch-cleaning.html">Couch</option>
+<option value="service-steam-cleaning.html">Steam</option>
+<option value="service-stain-removal.html">Pet Odor</option>
+<option value="service-commercial.html">Commercial</option>
+</select></div>
+<div class="form-group"><label>Title</label><input id="page-title" /></div>
+<div class="form-group"><label>Description</label><textarea id="page-description" rows="3"></textarea></div>
+<div class="form-group"><label>Keywords</label><input id="page-keywords" /></div>
+<div class="form-group"><label>Canonical</label><input id="page-canonical" /></div>
+<div class="actions-bar"><button class="btn btn-outline btn-sm" onclick="clearPageSeo()">Clear</button><button class="btn btn-primary" onclick="savePageSeoThenAll()">Save</button></div>
+</div>
+
+<div class="panel" id="panel-location">
+<h2>Location / GMB</h2>
+<div class="form-group"><label>Business name</label><input id="loc-name" /></div>
+<div class="form-group"><label>Full address</label><input id="loc-address" /></div>
+<div class="form-row"><div class="form-group"><label>City</label><input id="loc-city" /></div><div class="form-group"><label>Region</label><input id="loc-region" /></div></div>
+<div class="form-row"><div class="form-group"><label>Postal</label><input id="loc-postal" /></div><div class="form-group"><label>Geo region</label><input id="loc-geoRegion" /></div></div>
+<div class="form-row"><div class="form-group"><label>Lat</label><input id="loc-lat" /></div><div class="form-group"><label>Lng</label><input id="loc-lng" /></div></div>
+<div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Location</button></div>
+</div>
+
+<div class="panel" id="panel-services">
+<h2>Services + SEO + hero image</h2>
+<div id="servicesList"></div>
+<button class="btn btn-outline btn-sm" onclick="addService()">+ Add service</button>
+<div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save Services</button></div>
+</div>
+
+<div class="panel" id="panel-nav-main"><h2>Main Nav</h2><div id="navMainList"></div><button class="btn btn-outline btn-sm" onclick="addNavItem('main')">+ Add</button><div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save</button></div></div>
+<div class="panel" id="panel-nav-footer"><h2>Footer Nav</h2><div id="navFooterList"></div><button class="btn btn-outline btn-sm" onclick="addNavItem('footer')">+ Add</button><div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save</button></div></div>
+<div class="panel" id="panel-nav-services"><h2>Services Nav</h2><div id="navServicesList"></div><button class="btn btn-outline btn-sm" onclick="addNavItem('services')">+ Add</button><div class="actions-bar"><button class="btn btn-primary" onclick="saveAll()">Save</button></div></div>
+
+<div class="panel" id="panel-inbox"><h2>Quote Inbox</h2><div id="inboxList"></div></div>
+<div class="panel" id="panel-help"><h2>Help</h2><div class="note">1. Login with server running (npm start).<br/>2. Media → upload homepage hero image.<br/>3. Before/After → pick service, add pairs, upload before & after images, Save.<br/>4. Page heroes → set Services / Areas images.<br/>5. Redeploy Railway after Save if needed.</div></div>
+</main>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="admin-api.js"></script>
+<script>
+let serverMode=false,cache=null;window._pagesSeo={};window._servicesCache=[];
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800)}
+function showPanel(id){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.sidebar button').forEach(b=>b.classList.remove('active'));const p=document.getElementById('panel-'+id);if(p)p.classList.add('active');const b=document.querySelector('[data-panel="'+id+'"]');if(b)b.classList.add('active')}
+function val(id){const e=document.getElementById(id);return e?e.value.trim():''}
+function set(id,v){const e=document.getElementById(id);if(e)e.value=v||''}
+function showPreview(id,url){const e=document.getElementById(id);if(!e)return;if(url){e.src=url;e.classList.add('show')}else e.classList.remove('show')}
+function esc(s){return String(s||'').replace(/&/g,'&').replace(/"/g,'"').replace(/</g,'<')}
+async function login(){const pw=document.getElementById('password').value;try{const ok=await TEG.loginServer(pw);if(ok){serverMode=true;sessionStorage.setItem('teg_admin',pw);document.getElementById('loginScreen').classList.add('hidden');document.getElementById('dashboard').classList.add('active');document.getElementById('serverBadge').style.display='inline-block';await load();return}}catch(e){}document.getElementById('loginHint').textContent='Wrong password or server offline'}
+function logout(){sessionStorage.removeItem('teg_admin');location.reload()}
+async function load(){let data=null;if(serverMode){try{data=await TEG.loadContentServer()}catch(e){}}if(!data){try{data=JSON.parse(localStorage.getItem('teg_content')||'null')}catch(e){}}if(data){cache=data;fill(data)}document.getElementById('connStatus').textContent=serverMode?'Connected to server':'Local only'}
+function fill(d){const b=d.branding||{},m=d.media||{},c=d.contact||{},s=d.seo||{},loc=d.location||{};set('brand-siteName',b.siteName);set('brand-logoMark',b.logoMark);set('brand-logoText',b.logoText);set('media-logo',m.logo||b.logoUrl||'');set('media-favicon',m.favicon||b.faviconUrl||'');set('media-heroVideo',m.heroVideo||m.video||'');set('media-heroPoster',m.heroPoster||m.poster||'');set('media-ogImage',m.ogImage||m.og||'');set('media-aboutImage',m.aboutImage||m.about||'');set('media-heroImage',m.heroImage||'');const pm=d.pageMedia||{};set('pm-services',(pm['services.html']||{}).heroImage||'');set('pm-areas',(pm['areas.html']||{}).heroImage||'');set('pm-about',(pm['about.html']||{}).heroImage||'');set('pm-faq',(pm['faq.html']||{}).heroImage||'');set('pm-contact',(pm['contact.html']||{}).heroImage||'');set('contact-phone',c.phone);set('contact-phoneTel',c.phoneTel);set('contact-whatsapp',c.whatsapp);set('contact-whatsappDigits',c.whatsappDigits);set('contact-email',c.email);set('contact-address',c.address);set('contact-addressLine1',c.addressLine1);set('contact-city',c.city);set('contact-region',c.region);set('contact-postal',c.postal);set('contact-hours',c.hours);set('seo-title',s.title);set('seo-description',s.description);set('seo-keywords',s.keywords);set('seo-canonical',s.canonical);set('seo-ogTitle',s.ogTitle);set('seo-ogDescription',s.ogDescription);set('seo-ogImage',s.ogImage||'');set('seo-twitterTitle',s.twitterTitle);set('seo-twitterDescription',s.twitterDescription);set('seo-twitterImage',s.twitterImage||'');set('loc-name',loc.name);set('loc-city',loc.city);set('loc-address',loc.address);set('loc-region',loc.region);set('loc-postal',loc.postal);set('loc-lat',loc.lat);set('loc-lng',loc.lng);set('loc-geoRegion',loc.geoRegion);renderServices(d.services||[]);const nav=d.nav||{};renderNav('main',nav.main||[]);renderNav('footer',nav.footer||[]);renderNav('services',nav.services||[]);window._pagesSeo=d.pages||{};loadPageSeoFields();showPreview('logoPreview',val('media-logo'));showPreview('favPreview',val('media-favicon'));showPreview('posterPreview',val('media-heroPoster'));showPreview('ogMediaPreview',val('media-ogImage'));showPreview('aboutPreview',val('media-aboutImage'));showPreview('heroImgPreview',val('media-heroImage'));window._servicesCache=d.services||[]}
+function collect(){const data=cache?JSON.parse(JSON.stringify(cache)):{};data.branding={siteName:val('brand-siteName'),logoMark:val('brand-logoMark'),logoText:val('brand-logoText'),logoUrl:val('media-logo'),faviconUrl:val('media-favicon')};data.media={logo:val('media-logo'),favicon:val('media-favicon'),heroImage:val('media-heroImage'),heroVideo:val('media-heroVideo'),heroPoster:val('media-heroPoster'),ogImage:val('media-ogImage'),aboutImage:val('media-aboutImage')};data.pageMedia={'services.html':{heroImage:val('pm-services')},'areas.html':{heroImage:val('pm-areas')},'about.html':{heroImage:val('pm-about')},'faq.html':{heroImage:val('pm-faq')},'contact.html':{heroImage:val('pm-contact')}};try{syncBaFromDom()}catch(e){}data.contact={phone:val('contact-phone'),phoneTel:val('contact-phoneTel'),whatsapp:val('contact-whatsapp'),whatsappDigits:val('contact-whatsappDigits'),email:val('contact-email'),address:val('contact-address'),addressLine1:val('contact-addressLine1'),city:val('contact-city'),region:val('contact-region'),postal:val('contact-postal'),hours:val('contact-hours')};data.seo={title:val('seo-title'),description:val('seo-description'),keywords:val('seo-keywords'),canonical:val('seo-canonical'),ogTitle:val('seo-ogTitle'),ogDescription:val('seo-ogDescription'),ogImage:val('seo-ogImage'),twitterTitle:val('seo-twitterTitle'),twitterDescription:val('seo-twitterDescription'),twitterImage:val('seo-twitterImage')};data.location={name:val('loc-name'),city:val('loc-city'),address:val('loc-address'),region:val('loc-region'),postal:val('loc-postal'),lat:val('loc-lat'),lng:val('loc-lng'),geoRegion:val('loc-geoRegion')};data.services=collectServices();data.nav={main:collectNav('main'),footer:collectNav('footer'),services:collectNav('services')};data.pages=window._pagesSeo||{};return data}
+async function saveAll(){const data=collect();localStorage.setItem('teg_content',JSON.stringify(data));cache=data;if(serverMode){try{await TEG.saveContentServer(data);showToast('Saved to server ✓');return}catch(e){showToast('Server save failed — saved locally')}}else showToast('Saved locally')}
+async function serverUpload(input,fieldId,previewId){const file=input.files&&input.files[0];if(!file)return;if(!serverMode){showToast('Start server to upload');return}try{showToast('Uploading…');const url=await TEG.uploadFile(file);set(fieldId,url);if(previewId)showPreview(previewId,url);showToast('Uploaded — Save All to apply')}catch(e){showToast(e.message||'Upload failed')}}
+async function uploadInto(input,fieldEl){const file=input.files&&input.files[0];if(!file||!fieldEl)return;if(!serverMode){showToast('Start server to upload');return}try{showToast('Uploading…');const url=await TEG.uploadFile(file);fieldEl.value=url;showToast('Uploaded — Save to apply')}catch(e){showToast(e.message||'Upload failed')}}
+function renderServices(list){const box=document.getElementById('servicesList');if(!box)return;box.innerHTML='';(list||[]).forEach((svc,i)=>{const div=document.createElement('div');div.className='service-item';div.innerHTML='<button type="button" class="remove" onclick="this.parentElement.remove()">×</button><div class="form-group"><label>Name</label><input class="svc-name" value="'+esc(svc.name||'')+'" /></div><div class="form-group"><label>Description</label><textarea class="svc-desc" rows="2">'+esc(svc.description||'')+'</textarea></div><div class="form-group"><label>Href</label><input class="svc-href" value="'+esc(svc.href||'')+'" /></div><div class="form-group"><label>Service hero image</label><input class="svc-heroImage" value="'+esc(svc.heroImage||'')+'" /></div><div class="upload-box">Upload service hero<br/><input type="file" accept="image/*" onchange="uploadInto(this,this.closest(\'.service-item\').querySelector(\'.svc-heroImage\'))" /></div><div class="form-row"><div class="form-group"><label>SEO title</label><input class="svc-seoTitle" value="'+esc(svc.seoTitle||'')+'" /></div><div class="form-group"><label>SEO keywords</label><input class="svc-seoKeywords" value="'+esc(svc.seoKeywords||'')+'" /></div></div><div class="form-group"><label>SEO description</label><textarea class="svc-seoDesc" rows="2">'+esc(svc.seoDescription||'')+'</textarea></div><p class="hint">Before/After: use Before / After galleries panel</p>';box.appendChild(div)});window._servicesCache=list||[]}
+function collectServices(){const box=document.getElementById('servicesList');if(!box)return[];const prev=window._servicesCache||[];return Array.from(box.querySelectorAll('.service-item')).map((el,i)=>{const href=el.querySelector('.svc-href').value.trim();const old=prev.find(p=>p.href===href)||prev[i]||{};return{name:el.querySelector('.svc-name').value.trim(),description:el.querySelector('.svc-desc').value.trim(),href:href,seoTitle:el.querySelector('.svc-seoTitle').value.trim(),seoKeywords:el.querySelector('.svc-seoKeywords').value.trim(),seoDescription:el.querySelector('.svc-seoDesc').value.trim(),heroImage:(el.querySelector('.svc-heroImage')||{}).value?el.querySelector('.svc-heroImage').value.trim():(old.heroImage||''),beforeAfter:Array.isArray(old.beforeAfter)?old.beforeAfter:[]}})}
+function addService(){const list=collectServices();list.push({name:'New service',description:'',href:'services.html',seoTitle:'',seoKeywords:'',seoDescription:'',heroImage:'',beforeAfter:[]});renderServices(list)}
+function renderBeforeAfterPanel(){const sel=document.getElementById('baServiceSelect');if(!sel)return;const services=collectServices();window._servicesCache=services;const cur=sel.value;sel.innerHTML=services.map((s,i)=>'<option value="'+i+'">'+esc(s.name||s.href||('Service '+i))+'</option>').join('');if(cur&&+cur<services.length)sel.value=cur;renderBaPairs()}
+function renderBaPairs(){const sel=document.getElementById('baServiceSelect'),box=document.getElementById('baPairsList');if(!sel||!box)return;const services=window._servicesCache||collectServices();const idx=parseInt(sel.value,10)||0;const svc=services[idx]||{};const pairs=Array.isArray(svc.beforeAfter)?svc.beforeAfter:[];box.innerHTML=pairs.map((p,i)=>'<div class="service-item ba-pair-item" data-i="'+i+'"><button type="button" class="remove" onclick="removeBaPair('+i+')">×</button><div class="form-row"><div class="form-group"><label>Before URL</label><input class="ba-before" value="'+esc(p.before||'')+'" /></div><div class="form-group"><label>After URL</label><input class="ba-after" value="'+esc(p.after||'')+'" /></div></div><div class="upload-box">Upload before <input type="file" accept="image/*" onchange="uploadInto(this,this.closest(\'.ba-pair-item\').querySelector(\'.ba-before\'))" /> · Upload after <input type="file" accept="image/*" onchange="uploadInto(this,this.closest(\'.ba-pair-item\').querySelector(\'.ba-after\'))" /></div><div class="form-group"><label>Caption</label><input class="ba-caption" value="'+esc(p.caption||'')+'" /></div></div>').join('')||'<p class="desc">No pairs yet. Click + Add before/after pair.</p>'}
+function addBaPair(){const services=window._servicesCache||collectServices();const sel=document.getElementById('baServiceSelect');const idx=parseInt(sel&&sel.value,10)||0;if(!services[idx])return;if(!Array.isArray(services[idx].beforeAfter))services[idx].beforeAfter=[];syncBaFromDom();services[idx].beforeAfter.push({before:'',after:'',caption:''});window._servicesCache=services;renderBaPairs()}
+function removeBaPair(i){syncBaFromDom();const services=window._servicesCache||[];const sel=document.getElementById('baServiceSelect');const idx=parseInt(sel&&sel.value,10)||0;if(services[idx]&&services[idx].beforeAfter){services[idx].beforeAfter.splice(i,1);window._servicesCache=services;renderBaPairs()}}
+function syncBaFromDom(){const services=window._servicesCache||collectServices();const sel=document.getElementById('baServiceSelect');const box=document.getElementById('baPairsList');if(!sel||!box)return;const idx=parseInt(sel.value,10)||0;if(!services[idx])return;const pairs=[];box.querySelectorAll('.ba-pair-item').forEach(el=>{pairs.push({before:(el.querySelector('.ba-before')||{}).value||'',after:(el.querySelector('.ba-after')||{}).value||'',caption:(el.querySelector('.ba-caption')||{}).value||''})});services[idx].beforeAfter=pairs;window._servicesCache=services}
+function saveBaThenAll(){syncBaFromDom();return saveAll()}
+function navListId(cat){return cat==='main'?'navMainList':cat==='footer'?'navFooterList':'navServicesList'}
+function renderNav(cat,items){const box=document.getElementById(navListId(cat));if(!box)return;box.innerHTML='';(items||[]).forEach(item=>{const div=document.createElement('div');div.className='nav-item';div.innerHTML='<button type="button" class="remove" onclick="this.parentElement.remove()">×</button><div class="form-row"><div class="form-group"><label>Label</label><input class="nav-label" value="'+esc(item.label||'')+'" /></div><div class="form-group"><label>URL</label><input class="nav-href" value="'+esc(item.href||'')+'" /></div></div>';box.appendChild(div)})}
+function collectNav(cat){const box=document.getElementById(navListId(cat));if(!box)return[];return Array.from(box.querySelectorAll('.nav-item')).map(el=>({label:el.querySelector('.nav-label').value.trim(),href:el.querySelector('.nav-href').value.trim()})).filter(x=>x.label||x.href)}
+function addNavItem(cat){const items=collectNav(cat);items.push({label:'New link',href:''});renderNav(cat,items)}
+function loadPageSeoFields(){window._pagesSeo=window._pagesSeo||{};const sel=document.getElementById('pageSeoSelect');if(!sel)return;const p=window._pagesSeo[sel.value]||{};set('page-title',p.title);set('page-description',p.description);set('page-keywords',p.keywords);set('page-canonical',p.canonical)}
+function clearPageSeo(){const sel=document.getElementById('pageSeoSelect');if(!sel)return;delete (window._pagesSeo||{})[sel.value];loadPageSeoFields();showToast('Cleared — Save All')}
+function savePageSeoThenAll(){const sel=document.getElementById('pageSeoSelect');if(!sel)return saveAll();window._pagesSeo=window._pagesSeo||{};const t=val('page-title'),desc=val('page-description'),kw=val('page-keywords'),can=val('page-canonical');if(t||desc||kw||can)window._pagesSeo[sel.value]={title:t,description:desc,keywords:kw,canonical:can};else delete window._pagesSeo[sel.value];return saveAll()}
+async function loadInbox(){const box=document.getElementById('inboxList');if(!serverMode){box.innerHTML='<p class="desc">Server required</p>';return}try{const list=await TEG.loadSubmissions();if(!list.length){box.innerHTML='<p class="desc">No submissions</p>';return}box.innerHTML=list.map(s=>'<div class="sub-card '+(s.read?'':'unread')+'"><h4>'+esc(s.name)+'</h4><p>'+esc(s.phone)+' · '+esc(s.email)+'</p><p>'+esc(s.service)+'</p><p>'+esc(s.message)+'</p></div>').join('')}catch(e){box.innerHTML='<p class="desc">Could not load</p>'}}
+function exportJSON(){const blob=new Blob([JSON.stringify(collect(),null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='teg-content.json';a.click()}
+(async function init(){const key=sessionStorage.getItem('teg_admin');if(key){try{if(await TEG.loginServer(key)){serverMode=true;document.getElementById('loginScreen').classList.add('hidden');document.getElementById('dashboard').classList.add('active');document.getElementById('serverBadge').style.display='inline-block';await load();return}}catch(e){}}})();
+</script>
+</body>
+</html>
