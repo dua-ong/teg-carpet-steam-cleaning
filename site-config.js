@@ -7,6 +7,61 @@
   var GMB_REVIEW = 'https://g.page/teg-carpet-steam-cleaning/review';
   var MAPS = 'https://www.google.com/maps/search/?api=1&query=TEG+Carpet+%26+Furniture+Steam+Cleaning+4111+N+Port+Washington+Rd+Milwaukee+WI';
 
+  var MAP_EMBED = 'https://maps.google.com/maps?q=4111%20N%20Port%20Washington%20Rd%20suite%201%2C%20Milwaukee%2C%20WI%2053217&z=15&ie=UTF8&output=embed';
+  var MAP_LINK = 'https://www.google.com/maps/search/?api=1&query=TEG+Carpet+%26+Furniture+Steam+Cleaning+4111+N+Port+Washington+Rd+Milwaukee+WI';
+
+  function injectFooterMap() {
+    var footer = document.querySelector('footer.footer .container');
+    if (!footer || document.getElementById('teg-footer-map')) return;
+    var box = document.createElement('div');
+    box.id = 'teg-footer-map';
+    box.className = 'teg-footer-map';
+    box.innerHTML =
+      '<div class="teg-footer-map-inner">' +
+        '<div class="teg-footer-map-head">' +
+          '<h4>Find us on the map</h4>' +
+          '<a href="' + MAP_LINK + '" target="_blank" rel="noopener">Open in Google Maps</a>' +
+        '</div>' +
+        '<iframe title="T.E.G Carpet Steam Cleaning location map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="' + MAP_EMBED + '" allowfullscreen></iframe>' +
+        '<div class="teg-footer-map-addr">' +
+          '<strong>T.E.G Carpet & Furniture Steam Cleaning</strong>' +
+          '4111 N Port Washington Rd suite 1<br>Milwaukee, WI 53217, United States' +
+        '</div>' +
+      '</div>';
+    var bottom = footer.querySelector('.footer-bottom');
+    if (bottom) footer.insertBefore(box, bottom);
+    else footer.appendChild(box);
+  }
+
+  function injectContactMapBox() {
+    if (!/contact\.html/i.test(location.pathname) && location.pathname.replace(/\/$/, '').slice(-7) !== 'contact') return;
+    if (document.getElementById('teg-contact-map-box')) return;
+    var section = document.querySelector('section.contact .container') || document.querySelector('main .container');
+    if (!section) return;
+    var box = document.createElement('div');
+    box.id = 'teg-contact-map-box';
+    box.className = 'teg-contact-map-box anim-on-scroll';
+    box.innerHTML =
+      '<div class="teg-map-top">' +
+        '<div class="teg-map-info">' +
+          '<h2>Our location</h2>' +
+          '<p>Visit or pin us for service across Milwaukee and western suburbs.</p>' +
+          '<div class="teg-addr-line"><span class="icon" aria-hidden="true">📍</span><div><strong>Address</strong><br>4111 N Port Washington Rd suite 1<br>Milwaukee, WI 53217<br>United States</div></div>' +
+          '<div class="teg-addr-line"><span class="icon" aria-hidden="true">📞</span><div><strong>Phone</strong><br><a href="tel:+14147753705">Call Now · +1 (414) 775-3705</a></div></div>' +
+          '<div class="teg-addr-line"><span class="icon" aria-hidden="true">✉️</span><div><strong>Email</strong><br><a href="mailto:contact@teg-carpetsteamcleaning.com">contact@teg-carpetsteamcleaning.com</a></div></div>' +
+          '<div class="teg-addr-line"><span class="icon" aria-hidden="true">🕒</span><div><strong>Hours</strong><br>24/7 — Always Available</div></div>' +
+          '<div class="teg-map-actions">' +
+            '<a class="primary" href="' + MAP_LINK + '" target="_blank" rel="noopener">Get directions</a>' +
+            '<a class="ghost" href="' + GMB + '" target="_blank" rel="noopener">Google Business Profile</a>' +
+          '</div>' +
+        '</div>' +
+        '<div class="teg-map-frame">' +
+          '<iframe title="T.E.G location map Milwaukee" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="' + MAP_EMBED + '" allowfullscreen></iframe>' +
+        '</div>' +
+      '</div>';
+    section.appendChild(box);
+  }
+
   if (!document.getElementById('teg-ui-css')) {
     var st = document.createElement('style');
     st.id = 'teg-ui-css';
@@ -52,6 +107,31 @@
       '.ba-pair .ba-imgs{display:grid;grid-template-columns:1fr 1fr;gap:0}',
       '.ba-pair img{width:100%;height:160px;object-fit:cover;display:block}',
       '.ba-pair .ba-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:6px 10px;background:#0a3d6b;color:#fff}',
+      '.teg-footer-map{margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}',
+      '.teg-footer-map-inner{background:linear-gradient(145deg,rgba(14,165,233,.12),rgba(7,26,46,.9));border:1px solid rgba(125,211,252,.25);border-radius:16px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.25)}',
+      '.teg-footer-map-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;background:rgba(10,61,107,.55)}',
+      '.teg-footer-map-head h4{margin:0;color:#fff;font-size:15px;font-weight:700;letter-spacing:.02em}',
+      '.teg-footer-map-head a{color:#7dd3fc;font-size:13px;font-weight:600;text-decoration:none}',
+      '.teg-footer-map-head a:hover{color:#fff;text-decoration:underline}',
+      '.teg-footer-map iframe{display:block;width:100%;height:220px;border:0;filter:grayscale(.15) contrast(1.05)}',
+      '.teg-footer-map-addr{padding:12px 18px 16px;color:rgba(255,255,255,.88);font-size:13px;line-height:1.55}',
+      '.teg-footer-map-addr strong{display:block;color:#fff;font-size:14px;margin-bottom:4px}',
+      '@media (max-width:768px){.teg-footer-map iframe{height:200px}}',
+      '.teg-contact-map-box{margin-top:36px;background:#fff;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;box-shadow:0 10px 40px rgba(10,61,107,.08)}',
+      '.teg-contact-map-box .teg-map-top{display:grid;grid-template-columns:1fr 1.2fr;gap:0}',
+      '@media (max-width:900px){.teg-contact-map-box .teg-map-top{grid-template-columns:1fr}}',
+      '.teg-contact-map-box .teg-map-info{padding:28px 26px;background:linear-gradient(160deg,#0a3d6b 0%,#0c4a7a 100%);color:#fff}',
+      '.teg-contact-map-box .teg-map-info h2{margin:0 0 8px;font-size:22px;color:#fff}',
+      '.teg-contact-map-box .teg-map-info p{margin:0 0 18px;opacity:.9;font-size:14px;line-height:1.5}',
+      '.teg-contact-map-box .teg-addr-line{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;font-size:14px;line-height:1.5}',
+      '.teg-contact-map-box .teg-addr-line span.icon{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:rgba(14,165,233,.25);display:flex;align-items:center;justify-content:center;font-size:16px}',
+      '.teg-contact-map-box .teg-addr-line a{color:#7dd3fc;font-weight:600;text-decoration:none}',
+      '.teg-contact-map-box .teg-addr-line a:hover{text-decoration:underline}',
+      '.teg-contact-map-box iframe{display:block;width:100%;height:100%;min-height:280px;border:0}',
+      '.teg-contact-map-box .teg-map-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}',
+      '.teg-contact-map-box .teg-map-actions a{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none}',
+      '.teg-contact-map-box .teg-map-actions a.primary{background:#0ea5e9;color:#fff}',
+      '.teg-contact-map-box .teg-map-actions a.ghost{background:transparent;border:2px solid rgba(255,255,255,.35);color:#fff}',
       '.ba-pair .ba-caption{padding:10px 12px;font-size:13px;color:#475569;margin:0}'
     ].join('');
     (document.head || document.documentElement).appendChild(st);
@@ -207,6 +287,8 @@
       if ((el.textContent || '').indexOf('Furniture') === -1) el.textContent = 'Carpet & Furniture Steam Cleaning';
     });
     injectGmbUi();
+    injectFooterMap();
+    injectContactMapBox();
   }
 
   if (document.readyState === 'loading') {
