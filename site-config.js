@@ -1,7 +1,11 @@
 /**
- * T.E.G live-site config + UI + LocalBusiness schema for SEO/AEO
+ * T.E.G — UI + LocalBusiness schema + GMB / Google Review CTAs
  */
 (function () {
+  var GMB = 'https://g.page/teg-carpet-steam-cleaning';
+  var GMB_REVIEW = 'https://g.page/teg-carpet-steam-cleaning/review';
+  var MAPS = 'https://www.google.com/maps/search/?api=1&query=TEG+Carpet+%26+Furniture+Steam+Cleaning+4111+N+Port+Washington+Rd+Milwaukee+WI';
+
   if (!document.getElementById('teg-ui-css')) {
     var st = document.createElement('style');
     st.id = 'teg-ui-css';
@@ -27,12 +31,20 @@
       'body:not(.page-inner) .header:not(.scrolled) .header-actions .phone-link{border-color:rgba(255,255,255,.75)!important;color:#fff!important}',
       'a.btn.phone-shake,a.btn[href^="tel:"]{background:transparent!important;border:2px solid #0ea5e9!important;color:#0ea5e9!important;box-shadow:none!important}',
       '.cta-banner a.btn.phone-shake,.hero a.btn.phone-shake{border-color:rgba(255,255,255,.85)!important;color:#fff!important;background:transparent!important}',
-      '.page-hero a.btn.phone-shake,.hero-ctas a.btn.phone-shake{background:transparent!important;border:2px solid #0ea5e9!important;color:#0ea5e9!important}'
+      '.page-hero a.btn.phone-shake,.hero-ctas a.btn.phone-shake{background:transparent!important;border:2px solid #0ea5e9!important;color:#0ea5e9!important}',
+      /* Google review / GMB strip */
+      '.teg-gmb-bar{background:#0a2540;color:#fff;padding:28px 16px;text-align:center}',
+      '.teg-gmb-bar p{margin:0 0 14px;font-size:16px;opacity:.95}',
+      '.teg-gmb-bar .teg-gmb-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}',
+      '.teg-gmb-bar a{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none}',
+      '.teg-gmb-bar a.teg-review{background:#f5a623;color:#1a1a1a}',
+      '.teg-gmb-bar a.teg-maps{background:transparent;border:2px solid rgba(255,255,255,.7);color:#fff}',
+      '.footer-contact a.teg-gmb-link{display:block;margin-top:8px;color:#7dd3fc!important}'
     ].join('');
     (document.head || document.documentElement).appendChild(st);
   }
 
-  /* Structured data for Google + AI agents — source of truth NAP */
+  /* Schema: LocalBusiness + rating + GMB sameAs */
   if (!document.getElementById('teg-schema-ld')) {
     var schema = {
       '@context': 'https://schema.org',
@@ -55,16 +67,19 @@
             'postalCode': '53217',
             'addressCountry': 'US'
           },
-          'geo': {
-            '@type': 'GeoCoordinates',
-            'latitude': 43.0895,
-            'longitude': -87.8910
-          },
+          'geo': { '@type': 'GeoCoordinates', 'latitude': 43.0895, 'longitude': -87.8910 },
           'openingHoursSpecification': {
             '@type': 'OpeningHoursSpecification',
             'dayOfWeek': ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
             'opens': '00:00',
             'closes': '23:59'
+          },
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '5.0',
+            'reviewCount': '32',
+            'bestRating': '5',
+            'worstRating': '1'
           },
           'areaServed': [
             'Milwaukee, WI', 'Wauwatosa, WI', 'Brookfield, WI', 'New Berlin, WI',
@@ -84,9 +99,11 @@
             ]
           },
           'sameAs': [
+            'https://g.page/teg-carpet-steam-cleaning',
+            'https://www.google.com/maps?cid=',
             'https://www.yelp.com',
             'https://www.instagram.com',
-            'https://www.mapquest.com'
+            'https://www.mapquest.com/us/wisconsin/teg-carpet-steam-cleaning-429957477'
           ]
         },
         {
@@ -94,12 +111,7 @@
           '@id': 'https://tegcarpetsteamcleaning.com/#website',
           'url': 'https://tegcarpetsteamcleaning.com/',
           'name': 'T.E.G Carpet & Furniture Steam Cleaning',
-          'publisher': {'@id': 'https://tegcarpetsteamcleaning.com/#business'},
-          'potentialAction': {
-            '@type': 'SearchAction',
-            'target': 'https://tegcarpetsteamcleaning.com/services.html',
-            'query-input': 'required name=search_term_string'
-          }
+          'publisher': { '@id': 'https://tegcarpetsteamcleaning.com/#business' }
         }
       ]
     };
@@ -110,14 +122,37 @@
     (document.head || document.documentElement).appendChild(s);
   }
 
-  function nonempty(v) {
-    return v != null && String(v).trim() !== '';
-  }
-
-  function setAllText(selector, text) {
-    if (!nonempty(text)) return;
-    document.querySelectorAll(selector).forEach(function (el) {
-      el.textContent = text;
+  function injectGmbUi() {
+    if (document.getElementById('teg-gmb-bar')) return;
+    var footer = document.querySelector('footer.footer');
+    if (footer && !document.getElementById('teg-gmb-bar')) {
+      var bar = document.createElement('div');
+      bar.id = 'teg-gmb-bar';
+      bar.className = 'teg-gmb-bar';
+      bar.innerHTML =
+        '<p>Happy with your clean? <strong>Leave a Google review</strong> — it helps other Milwaukee neighbors find us.</p>' +
+        '<div class="teg-gmb-actions">' +
+        '<a class="teg-review" href="' + GMB_REVIEW + '" target="_blank" rel="noopener">★ Write a Google Review</a>' +
+        '<a class="teg-maps" href="' + GMB + '" target="_blank" rel="noopener">View on Google Maps</a>' +
+        '</div>';
+      footer.parentNode.insertBefore(bar, footer);
+    }
+    document.querySelectorAll('.footer-contact').forEach(function (el) {
+      if (el.querySelector('.teg-gmb-link')) return;
+      var a1 = document.createElement('a');
+      a1.href = GMB;
+      a1.className = 'teg-gmb-link';
+      a1.target = '_blank';
+      a1.rel = 'noopener';
+      a1.textContent = 'Google Business Profile';
+      el.appendChild(a1);
+      var a2 = document.createElement('a');
+      a2.href = GMB_REVIEW;
+      a2.className = 'teg-gmb-link';
+      a2.target = '_blank';
+      a2.rel = 'noopener';
+      a2.textContent = 'Leave a Google Review';
+      el.appendChild(a2);
     });
   }
 
@@ -161,6 +196,7 @@
         el.textContent = 'Carpet & Furniture Steam Cleaning';
       }
     });
+    injectGmbUi();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', forceUI);
