@@ -11,7 +11,6 @@
 (function initHeroVideo() {
   var hv = document.getElementById('heroVideo') || document.querySelector('video.hero-video');
   if (!hv) return;
-  // Never keep a stock poster flash on homepage
   hv.removeAttribute('poster');
 
   function markReady() {
@@ -27,7 +26,6 @@
     hv.addEventListener('canplay', markReady, { once: true });
     hv.addEventListener('playing', markReady, { once: true });
   }
-  // Retry play on first user gesture (iOS autoplay policies)
   function unlock() {
     hv.muted = true;
     markReady();
@@ -187,3 +185,37 @@ function startPhoneShake() {
   }, 6000);
 }
 startPhoneShake();
+
+/* Permanent SMS float — strip WhatsApp, ensure SMS on every page */
+(function ensureSmsFloat() {
+  function run() {
+    document.querySelectorAll('a.whatsapp-float, a[href*="wa.me"]').forEach(function (el) {
+      if (el.closest && el.closest('.contact-item')) return; /* leave contact page text links alone if any */
+      if (el.classList && el.classList.contains('whatsapp-float')) el.remove();
+      else if (el.getAttribute('href') && el.getAttribute('href').indexOf('wa.me') !== -1 && el.classList.contains('whatsapp-float')) el.remove();
+    });
+    document.querySelectorAll('a.whatsapp-float').forEach(function (el) { el.remove(); });
+    var existing = document.querySelector('a.sms-float');
+    var html = '<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM7 9h10v2H7V9zm0-3h10v2H7V6zm0 6h7v2H7v-2z"/></svg>';
+    if (!existing) {
+      var a = document.createElement('a');
+      a.href = 'sms:+14147753705';
+      a.className = 'sms-float';
+      a.setAttribute('rel', 'noopener');
+      a.setAttribute('aria-label', 'Text us');
+      a.innerHTML = html;
+      document.body.appendChild(a);
+    } else {
+      existing.href = 'sms:+14147753705';
+      existing.className = 'sms-float';
+      existing.setAttribute('aria-label', 'Text us');
+      existing.removeAttribute('target');
+      if (!existing.querySelector('svg')) existing.innerHTML = html;
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+})();
