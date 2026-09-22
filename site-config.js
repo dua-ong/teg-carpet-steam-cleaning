@@ -6,11 +6,12 @@
     var st = document.createElement('style');
     st.id = 'teg-ui-css';
     st.textContent = [
+      /* Hide legacy WhatsApp immediately — no green flash */
+      '.whatsapp-float{display:none!important}',
       /* SMS float */
       '.sms-float{position:fixed;bottom:28px;right:28px;z-index:999;width:60px;height:60px;background:#0ea5e9;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(14,165,233,.45);transition:transform .35s,box-shadow .3s}',
       '.sms-float svg{width:28px;height:28px}',
       '.sms-float:hover{transform:scale(1.14);box-shadow:0 10px 32px rgba(14,165,233,.55)}',
-      '.whatsapp-float{background:#0ea5e9!important;box-shadow:0 6px 24px rgba(14,165,233,.45)!important}',
 
       /* Header: a little space from the edges, menu stays one line */
       '@media (min-width:769px){',
@@ -47,7 +48,7 @@
       '}',
       '.header-actions .btn{white-space:nowrap!important;padding:8px 16px!important}',
 
-      /* Call Now buttons (hero/CTAs): blue outline, never yellow */
+      /* Call Now buttons: blue outline */
       'a.btn.phone-shake,a.btn[href^="tel:"],.btn-call{',
       '  background:transparent!important;border:2px solid #0ea5e9!important;',
       '  color:#0ea5e9!important;box-shadow:none!important;',
@@ -55,7 +56,6 @@
       'a.btn.phone-shake:hover,a.btn[href^="tel:"]:hover{',
       '  background:rgba(14,165,233,.1)!important;border-color:#0ea5e9!important;color:#0ea5e9!important;',
       '}',
-      /* Dark sections: white outline Call Now */
       '.cta-banner a.btn.phone-shake,.cta-banner a.btn[href^="tel:"],',
       '.hero a.btn.phone-shake,.hero a.btn[href^="tel:"]{',
       '  border-color:rgba(255,255,255,.85)!important;color:#fff!important;background:transparent!important;',
@@ -63,7 +63,6 @@
       '.cta-banner a.btn.phone-shake:hover,.hero a.btn.phone-shake:hover{',
       '  background:rgba(255,255,255,.12)!important;border-color:#fff!important;color:#fff!important;',
       '}',
-      /* Page hero light bg */
       '.page-hero a.btn.phone-shake,.page-hero a.btn[href^="tel:"],',
       '.hero-ctas a.btn.phone-shake,.hero-ctas a.btn[href^="tel:"]{',
       '  background:transparent!important;border:2px solid #0ea5e9!important;color:#0ea5e9!important;',
@@ -103,12 +102,6 @@
       a.setAttribute('href', tel);
       a.textContent = 'Call Now';
     });
-    document.querySelectorAll('a.sms-float, a.whatsapp-float, a[href*="wa.me"], a[href^="sms:"]').forEach(function (a) {
-      a.setAttribute('href', 'sms:+14147753705');
-      a.classList.add('sms-float');
-      a.setAttribute('aria-label', 'Text us');
-      a.removeAttribute('target');
-    });
   }
 
   function forceUI() {
@@ -124,13 +117,8 @@
         a.classList.add('phone-shake');
       }
     });
-    document.querySelectorAll('a.whatsapp-float, a[href*="wa.me"]').forEach(function (a) {
-      a.setAttribute('href', 'sms:+14147753705');
-      a.classList.add('sms-float');
-      a.setAttribute('aria-label', 'Text us');
-      a.removeAttribute('target');
-      a.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM7 9h10v2H7V9zm0-3h10v2H7V6zm0 6h7v2H7v-2z"/></svg>';
-    });
+    /* Remove WhatsApp nodes entirely (do not restyle) */
+    document.querySelectorAll('a.whatsapp-float').forEach(function (a) { a.remove(); });
     document.querySelectorAll('a.btn, button.btn, h3').forEach(function (el) {
       var t = el.textContent || '';
       if (/Get a Free Quote/i.test(t)) el.textContent = t.replace(/Get a Free Quote/ig, 'Get a Free Estimate');
