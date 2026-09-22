@@ -1,4 +1,36 @@
+# T.E.G Carpet & Furniture Steam Cleaning — robots.txt
+# Canonical: https://tegcarpetsteamcleaning.com
+
 User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin
+Disallow: /api/
+Disallow: /uploads/
+Disallow: /data/
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
 Allow: /
 
 Sitemap: https://tegcarpetsteamcleaning.com/sitemap.xml
