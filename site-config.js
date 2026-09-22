@@ -2,7 +2,6 @@
  * T.E.G live-site config + forceUI + CTA styles
  */
 (function () {
-  // Inject styles: SMS float + Call Now blue outline + header spacing
   if (!document.getElementById('teg-ui-css')) {
     var st = document.createElement('style');
     st.id = 'teg-ui-css';
@@ -12,17 +11,32 @@
       '.sms-float svg{width:28px;height:28px}',
       '.sms-float:hover{transform:scale(1.14);box-shadow:0 10px 32px rgba(14,165,233,.55)}',
       '.whatsapp-float{background:#0ea5e9!important;box-shadow:0 6px 24px rgba(14,165,233,.45)!important}',
-      /* Header: separate logo / nav / CTAs */
-      '.header-inner{gap:36px!important}',
-      '.header .nav{margin-left:auto!important;margin-right:12px!important;gap:26px!important}',
-      '.header-actions{margin-left:20px!important;padding-left:24px!important;border-left:1px solid rgba(14,165,233,.2)!important;gap:14px!important}',
-      'body:not(.page-inner) .header:not(.scrolled) .header-actions{border-left-color:rgba(255,255,255,.25)!important}',
+
+      /* Header: less padding on the walls (logo + CTA edges), menu gets the space */
+      '@media (min-width:769px){',
+      '  .header .container.header-inner,',
+      '  .header-inner.container,',
+      '  .header .container{padding-left:16px!important;padding-right:16px!important;max-width:100%!important}',
+      '  .header-inner{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;width:100%!important}',
+      '  .header .logo{flex-shrink:0!important;margin-right:8px!important}',
+      '  .header .nav{',
+      '    display:flex!important;flex:1 1 auto!important;justify-content:center!important;',
+      '    gap:18px!important;margin:0!important;padding:0 8px!important;min-width:0!important;',
+      '  }',
+      '  .header .nav > a{white-space:nowrap!important;flex-shrink:0!important;font-size:13px!important}',
+      '  .header-actions{',
+      '    display:flex!important;align-items:center!important;flex-shrink:0!important;',
+      '    gap:10px!important;margin:0!important;padding:0!important;border:none!important;',
+      '  }',
+      '}',
+
       /* Nav Call Now: blue outline, no fill */
       '.header-actions .phone-link,a.phone-link.phone-shake{',
       '  display:inline-flex!important;align-items:center;justify-content:center;',
-      '  padding:8px 16px!important;border-radius:10px!important;',
+      '  padding:7px 14px!important;border-radius:10px!important;',
       '  border:2px solid #0ea5e9!important;background:transparent!important;',
       '  color:#0ea5e9!important;font-weight:600!important;text-decoration:none!important;',
+      '  white-space:nowrap!important;',
       '}',
       '.header-actions .phone-link:hover,a.phone-link.phone-shake:hover{background:rgba(14,165,233,.08)!important}',
       'body:not(.page-inner) .header:not(.scrolled) .header-actions .phone-link{',
@@ -31,6 +45,8 @@
       'body:not(.page-inner) .header:not(.scrolled) .header-actions .phone-link:hover{',
       '  background:rgba(255,255,255,.12)!important;border-color:#fff!important;',
       '}',
+      '.header-actions .btn{white-space:nowrap!important;padding:8px 16px!important}',
+
       /* Call Now buttons (hero/CTAs): blue outline, never yellow */
       'a.btn.phone-shake,a.btn[href^="tel:"],.btn-call{',
       '  background:transparent!important;border:2px solid #0ea5e9!important;',
@@ -47,7 +63,7 @@
       '.cta-banner a.btn.phone-shake:hover,.hero a.btn.phone-shake:hover{',
       '  background:rgba(255,255,255,.12)!important;border-color:#fff!important;color:#fff!important;',
       '}',
-      /* Page hero light bg: force blue outline even if btn-primary was left on */
+      /* Page hero light bg */
       '.page-hero a.btn.phone-shake,.page-hero a.btn[href^="tel:"],',
       '.hero-ctas a.btn.phone-shake,.hero-ctas a.btn[href^="tel:"]{',
       '  background:transparent!important;border:2px solid #0ea5e9!important;color:#0ea5e9!important;',
@@ -103,7 +119,6 @@
       if (t.indexOf('414') !== -1 || t.indexOf('Call') === 0 || /^\+?[\d\s().-]{7,}$/.test(t) || t === 'Call Now') {
         a.textContent = 'Call Now';
       }
-      // Drop yellow primary from Call Now buttons
       if (a.classList.contains('btn')) {
         a.classList.remove('btn-primary');
         a.classList.add('phone-shake');
