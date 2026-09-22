@@ -2,13 +2,13 @@
   "branding": {
     "siteName": "T.E.G Carpet & Furniture Steam Cleaning",
     "logoMark": "T.E.G",
-    "logoText": "Carpet Steam Cleaning",
+    "logoText": "Carpet & Furniture Steam Cleaning",
     "logoUrl": "",
     "faviconUrl": ""
   },
   "seo": {
     "title": "T.E.G Carpet Steam Cleaning | Professional Carpet & Furniture Cleaning in Milwaukee",
-    "description": "Professional carpet, couch, tile & steam cleaning services by T.E.G Carpet & Furniture Steam Cleaning in Milwaukee, WI. Serving 12 western suburbs.",
+    "description": "Professional carpet, couch, tile & steam cleaning services by T.E.G Carpet & Furniture Steam Cleaning in Milwaukee, WI. Serving Milwaukee and 12 western suburbs.",
     "keywords": "carpet cleaning Milwaukee, steam cleaning Milwaukee, tile grout cleaning, couch cleaning, upholstery cleaning, pet odor removal, commercial carpet cleaning Wauwatosa Brookfield",
     "canonical": "https://tegcarpetsteamcleaning.com/",
     "ogTitle": "T.E.G Carpet Steam Cleaning | Milwaukee",
@@ -37,7 +37,7 @@
     "city": "Milwaukee",
     "region": "WI",
     "postal": "53217",
-    "hours": "Monday – Sunday 08:00 AM – 07:00 PM"
+    "hours": "24/7 — Always Available"
   },
   "location": {
     "name": "T.E.G Carpet & Furniture Steam Cleaning",
@@ -125,5 +125,6 @@
       "seoKeywords": "commercial carpet cleaning Milwaukee"
     }
   ],
-  "pages": {}
+  "pages": {},
+  "pageMedia": {}
 }
