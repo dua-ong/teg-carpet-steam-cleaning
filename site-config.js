@@ -12,21 +12,21 @@
       '.sms-float:hover{transform:scale(1.14);box-shadow:0 10px 32px rgba(14,165,233,.55)}',
       '.whatsapp-float{background:#0ea5e9!important;box-shadow:0 6px 24px rgba(14,165,233,.45)!important}',
 
-      /* Header: less padding on the walls (logo + CTA edges), menu gets the space */
+      /* Header: a little space from the edges, menu stays one line */
       '@media (min-width:769px){',
       '  .header .container.header-inner,',
       '  .header-inner.container,',
-      '  .header .container{padding-left:16px!important;padding-right:16px!important;max-width:100%!important}',
-      '  .header-inner{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;width:100%!important}',
-      '  .header .logo{flex-shrink:0!important;margin-right:8px!important}',
+      '  .header .container{padding-left:28px!important;padding-right:28px!important;max-width:100%!important}',
+      '  .header-inner{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:16px!important;width:100%!important}',
+      '  .header .logo{flex-shrink:0!important}',
       '  .header .nav{',
       '    display:flex!important;flex:1 1 auto!important;justify-content:center!important;',
-      '    gap:18px!important;margin:0!important;padding:0 8px!important;min-width:0!important;',
+      '    gap:20px!important;margin:0!important;padding:0 12px!important;min-width:0!important;',
       '  }',
-      '  .header .nav > a{white-space:nowrap!important;flex-shrink:0!important;font-size:13px!important}',
+      '  .header .nav > a{white-space:nowrap!important;flex-shrink:0!important;font-size:14px!important}',
       '  .header-actions{',
       '    display:flex!important;align-items:center!important;flex-shrink:0!important;',
-      '    gap:10px!important;margin:0!important;padding:0!important;border:none!important;',
+      '    gap:12px!important;margin:0!important;padding:0!important;border:none!important;',
       '  }',
       '}',
 
