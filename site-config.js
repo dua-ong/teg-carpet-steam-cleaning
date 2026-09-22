@@ -1,59 +1,113 @@
 /**
- * T.E.G live-site config + forceUI + CTA styles
+ * T.E.G live-site config + UI + LocalBusiness schema for SEO/AEO
  */
 (function () {
   if (!document.getElementById('teg-ui-css')) {
     var st = document.createElement('style');
     st.id = 'teg-ui-css';
     st.textContent = [
-      /* Hide legacy WhatsApp */
       '.whatsapp-float{display:none!important}',
-      /* SMS float */
-      '.sms-float{position:fixed;bottom:28px;right:28px;z-index:999;width:60px;height:60px;background:#0ea5e9;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(14,165,233,.45);transition:transform .35s,box-shadow .3s}',
+      '.sms-float{position:fixed;bottom:28px;right:28px;z-index:999;width:60px;height:60px;background:#0ea5e9;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(14,165,233,.45)}',
       '.sms-float svg{width:28px;height:28px}',
-      '.sms-float:hover{transform:scale(1.14);box-shadow:0 10px 32px rgba(14,165,233,.55)}',
-
-      /* Footer: readable text on dark background (all pages) */
       '.footer .logo-mark,.footer-brand .logo-mark{color:#38bdf8!important}',
       '.footer .logo-text,.footer-brand .logo-text{color:#ffffff!important}',
-      '.footer-brand p{color:rgba(255,255,255,.85)!important}',
-      '.footer-links h4,.footer-contact h4{color:#ffffff!important}',
-      '.footer-links a,.footer-contact a,.footer-contact p{color:rgba(255,255,255,.85)!important}',
-      '.footer-links a:hover,.footer-contact a:hover{color:#7dd3fc!important}',
+      '.footer-brand p,.footer-links a,.footer-contact a,.footer-contact p{color:rgba(255,255,255,.85)!important}',
+      '.footer-links h4,.footer-contact h4{color:#fff!important}',
       '.footer-bottom p,.footer-bottom .support{color:rgba(255,255,255,.55)!important}',
-      /* Header logo colors only apply in the header, not footer */
       '.page-inner .header .logo-text{color:#0a3d6b!important}',
       '.page-inner .header .logo-mark{color:#0ea5e9!important}',
-
-      /* Header layout */
       '@media (min-width:769px){',
-      '  .header .container.header-inner,.header-inner.container,.header .container{padding-left:28px!important;padding-right:28px!important;max-width:100%!important}',
-      '  .header-inner{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:16px!important;width:100%!important}',
-      '  .header .logo{flex-shrink:0!important}',
-      '  .header .nav{display:flex!important;flex:1 1 auto!important;justify-content:center!important;gap:20px!important;margin:0!important;padding:0 12px!important;min-width:0!important}',
-      '  .header .nav > a{white-space:nowrap!important;flex-shrink:0!important;font-size:14px!important}',
-      '  .header-actions{display:flex!important;align-items:center!important;flex-shrink:0!important;gap:12px!important;margin:0!important;padding:0!important;border:none!important}',
+      '.header .container{padding-left:28px!important;padding-right:28px!important;max-width:100%!important}',
+      '.header-inner{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:16px!important;width:100%!important}',
+      '.header .nav{display:flex!important;flex:1 1 auto!important;justify-content:center!important;gap:20px!important}',
+      '.header .nav > a{white-space:nowrap!important;font-size:14px!important}',
+      '.header-actions{display:flex!important;align-items:center!important;gap:12px!important;border:none!important}',
       '}',
-
-      /* Nav Call Now: blue outline */
-      '.header-actions .phone-link,a.phone-link.phone-shake{',
-      '  display:inline-flex!important;align-items:center;justify-content:center;',
-      '  padding:7px 14px!important;border-radius:10px!important;',
-      '  border:2px solid #0ea5e9!important;background:transparent!important;',
-      '  color:#0ea5e9!important;font-weight:600!important;text-decoration:none!important;white-space:nowrap!important}',
-      '.header-actions .phone-link:hover,a.phone-link.phone-shake:hover{background:rgba(14,165,233,.08)!important}',
+      '.header-actions .phone-link{display:inline-flex!important;padding:7px 14px!important;border-radius:10px!important;border:2px solid #0ea5e9!important;background:transparent!important;color:#0ea5e9!important;font-weight:600!important;white-space:nowrap!important}',
       'body:not(.page-inner) .header:not(.scrolled) .header-actions .phone-link{border-color:rgba(255,255,255,.75)!important;color:#fff!important}',
-      'body:not(.page-inner) .header:not(.scrolled) .header-actions .phone-link:hover{background:rgba(255,255,255,.12)!important;border-color:#fff!important}',
-      '.header-actions .btn{white-space:nowrap!important;padding:8px 16px!important}',
-
-      /* Call Now buttons: blue outline */
-      'a.btn.phone-shake,a.btn[href^="tel:"],.btn-call{background:transparent!important;border:2px solid #0ea5e9!important;color:#0ea5e9!important;box-shadow:none!important}',
-      'a.btn.phone-shake:hover,a.btn[href^="tel:"]:hover{background:rgba(14,165,233,.1)!important;border-color:#0ea5e9!important;color:#0ea5e9!important}',
-      '.cta-banner a.btn.phone-shake,.cta-banner a.btn[href^="tel:"],.hero a.btn.phone-shake,.hero a.btn[href^="tel:"]{border-color:rgba(255,255,255,.85)!important;color:#fff!important;background:transparent!important}',
-      '.cta-banner a.btn.phone-shake:hover,.hero a.btn.phone-shake:hover{background:rgba(255,255,255,.12)!important;border-color:#fff!important;color:#fff!important}',
-      '.page-hero a.btn.phone-shake,.page-hero a.btn[href^="tel:"],.hero-ctas a.btn.phone-shake,.hero-ctas a.btn[href^="tel:"]{background:transparent!important;border:2px solid #0ea5e9!important;color:#0ea5e9!important}'
+      'a.btn.phone-shake,a.btn[href^="tel:"]{background:transparent!important;border:2px solid #0ea5e9!important;color:#0ea5e9!important;box-shadow:none!important}',
+      '.cta-banner a.btn.phone-shake,.hero a.btn.phone-shake{border-color:rgba(255,255,255,.85)!important;color:#fff!important;background:transparent!important}',
+      '.page-hero a.btn.phone-shake,.hero-ctas a.btn.phone-shake{background:transparent!important;border:2px solid #0ea5e9!important;color:#0ea5e9!important}'
     ].join('');
     (document.head || document.documentElement).appendChild(st);
+  }
+
+  /* Structured data for Google + AI agents — source of truth NAP */
+  if (!document.getElementById('teg-schema-ld')) {
+    var schema = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
+          '@id': 'https://tegcarpetsteamcleaning.com/#business',
+          'name': 'T.E.G Carpet & Furniture Steam Cleaning',
+          'alternateName': ['TEG Carpet Steam Cleaning', 'T.E.G Carpet Steam Cleaning'],
+          'url': 'https://tegcarpetsteamcleaning.com/',
+          'telephone': '+1-414-775-3705',
+          'email': 'contact@teg-carpetsteamcleaning.com',
+          'image': 'https://tegcarpetsteamcleaning.com/favicon.svg',
+          'priceRange': '$$',
+          'address': {
+            '@type': 'PostalAddress',
+            'streetAddress': '4111 N Port Washington Rd suite 1',
+            'addressLocality': 'Milwaukee',
+            'addressRegion': 'WI',
+            'postalCode': '53217',
+            'addressCountry': 'US'
+          },
+          'geo': {
+            '@type': 'GeoCoordinates',
+            'latitude': 43.0895,
+            'longitude': -87.8910
+          },
+          'openingHoursSpecification': {
+            '@type': 'OpeningHoursSpecification',
+            'dayOfWeek': ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+            'opens': '00:00',
+            'closes': '23:59'
+          },
+          'areaServed': [
+            'Milwaukee, WI', 'Wauwatosa, WI', 'Brookfield, WI', 'New Berlin, WI',
+            'West Allis, WI', 'Greenfield, WI', 'Franklin, WI', 'Muskego, WI',
+            'Pewaukee, WI', 'Oak Creek, WI', 'Elm Grove, WI', 'Hales Corners, WI', 'Greendale, WI'
+          ],
+          'hasOfferCatalog': {
+            '@type': 'OfferCatalog',
+            'name': 'Cleaning services',
+            'itemListElement': [
+              {'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': 'Carpet Cleaning', 'url': 'https://tegcarpetsteamcleaning.com/service-carpet-cleaning.html'}},
+              {'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': 'Tile and Grout Cleaning', 'url': 'https://tegcarpetsteamcleaning.com/service-tile-grout.html'}},
+              {'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': 'Upholstery Cleaning', 'url': 'https://tegcarpetsteamcleaning.com/service-couch-cleaning.html'}},
+              {'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': 'Steam Cleaning', 'url': 'https://tegcarpetsteamcleaning.com/service-steam-cleaning.html'}},
+              {'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': 'Pet Odor and Stain Removal', 'url': 'https://tegcarpetsteamcleaning.com/service-stain-removal.html'}},
+              {'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': 'Commercial Carpet Cleaning', 'url': 'https://tegcarpetsteamcleaning.com/service-commercial.html'}}
+            ]
+          },
+          'sameAs': [
+            'https://www.yelp.com',
+            'https://www.instagram.com',
+            'https://www.mapquest.com'
+          ]
+        },
+        {
+          '@type': 'WebSite',
+          '@id': 'https://tegcarpetsteamcleaning.com/#website',
+          'url': 'https://tegcarpetsteamcleaning.com/',
+          'name': 'T.E.G Carpet & Furniture Steam Cleaning',
+          'publisher': {'@id': 'https://tegcarpetsteamcleaning.com/#business'},
+          'potentialAction': {
+            '@type': 'SearchAction',
+            'target': 'https://tegcarpetsteamcleaning.com/services.html',
+            'query-input': 'required name=search_term_string'
+          }
+        }
+      ]
+    };
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.id = 'teg-schema-ld';
+    s.textContent = JSON.stringify(schema);
+    (document.head || document.documentElement).appendChild(s);
   }
 
   function nonempty(v) {
@@ -64,28 +118,6 @@
     if (!nonempty(text)) return;
     document.querySelectorAll(selector).forEach(function (el) {
       el.textContent = text;
-    });
-  }
-
-  function telHref(phone, phoneTel) {
-    if (nonempty(phoneTel)) return 'tel:' + phoneTel.replace(/\s/g, '');
-    if (!nonempty(phone)) return '';
-    return 'tel:' + phone.replace(/[^\d+]/g, '');
-  }
-
-  function applyBranding(b) {
-    if (!b) return;
-    if (nonempty(b.logoMark)) setAllText('.logo-mark', b.logoMark);
-    if (nonempty(b.logoText)) setAllText('.logo-text', b.logoText);
-  }
-
-  function applyContact(c) {
-    if (!c) return;
-    var tel = telHref(c.phone, c.phoneTel) || 'tel:+14147753705';
-    document.querySelectorAll('a.phone-link, a.phone-shake, a[href^="tel:"]').forEach(function (a) {
-      if (a.closest && (a.closest('.sms-float') || a.closest('.whatsapp-float'))) return;
-      a.setAttribute('href', tel);
-      a.textContent = 'Call Now';
     });
   }
 
@@ -131,30 +163,9 @@
     });
   }
 
-  function applyAll(data) {
-    try {
-      if (data) {
-        applyBranding(data.branding);
-        applyContact(data.contact);
-      }
-    } catch (e) { console.warn('[TEG]', e); }
-    forceUI();
-  }
-
-  async function loadContent() {
-    try {
-      var res = await fetch('/api/content', { credentials: 'same-origin' });
-      if (!res.ok) throw new Error('no api');
-      return await res.json();
-    } catch (e) {
-      return null;
-    }
-  }
-
-  loadContent().then(applyAll);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', forceUI);
   else forceUI();
   setTimeout(forceUI, 400);
   setTimeout(forceUI, 1200);
-  window.TEG_SITE = { loadContent: loadContent, applyAll: applyAll, forceUI: forceUI };
+  window.TEG_SITE = { forceUI: forceUI };
 })();
