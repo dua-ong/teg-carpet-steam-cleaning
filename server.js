@@ -10,6 +10,7 @@ const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'teg2026';
 const DATA_DIR = path.join(__dirname, 'data');
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
@@ -320,7 +321,7 @@ app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log('T.E.G server running on http://localhost:' + PORT);
+app.listen(PORT, HOST, () => {
+  console.log('T.E.G server running on http://' + HOST + ':' + PORT);
   console.log('Admin: set ADMIN_PASSWORD env or default teg2026');
 });
