@@ -1,9 +1,9 @@
 /**
- * T.E.G — UI + LocalBusiness schema (SEO) — AEO/GMB CTAs gated
- * AEO_ENABLED = false until client pays for GMB/AEO package
+ * T.E.G — UI + LocalBusiness schema + AEO/GMB CTAs
+ * AEO_ENABLED = true (AI agents + GMB review CTAs on)
  */
 (function () {
-  var AEO_ENABLED = false;
+  var AEO_ENABLED = true;
 
   var GMB = 'https://g.page/teg-carpet-steam-cleaning';
   var GMB_REVIEW = 'https://g.page/teg-carpet-steam-cleaning/review';
@@ -36,6 +36,14 @@
       'a.btn.phone-shake,a.btn[href^="tel:"]{background:transparent!important;border:2px solid #0ea5e9!important;color:#0ea5e9!important;box-shadow:none!important}',
       '.cta-banner a.btn.phone-shake,.hero a.btn.phone-shake{border-color:rgba(255,255,255,.85)!important;color:#fff!important;background:transparent!important}',
       '.page-hero a.btn.phone-shake,.hero-ctas a.btn.phone-shake{background:transparent!important;border:2px solid #0ea5e9!important;color:#0ea5e9!important}',
+      '.teg-gmb-bar{position:relative;background:#071a2e;color:#fff;padding:36px 20px 40px;text-align:center;border-top:1px solid rgba(255,255,255,.08)}',
+      '.teg-gmb-bar p{margin:0 0 20px;font-size:16px;line-height:1.5;opacity:.95;max-width:520px;margin-left:auto;margin-right:auto}',
+      '.teg-gmb-bar .teg-gmb-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}',
+      '.teg-gmb-bar a{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;min-width:200px;box-sizing:border-box}',
+      '.teg-gmb-bar a.teg-review{background:transparent!important;border:2px solid #4285F4;color:#4285F4}',
+      '.teg-gmb-bar a.teg-maps{background:#0ea5e9;color:#fff!important;border:none}',
+      '.footer-contact a.teg-gmb-link{display:block;margin-top:8px;color:#7dd3fc!important}',
+      '@media (max-width:768px){.teg-gmb-bar{padding:24px 14px 28px!important}.teg-gmb-bar .teg-gmb-actions{flex-direction:column;width:100%;max-width:320px;margin:0 auto}.teg-gmb-bar a{width:100%;min-width:0}}',
       '.teg-footer-map{margin:0 0 28px;padding:0 0 24px;border-bottom:1px solid rgba(255,255,255,.1)}',
       '.teg-footer-map-inner{background:linear-gradient(145deg,rgba(14,165,233,.12),rgba(7,26,46,.9));border:1px solid rgba(125,211,252,.25);border-radius:16px;overflow:hidden}',
       '.teg-footer-map-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;background:rgba(10,61,107,.55)}',
@@ -72,12 +80,14 @@
       '@context': 'https://schema.org',
       '@graph': [{
         '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
-        '@id': 'https://tegcarpetsteamcleaning.com/#business',
+        '@id': 'https://tegcarpetfurniturecleaning.com/#business',
         'name': 'T.E.G Carpet & Furniture Steam Cleaning',
-        'url': 'https://tegcarpetsteamcleaning.com/',
+        'alternateName': ['TEG Carpet Steam Cleaning', 'T.E.G Carpet Steam Cleaning'],
+        'description': 'Professional carpet cleaning, steam cleaning, tile and grout, upholstery, pet odor and stain removal, and commercial carpet cleaning in Milwaukee, WI and western suburbs. Upfront pricing, kid and pet safe, licensed and insured, available 24/7.',
+        'url': 'https://tegcarpetfurniturecleaning.com/',
         'telephone': '+1-414-775-3705',
         'email': 'contact@teg-carpetsteamcleaning.com',
-        'image': 'https://tegcarpetsteamcleaning.com/favicon.svg',
+        'image': 'https://tegcarpetfurniturecleaning.com/favicon.svg',
         'priceRange': '$$',
         'address': {
           '@type': 'PostalAddress',
@@ -94,13 +104,39 @@
           'opens': '00:00',
           'closes': '23:59'
         },
-        'areaServed': ['Milwaukee, WI', 'Wauwatosa, WI', 'Brookfield, WI', 'New Berlin, WI', 'West Allis, WI', 'Greenfield, WI', 'Franklin, WI', 'Muskego, WI', 'Pewaukee, WI', 'Oak Creek, WI', 'Elm Grove, WI', 'Hales Corners, WI', 'Greendale, WI']
+        'aggregateRating': {
+          '@type': 'AggregateRating',
+          'ratingValue': '5.0',
+          'reviewCount': '32',
+          'bestRating': '5',
+          'worstRating': '1'
+        },
+        'knowsAbout': ['carpet cleaning','steam cleaning','tile and grout cleaning','upholstery cleaning','pet odor removal','stain removal','commercial carpet cleaning','hot water extraction'],
+        'areaServed': ['Milwaukee, WI', 'Wauwatosa, WI', 'Brookfield, WI', 'New Berlin, WI', 'West Allis, WI', 'Greenfield, WI', 'Franklin, WI', 'Muskego, WI', 'Pewaukee, WI', 'Oak Creek, WI', 'Elm Grove, WI', 'Hales Corners, WI', 'Greendale, WI'],
+        'hasOfferCatalog': {
+          '@type': 'OfferCatalog',
+          'name': 'Cleaning services',
+          'itemListElement': [
+            {'@type':'Offer','itemOffered':{'@type':'Service','name':'Carpet Cleaning','url':'https://tegcarpetfurniturecleaning.com/service-carpet-cleaning.html'}},
+            {'@type':'Offer','itemOffered':{'@type':'Service','name':'Tile and Grout Cleaning','url':'https://tegcarpetfurniturecleaning.com/service-tile-grout.html'}},
+            {'@type':'Offer','itemOffered':{'@type':'Service','name':'Upholstery Cleaning','url':'https://tegcarpetfurniturecleaning.com/service-couch-cleaning.html'}},
+            {'@type':'Offer','itemOffered':{'@type':'Service','name':'Steam Cleaning','url':'https://tegcarpetfurniturecleaning.com/service-steam-cleaning.html'}},
+            {'@type':'Offer','itemOffered':{'@type':'Service','name':'Pet Odor and Stain Removal','url':'https://tegcarpetfurniturecleaning.com/service-stain-removal.html'}},
+            {'@type':'Offer','itemOffered':{'@type':'Service','name':'Commercial Carpet Cleaning','url':'https://tegcarpetfurniturecleaning.com/service-commercial.html'}}
+          ]
+        },
+        'sameAs': [
+          'https://g.page/teg-carpet-steam-cleaning',
+          'https://www.google.com/maps/search/?api=1&query=TEG+Carpet+%26+Furniture+Steam+Cleaning+4111+N+Port+Washington+Rd+Milwaukee+WI',
+          'https://www.yelp.com/biz/teg-carpet-steam-cleaning-milwaukee-3',
+          'https://www.mapquest.com/us/wisconsin/teg-carpet-steam-cleaning-429957477'
+        ]
       }, {
         '@type': 'WebSite',
-        '@id': 'https://tegcarpetsteamcleaning.com/#website',
-        'url': 'https://tegcarpetsteamcleaning.com/',
+        '@id': 'https://tegcarpetfurniturecleaning.com/#website',
+        'url': 'https://tegcarpetfurniturecleaning.com/',
         'name': 'T.E.G Carpet & Furniture Steam Cleaning',
-        'publisher': { '@id': 'https://tegcarpetsteamcleaning.com/#business' }
+        'publisher': { '@id': 'https://tegcarpetfurniturecleaning.com/#business' }
       }]
     };
     var s = document.createElement('script');
@@ -145,8 +181,25 @@
     var bar = document.createElement('div');
     bar.id = 'teg-gmb-bar';
     bar.className = 'teg-gmb-bar';
-    bar.innerHTML = '<p>Happy with your clean? <strong>Leave a Google review</strong>.</p><div class="teg-gmb-actions"><a class="teg-review" href="' + GMB_REVIEW + '" target="_blank" rel="noopener">Write a Google Review</a><a class="teg-maps" href="' + GMB + '" target="_blank" rel="noopener">View on Google Maps</a></div>';
+    bar.innerHTML = '<p>Happy with your clean? <strong>Leave a Google review</strong> — it helps other Milwaukee neighbors find us.</p><div class="teg-gmb-actions"><a class="teg-review" href="' + GMB_REVIEW + '" target="_blank" rel="noopener">Write a Google Review</a><a class="teg-maps" href="' + GMB + '" target="_blank" rel="noopener">View on Google Maps</a></div>';
     footer.parentNode.insertBefore(bar, footer);
+    document.querySelectorAll('.footer-contact').forEach(function (el) {
+      if (el.querySelector('.teg-gmb-link')) return;
+      var a1 = document.createElement('a');
+      a1.href = GMB;
+      a1.className = 'teg-gmb-link';
+      a1.target = '_blank';
+      a1.rel = 'noopener';
+      a1.textContent = 'Google Business Profile';
+      el.appendChild(a1);
+      var a2 = document.createElement('a');
+      a2.href = GMB_REVIEW;
+      a2.className = 'teg-gmb-link';
+      a2.target = '_blank';
+      a2.rel = 'noopener';
+      a2.textContent = 'Leave a Google Review';
+      el.appendChild(a2);
+    });
   }
 
   function forceUI() {
