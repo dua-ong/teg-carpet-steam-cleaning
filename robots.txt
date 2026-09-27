@@ -1,6 +1,6 @@
 # T.E.G Carpet & Furniture Steam Cleaning — robots.txt
-# SEO: allow Google/Bing. AEO: AI crawlers blocked until AEO_ENABLED is turned on.
-# Canonical: https://tegcarpetsteamcleaning.com
+# SEO + AEO enabled
+# Canonical live: https://tegcarpetfurniturecleaning.com
 
 User-agent: *
 Allow: /
@@ -9,44 +9,39 @@ Disallow: /admin
 Disallow: /api/
 Disallow: /uploads/
 Disallow: /data/
-Disallow: /llms.txt
 
-# Block AI / LLM training & answer-engine crawlers (AEO off)
+# AI / LLM & answer-engine crawlers (AEO on)
 User-agent: GPTBot
-Disallow: /
+Allow: /
 
 User-agent: ChatGPT-User
-Disallow: /
+Allow: /
 
 User-agent: Google-Extended
-Disallow: /
+Allow: /
 
 User-agent: anthropic-ai
-Disallow: /
+Allow: /
 
 User-agent: Claude-Web
-Disallow: /
+Allow: /
 
 User-agent: ClaudeBot
-Disallow: /
+Allow: /
 
 User-agent: PerplexityBot
-Disallow: /
+Allow: /
 
 User-agent: Applebot-Extended
-Disallow: /
+Allow: /
 
 User-agent: Bytespider
-Disallow: /
+Allow: /
 
 User-agent: CCBot
-Disallow: /
-
-User-agent: FacebookBot
-Disallow: /
+Allow: /
 
 User-agent: meta-externalagent
-Disallow: /
+Allow: /
 
-# Normal search engines still allowed via User-agent: *
-Sitemap: https://tegcarpetsteamcleaning.com/sitemap.xml
+Sitemap: https://tegcarpetfurniturecleaning.com/sitemap.xml
